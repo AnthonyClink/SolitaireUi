@@ -19,28 +19,29 @@
 		
 	<div class="row">
 		<div id="blarg">
+            <span class="emptySpot">&nbsp;</span>
 			<div class="coll-lg-12">
 				<div class="stack">
-					<img ng-repeat="card in gameBoard.reg1Deck.cards" src="{{card.imageUrl}}">
+					<span ng-repeat="card in gameBoard.reg1Deck.cards" class="{{card.cssName}}">&nbsp;</span>
 				</div>
-				<div class="stack">
-					<img ng-repeat="card in gameBoard.reg2Deck.cards" src="{{card.imageUrl}}">
-				</div>
-				<div class="stack">
-					<img ng-repeat="card in gameBoard.reg3Deck.cards" src="{{card.imageUrl}}">
-				</div>
-				<div class="stack">
-					<img ng-repeat="card in gameBoard.reg4Deck.cards" src="{{card.imageUrl}}">
-				</div>
-				<div class="stack">
-					<img ng-repeat="card in gameBoard.reg5Deck.cards" src="{{card.imageUrl}}">
-				</div>
-				<div class="stack">
-					<img ng-repeat="card in gameBoard.reg6Deck.cards" src="{{card.imageUrl}}">
-				</div>
-				<div class="stack">
-					<img ng-repeat="card in gameBoard.reg7Deck.cards" src="{{card.imageUrl}}">
-				</div>
+                <div class="stack">
+                    <span ng-repeat="card in gameBoard.reg2Deck.cards" class="{{card.cssName}}">&nbsp;</span>
+                </div>
+                <div class="stack">
+                    <span ng-repeat="card in gameBoard.reg3Deck.cards" class="{{card.cssName}}">&nbsp;</span>
+                </div>
+                <div class="stack">
+                    <span ng-repeat="card in gameBoard.reg4Deck.cards" class="{{card.cssName}}">&nbsp;</span>
+                </div>
+                <div class="stack">
+                    <span ng-repeat="card in gameBoard.reg5Deck.cards" class="{{card.cssName}}">&nbsp;</span>
+                </div>
+                <div class="stack">
+                    <span ng-repeat="card in gameBoard.reg6Deck.cards" class="{{card.cssName}}">&nbsp;</span>
+                </div>
+                <div class="stack">
+                    <span ng-repeat="card in gameBoard.reg7Deck.cards" class="{{card.cssName}}">&nbsp;</span>
+                </div>
 			</div>
 		</div>
 	</div>

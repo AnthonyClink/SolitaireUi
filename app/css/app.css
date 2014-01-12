@@ -12,8 +12,176 @@
 	
 }
 
-#blarg img{
-	display: block;
-	margin-top: -75px;
+#blarg span{
+    background-image: url('../images/cards.png');
+    margin-top: -75px;
+    width: 68px;
+    height: 96px;
+    display: block;
 }
-	
+
+.aceOfClubs{
+    background-position: 0px  480px;
+}
+.kingOfClubs{
+    background-position: -68px  480px;
+}
+.queenOfClubs{
+    background-position: -136px  480px;
+}
+.jackOfClubs{
+    background-position: -204px  480px;
+}
+.tenOfClubs{
+    background-position: -272px  480px;
+}
+.nineOfClubs{
+    background-position: -340px  480px;
+}
+.eightOfClubs{
+    background-position: -408px  480px;
+}
+.sevenOfClubs{
+    background-position: -476px  480px;
+}
+.sixOfClubs{
+    background-position: -544px  480px;
+}
+.fiveOfClubs{
+    background-position: -612px  480px;
+}
+.fourOfClubs{
+    background-position: -680px  480px;
+}
+.threeOfClubs{
+    background-position: 0px  384px;
+}
+.twoOfClubs{
+    background-position: -68px  384px;
+}
+.aceOfSpades{
+    background-position: -136px  384px;
+}
+.kingOfSpades{
+    background-position: -204px  384px;
+}
+.queenOfSpades{
+    background-position: -272px  384px;
+}
+.jackOfSpades{
+    background-position: -340px  384px;
+}
+.tenOfSpades{
+    background-position: -408px  384px;
+}
+.nineOfSpades{
+    background-position: -476px  384px;
+}
+.eightOfSpades{
+    background-position: -544px  384px;
+}
+.sevenOfSpades{
+    background-position: -612px  384px;
+}
+.sixOfSpades{
+    background-position: -680px  384px;
+}
+.fiveOfSpades{
+    background-position: 0px  288px;
+}
+.fourOfSpades{
+    background-position: -68px  288px;
+}
+.threeOfSpades{
+    background-position: -136px  288px;
+}
+.twoOfSpades{
+    background-position: -204px  288px;
+}
+.aceOfDiamonds{
+    background-position: -272px  288px;
+}
+.kingOfDiamonds{
+    background-position: -340px  288px;
+}
+.queenOfDiamonds{
+    background-position: -408px  288px;
+}
+.jackOfDiamonds{
+    background-position: -476px  288px;
+}
+.tenOfDiamonds{
+    background-position: -544px  288px;
+}
+.nineOfDiamonds{
+    background-position: -612px  288px;
+}
+.eightOfDiamonds{
+    background-position: -680px  288px;
+}
+.sevenOfDiamonds{
+    background-position: 0px  192px;
+}
+.sixOfDiamonds{
+    background-position: -68px  192px;
+}
+.fiveOfDiamonds{
+    background-position: -136px  192px;
+}
+.fourOfDiamonds{
+    background-position: -204px  192px;
+}
+.threeOfDiamonds{
+    background-position: -272px  192px;
+}
+.twoOfDiamonds{
+    background-position: -340px  192px;
+}
+.aceOfHearts{
+    background-position: -408px  192px;
+}
+.kingOfHearts{
+    background-position: -476px  192px;
+}
+.queenOfHearts{
+    background-position: -544px  192px;
+}
+.jackOfHearts{
+    background-position: -612px  192px;
+}
+.tenOfHearts{
+    background-position: -680px  192px;
+}
+.nineOfHearts{
+    background-position: 0px  96px;
+}
+.eightOfHearts{
+    background-position: -68px  96px;
+}
+.sevenOfHearts{
+    background-position: -136px  96px;
+}
+.sixOfHearts{
+    background-position: -204px  96px;
+}
+.fiveOfHearts{
+    background-position: -272px  96px;
+}
+.fourOfHearts{
+    background-position: -340px  96px;
+}
+.threeOfHearts{
+    background-position: -408px  96px;
+}
+.cardBack{
+    background-position: -544px  96px;
+}
+.redJoker{
+    background-position: -612px  96px;
+}
+.blackJoker{
+     background-position: -680px  96px;
+ }
+.emptySpot{
+    background-position: -751px  96px;
+}
