@@ -6,7 +6,11 @@ module.exports = function(config){
       'app/lib/angular/angular.js',
       'app/lib/angular/angular-*.js',
       'test/lib/angular/angular-mocks.js',
-      'app/js/**/*.js',
+      'app/js/apps/platform/solitaire-platform.js',
+      'app/js/apps/game/game-configuration.js',
+      'app/js/apps/game/game-controller.js',
+      'app/js/app.js',
+      'app/js**/*.js',
       'test/unit/**/*.js'
     ],
 

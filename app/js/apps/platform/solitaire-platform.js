@@ -12,7 +12,7 @@ var solitaire = (function(ng){
         configs.push(uiRouteConfiguration);
     };
 
-    var ui = ng.module("solitare.platform", ['ngResource', 'ui.bootstrap', 'ui.router']).
+    var ui = ng.module("solitaire.platform", ['ngResource', 'ui.bootstrap', 'ui.router']).
         run(['$rootScope', '$state', '$stateParams',
             function ($rootScope,   $state,   $stateParams) {
                 $rootScope.$state = $state;
