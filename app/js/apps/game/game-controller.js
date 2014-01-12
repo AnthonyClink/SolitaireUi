@@ -26,4 +26,4 @@
     app.controller('gameController', ['$scope', '$state', '$resource', GameController]);
 
 //pass in the solitare platform namespace to the closure
-})(solitare)
+})(solitaire)

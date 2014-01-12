@@ -1,5 +1,5 @@
 //create the namespace v
-var solitare = (function(ng){
+var solitaire = (function(ng){
 
     var configs = [];
 

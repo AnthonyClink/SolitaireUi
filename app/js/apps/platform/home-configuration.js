@@ -16,4 +16,4 @@
             'content@': {templateUrl: 'views/home/todos.html'}
         }
     }});
-})(solitare)
+})(solitaire)
