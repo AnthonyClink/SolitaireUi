@@ -9,15 +9,7 @@
 		
 		$scope.gameBoard = GameBoard.get();
 		
-		
-		
-		
-		
-		
-		
-		
-		
-    }
+    };
 	
 
     //make constructor accessible via the solitare namespace
@@ -26,4 +18,4 @@
     app.controller('gameController', ['$scope', '$state', '$resource', GameController]);
 
 //pass in the solitare platform namespace to the closure
-})(solitaire)
+})(solitaire);

@@ -7,4 +7,4 @@
          }
     }});
 
-})(solitaire)
+})(solitaire);

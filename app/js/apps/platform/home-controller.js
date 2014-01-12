@@ -20,4 +20,4 @@
     app.controller('homeController', ['$scope', '$state', HomeController]);
 
 //pass in the solitare platform namespace to the closure
-})(solitaire)
+})(solitaire);
