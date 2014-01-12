@@ -1,0 +1,47 @@
+<!-- <ul> -->
+	<!-- <li ng-repeat="card in gameBoard.drawDeck.cards"><img src="{{card.imageUrl}}"></li> -->
+<!-- </ul> -->
+
+<div class="container">
+	<div class="row">
+		<div class="col-lg-5">
+			<img src="{{gameBoard.drawDeck.topCard.imageUrl}}">
+			<img src="{{gameBoard.discardDeck.topCard.imageUrl}}">
+		</div>
+		<div class="col-lg-6">
+			<img src="{{gameBoard.diamondsDeck.topCard.imageUrl}}">
+			<img src="{{gameBoard.clubsDeck.topCard.imageUrl}}">
+			<img src="{{gameBoard.heartsDeck.topCard.imageUrl}}">
+			<img src="{{gameBoard.spadesDeck.topCard.imageUrl}}">
+		</div>
+	</div>
+	<div class="row">&nbsp;</div>
+		
+	<div class="row">
+		<div id="blarg">
+			<div class="coll-lg-12">
+				<div class="stack">
+					<img ng-repeat="card in gameBoard.reg1Deck.cards" src="{{card.imageUrl}}">
+				</div>
+				<div class="stack">
+					<img ng-repeat="card in gameBoard.reg2Deck.cards" src="{{card.imageUrl}}">
+				</div>
+				<div class="stack">
+					<img ng-repeat="card in gameBoard.reg3Deck.cards" src="{{card.imageUrl}}">
+				</div>
+				<div class="stack">
+					<img ng-repeat="card in gameBoard.reg4Deck.cards" src="{{card.imageUrl}}">
+				</div>
+				<div class="stack">
+					<img ng-repeat="card in gameBoard.reg5Deck.cards" src="{{card.imageUrl}}">
+				</div>
+				<div class="stack">
+					<img ng-repeat="card in gameBoard.reg6Deck.cards" src="{{card.imageUrl}}">
+				</div>
+				<div class="stack">
+					<img ng-repeat="card in gameBoard.reg7Deck.cards" src="{{card.imageUrl}}">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
