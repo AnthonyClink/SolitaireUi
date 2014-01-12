@@ -6,9 +6,10 @@
     var GameController = function($scope, $state, $resource){
 	
 		var GameBoard = $resource('http://localhost:8080/solitare/gameboard');
-		
+
 		$scope.gameBoard = GameBoard.get();
-		
+
+
     };
 	
 

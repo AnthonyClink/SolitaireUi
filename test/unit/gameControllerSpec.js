@@ -13,11 +13,14 @@ describe('The Game Controller ', function(){
 
       resource = function(url){
         var self = {};
-       passedInUrl = url;
+
+        passedInUrl = url;
+
         self.get = function(){
             isCalled = true;
             return {};
         }
+
         return self;
       };
 
