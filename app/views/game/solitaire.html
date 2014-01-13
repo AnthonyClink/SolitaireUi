@@ -7,30 +7,30 @@
         <div class="col-lg-12">
             <div class="col-lg-2">
 
-                <span
+                <div
                     drag="drawPileTopCard"
                     ui-draggable="{{drawPileTopCard.isMoveable()}}"
                     on-drop-success="dropSuccessHandler($event, 0, gameBoard.getDrawPile())"
-                    class="{{drawPileTopCard.getCSS()}}">&nbsp;
-                </span>
+                    class="card {{drawPileTopCard.getCSS()}}">&nbsp;
+                </div>
 
-                <span
+                <div
                     drag="discardPileTopCard"
                     ui-draggable="{{discardPileTopCard.isMoveable()}}"
                     on-drop-success="dropSuccessHandler($event, 0, gameBoard.getDiscardPile())"
-                    class="{{discardPileTopCard.getCSS()}}">&nbsp;
-                </span>
+                    class="card {{discardPileTopCard.getCSS()}}">&nbsp;
+                </div>
 
             </div>
             <div class="col-lg-10">
-                <span
+                <div
                     ui-on-Drop="onDrop($event,$data,resPile)"
                     drag="resPile.getTopCard()"
                     ui-draggable="{{card.isMoveable()}}"
                     on-drop-success="dropSuccessHandler($event, $index, resPile)"
                     ng-repeat="resPile in gameBoard.getResolutionPiles()"
-                    class="{{resPile.getTopCard().getCSS()}}">&nbsp;
-                </span>
+                    class="card {{resPile.getTopCard().getCSS()}}">&nbsp;
+                </div>
             </div>
         </div>
     </div>

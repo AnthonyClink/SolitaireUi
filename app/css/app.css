@@ -1,9 +1,12 @@
 
-#solitaire-score-area span{
+#solitaire-score-area .card{
     background-image: url('../images/cards.png');
     width: 68px;
     height: 96px;
     display: inline-block;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
 }
 
 
@@ -13,6 +16,9 @@
     width: 68px;
     height: 96px;
     display: block;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
 }
 
 .on-drag-enter{

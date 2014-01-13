@@ -1,19 +1,46 @@
 //closure to contain state in the solitare namespace.
 (function(app){
 
-    var logName = "solitaire.BoardService: ",
+    var logName = 'solitaire.BoardService: ',
         logger,
-         _;
+         _,
+         resource;
 
-    var BoardService = function(boardResource, $log, __, $rootScope){
+    var GameBoardResource = function(){
 
+        var self = {};
+
+        var gameBoardEndpoint = resource('http://localhost:8080/solitare/gameboard/{:gameBoardId}', {gameBoardId : 0}, {
+
+        });
+
+        var PileResource = resource('http://localhost:8080/soliare/gameboard/{:gameBoardId}/{:pileId}', null, {
+            move : {
+                method : 'PUT'
+            }
+        });
+
+        var moveCard = function(){
+            //new PileResource({gameBoardId : 0, })
+        };
+
+        self.get = gameBoardEndpoint.get;
+
+
+        return self;
+
+    };
+
+    var BoardService = function($resource, $log, __, $rootScope){
+        resource = $resource;
         logger = $log;
         _ = __;
 
         var self = {};
 
-        self.gameBoard = new GameBoard(_);
+        var boardResource = new GameBoardResource();
 
+        self.gameBoard = new GameBoard();
 
         self.rawGameBoard =  boardResource.get({}, function(){
             var board = self.gameBoard;
@@ -145,7 +172,7 @@
         self.name = name;
 
         var wrapCard = function(cardData){
-            info("Creating card " + cardData.shortName + " in pile: " + name);
+            info('Creating card ' + cardData.shortName + ' in pile: ' + name);
             return new Card(cardData);
         };
 
@@ -154,7 +181,9 @@
         };
 
         self.removeCard = function(index){
-            cards = _.without(cards, cards[index]);
+            var cardToDelete = cards[index];
+            cardToDelete.pile = undefined;
+            cards = _.without(cards, cardToDelete);
         }
 
         self.getName = function(){
@@ -162,18 +191,27 @@
         };
 
         self.getCards = function(){
+            if(cards.length == 0){
+                var fakeList = [];
+                fakeList.push(app.util.blankCard);
+                return fakeList;
+            }
             return cards;
         };
 
         self.getTopCard = function(){
+            var card;
             if(cards.length === 0){
-                return new Card(pileData.topCard);
+                card = new Card(pileData.topCard);
+                card.pile = self;
+                return card;
             }
             return cards[cards.length - 1];
         };
 
         self.addCard = function(card){
             cards.push(card);
+            card.pile = self;
         }
 
         return self;
@@ -214,18 +252,6 @@
         return self;
     };
 
-    var GameBoardResource = function($resource){
-
-        var self = {};
-
-        self.gameBoardEndpoint = $resource('http://localhost:8080/solitare/gameboard');
-
-        self.get = self.gameBoardEndpoint.get;
-
-        return self;
-
-    };
-
 
     function info(message){
         logger.info(logName + message)
@@ -245,8 +271,18 @@
     app.Pile = Pile;
     app.BoardService = BoardService;
     app.GameBoardResource = GameBoardResource;
-    app.factory('boardResource', ['$resource', GameBoardResource]);
-    app.factory('boardService', ['boardResource', '$log', '_', '$rootScope', BoardService]);
+    app.util = {};
+
+    app.util.blankCard = new Card({
+        rank:'BLANK',
+        suit:'BLANK',
+        faceUp :true,
+        shortName:'b-b',
+        longName:'Blank of Card',
+        red:false
+    });
+
+    app.factory('boardService', ['$resource', '$log', '_', '$rootScope', BoardService]);
 
 //pass in the solitare platform namespace to the closure
 })(solitaire);
