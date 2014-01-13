@@ -2,25 +2,40 @@
 (function(app){
 
     var log,
-        logName = 'solitaire.GameController: ';
+        logName = 'solitaire.GameController: ',
+        gameBoard;
 
     var GameController = function($scope, $state, boardService, $log, _){
         log = $log;
         
         $scope.$on('SOLITAIRE_BOARD_LOADED', function(){
-            var gameBoard = boardService.getGameBoard();
+            gameBoard = boardService.getGameBoard();
 		    $scope.gameBoard = gameBoard;
+            refreshPlayArea();
         });
 
         $scope.dropSuccessHandler = function($event,index,pile){
-            info('Drag-Drop processed on ' + pile.getName() + '  at index: ' + index);
-            info('       (' + _.map(pile.getCards(), function(card){return card.shortName}) + ')');
+            info('Deleting card in ' + pile.getName() + '  at index: ' + index);
+            pile.removeCard(index);
+            info('    Results: [' + _.map(pile.getCards(), function(card){return card.shortName}) + ']');
+            refreshPlayArea();
         };
 
         $scope.onDrop = function($event,$data,pile){
-            info('Drop processing on card: ' + $data.longName);
-            info('    Target pile: ' + pile.getName() +' (' + _.map(pile.getCards(), function(card){return card.shortName}) + ')');
+            info('Adding card ' + $data.longName + " to pile " + pile.getName());
+            pile.addCard(new app.Card($data));
+            info('    Results: [' + _.map(pile.getCards(), function(card){return card.shortName}) + ']');
+            refreshPlayArea();
         };
+
+        function refreshPlayArea(){
+            $scope.discardPileTopCard = gameBoard.getDiscardPile().getTopCard();
+            $scope.drawPileTopCard = gameBoard.getDrawPile().getTopCard();
+            $scope.clubPileTopCard = gameBoard.getClubs().getTopCard();
+            $scope.heartPileTopCard = gameBoard.getHearts().getTopCard();
+            $scope.spadePileTopCard = gameBoard.getSpades().getTopCard();
+            $scope.diamondPileTopCard = gameBoard.getDiamonds().getTopCard();
+        }
     };
 	
     function info(message){

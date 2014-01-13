@@ -6,11 +6,31 @@
     <div class="row" id="solitaire-score-area">
         <div class="col-lg-12">
             <div class="col-lg-2">
-                <span class="{{gameBoard.getDrawPile().getTopCard().getCSS()}}">&nbsp;</span>
-                <span class="{{gameBoard.getDiscardPile().getTopCard().getCSS()}}">&nbsp;</span>
+
+                <span
+                    drag="drawPileTopCard"
+                    ui-draggable="{{drawPileTopCard.isMoveable()}}"
+                    on-drop-success="dropSuccessHandler($event, 0, gameBoard.getDrawPile())"
+                    class="{{drawPileTopCard.getCSS()}}">&nbsp;
+                </span>
+
+                <span
+                    drag="discardPileTopCard"
+                    ui-draggable="{{discardPileTopCard.isMoveable()}}"
+                    on-drop-success="dropSuccessHandler($event, 0, gameBoard.getDiscardPile())"
+                    class="{{discardPileTopCard.getCSS()}}">&nbsp;
+                </span>
+
             </div>
             <div class="col-lg-10">
-                <span ng-repeat="resPile in gameBoard.getResolutionPiles()" class="{{resPile.getTopCard().getCSS()}}">&nbsp;</span>
+                <span
+                    ui-on-Drop="onDrop($event,$data,resPile)"
+                    drag="resPile.getTopCard()"
+                    ui-draggable="{{card.isMoveable()}}"
+                    on-drop-success="dropSuccessHandler($event, $index, resPile)"
+                    ng-repeat="resPile in gameBoard.getResolutionPiles()"
+                    class="{{resPile.getTopCard().getCSS()}}">&nbsp;
+                </span>
             </div>
         </div>
     </div>
@@ -19,13 +39,15 @@
 
     <div class="row" id="solitaire-play-area">
         <div class="col-lg-12 col-lg-push-2">
-            <ul class="col-lg-1 col-lg-pull-1" ui-on-Drop="onDrop($event,$data,playArea)" ng-repeat="playArea in gameBoard.getPlayAreaPiles()">
-                <li
-                    drag="card"
-                    ui-draggable="{{card.isFaceUp()}}"
-                    on-drop-success="dropSuccessHandler($event,$index,playArea)"
+            <ul class="col-lg-1 col-lg-pull-1"
+                ui-on-Drop="onDrop($event,$data,playArea)"
+                ng-repeat="playArea in gameBoard.getPlayAreaPiles()">
+                <li drag="card"
+                    ui-draggable="{{card.isMoveable()}}"
+                    on-drop-success="dropSuccessHandler($event, $index, playArea)"
                     ng-repeat="card in playArea.getCards() track by $index"
-                    class="card col-lg-2 col-push-1 {{card.getCSS()}}">&nbsp;</li>
+                    class="card col-lg-2 col-push-1 {{card.getCSS()}}">&nbsp;
+                </li>
             </ul>
         </div>
     </div>

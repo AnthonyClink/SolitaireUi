@@ -1,10 +1,42 @@
 //closure to contain state in the solitare namespace.
 (function(app){
 
-    var logName = "solitaire.BoardService: ";
-    var logger;
+    var logName = "solitaire.BoardService: ",
+        logger,
+         _;
 
-    var GameBoard = function(_){
+    var BoardService = function(boardResource, $log, __, $rootScope){
+
+        logger = $log;
+        _ = __;
+
+        var self = {};
+
+        self.gameBoard = new GameBoard(_);
+
+
+        self.rawGameBoard =  boardResource.get({}, function(){
+            var board = self.gameBoard;
+            var rawBoard = self.rawGameBoard;
+            info('Wrapping the game board');
+            _.forOwn(rawBoard, function(object, name){
+                if(name[0] != '$'){
+                    board.addPile(new Pile(name, object));
+                    info(name + ': ' + object);
+                }
+            });
+            $rootScope.$broadcast('SOLITAIRE_BOARD_LOADED');
+        });
+
+        self.getGameBoard = function(){
+
+            return self.gameBoard;
+        };
+
+        return self;
+    };
+
+    var GameBoard = function(){
 
         var self = {},
             piles = [],
@@ -121,6 +153,10 @@
             cards.push(wrapCard(pileData.cards[i]));
         };
 
+        self.removeCard = function(index){
+            cards = _.without(cards, cards[index]);
+        }
+
         self.getName = function(){
             return self.name;
         };
@@ -130,8 +166,15 @@
         };
 
         self.getTopCard = function(){
-            return new Card(pileData.topCard);
+            if(cards.length === 0){
+                return new Card(pileData.topCard);
+            }
+            return cards[cards.length - 1];
         };
+
+        self.addCard = function(card){
+            cards.push(card);
+        }
 
         return self;
 
@@ -151,6 +194,11 @@
         self.isFaceUp = function(){
             return cardData.faceUp;
         };
+
+        self.isMoveable = function(){
+            return self.isFaceUp() && self.rank !== 'BLANK';
+        }
+
 
         self.getCSS = function(){
 
@@ -178,35 +226,6 @@
 
     };
 
-    var BoardService = function(boardResource, $log, _, $rootScope){
-
-        logger = $log;
-
-        var self = {};
-
-        self.gameBoard = new GameBoard(_);
-
-
-        self.rawGameBoard =  boardResource.get({}, function(){
-            var board = self.gameBoard;
-            var rawBoard = self.rawGameBoard;
-            info('Wrapping the game board');
-            _.forOwn(rawBoard, function(object, name){
-                if(name[0] != '$'){
-                    board.addPile(new Pile(name, object));
-                    info(name + ': ' + object);
-                }
-            });
-            $rootScope.$broadcast('SOLITAIRE_BOARD_LOADED');
-        });
-
-        self.getGameBoard = function(){
-
-            return self.gameBoard;
-        };
-
-        return self;
-    };
 
     function info(message){
         logger.info(logName + message)
@@ -221,6 +240,9 @@
     }
 
     //make constructor accessible via the solitare namespace
+    app.GameBoard = GameBoard;
+    app.Card = Card;
+    app.Pile = Pile;
     app.BoardService = BoardService;
     app.GameBoardResource = GameBoardResource;
     app.factory('boardResource', ['$resource', GameBoardResource]);
