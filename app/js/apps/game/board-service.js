@@ -150,7 +150,7 @@
 
         self.isFaceUp = function(){
             return cardData.faceUp;
-        }
+        };
 
         self.getCSS = function(){
 

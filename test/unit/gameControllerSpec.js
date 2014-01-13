@@ -19,12 +19,12 @@ describe('The Game Controller ', function(){
         self.get = function () {
             isCalled = true;
             return {};
-        };s
+        };
 
         return self;
       };
 
-      controller = new solitaire.GameController(scope, state, resource);
+      controller = new solitaire.GameController(scope, state, null, null, null);
   });
 
 
