@@ -1,48 +1,32 @@
 <!-- <ul> -->
-	<!-- <li ng-repeat="card in gameBoard.drawDeck.cards"><img src="{{card.imageUrl}}"></li> -->
+<!-- <li ng-repeat="card in gameBoard.drawDeck.cards"><img src="{{card.imageUrl}}"></li> -->
 <!-- </ul> -->
 
-<div class="container">
-	<div class="row">
-		<div class="col-lg-5">
-			<img src="{{gameBoard.drawDeck.topCard.imageUrl}}">
-			<img src="{{gameBoard.discardDeck.topCard.imageUrl}}">
-		</div>
-		<div class="col-lg-6">
-			<img src="{{gameBoard.diamondsDeck.topCard.imageUrl}}">
-			<img src="{{gameBoard.clubsDeck.topCard.imageUrl}}">
-			<img src="{{gameBoard.heartsDeck.topCard.imageUrl}}">
-			<img src="{{gameBoard.spadesDeck.topCard.imageUrl}}">
-		</div>
-	</div>
-	<div class="row">&nbsp;</div>
-		
-	<div class="row">
-		<div id="blarg">
-            <span class="emptySpot">&nbsp;</span>
-			<div class="coll-lg-12">
-				<div class="stack">
-					<span ng-repeat="card in gameBoard.reg1Deck.cards" class="{{card.cssName}}">&nbsp;</span>
-				</div>
-                <div class="stack">
-                    <span ng-repeat="card in gameBoard.reg2Deck.cards" class="{{card.cssName}}">&nbsp;</span>
-                </div>
-                <div class="stack">
-                    <span ng-repeat="card in gameBoard.reg3Deck.cards" class="{{card.cssName}}">&nbsp;</span>
-                </div>
-                <div class="stack">
-                    <span ng-repeat="card in gameBoard.reg4Deck.cards" class="{{card.cssName}}">&nbsp;</span>
-                </div>
-                <div class="stack">
-                    <span ng-repeat="card in gameBoard.reg5Deck.cards" class="{{card.cssName}}">&nbsp;</span>
-                </div>
-                <div class="stack">
-                    <span ng-repeat="card in gameBoard.reg6Deck.cards" class="{{card.cssName}}">&nbsp;</span>
-                </div>
-                <div class="stack">
-                    <span ng-repeat="card in gameBoard.reg7Deck.cards" class="{{card.cssName}}">&nbsp;</span>
-                </div>
-			</div>
-		</div>
-	</div>
+<div id="solitaire" class="container">
+    <div class="row" id="solitaire-score-area">
+        <div class="col-lg-12">
+            <div class="col-lg-2">
+                <span class="{{gameBoard.getDrawPile().getTopCard().getCSS()}}">&nbsp;</span>
+                <span class="{{gameBoard.getDiscardPile().getTopCard().getCSS()}}">&nbsp;</span>
+            </div>
+            <div class="col-lg-10">
+                <span ng-repeat="resPile in gameBoard.getResolutionPiles()" class="{{resPile.getTopCard().getCSS()}}">&nbsp;</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row solitaire-board-spacer">&nbsp;</div>
+
+    <div class="row" id="solitaire-play-area">
+        <div class="col-lg-12 col-lg-push-2">
+            <ul class="col-lg-1 col-lg-pull-1" ui-on-Drop="onDrop($event,$data,playArea)" ng-repeat="playArea in gameBoard.getPlayAreaPiles()">
+                <li
+                    drag="card"
+                    ui-draggable="{{card.isFaceUp()}}"
+                    on-drop-success="dropSuccessHandler($event,$index,playArea)"
+                    ng-repeat="card in playArea.getCards() track by $index"
+                    class="card col-lg-2 col-push-1 {{card.getCSS()}}">&nbsp;</li>
+            </ul>
+        </div>
+    </div>
 </div>

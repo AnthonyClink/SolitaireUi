@@ -1,23 +1,34 @@
 
-
-#blarg div{
-	padding-right: 48px;
-	display: inline-block;
-	margin-top: 75px;
-	height: 750px;
-	
+#solitaire-score-area span{
+    background-image: url('../images/cards.png');
+    width: 68px;
+    height: 96px;
+    display: inline-block;
 }
 
-.stack{
-	
-}
 
-#blarg span{
+#solitaire-play-area .card{
     background-image: url('../images/cards.png');
     margin-top: -75px;
     width: 68px;
     height: 96px;
     display: block;
+}
+
+.on-drag-enter{
+    opacity: 30;
+}
+
+#solitaire-play-area div{
+    display: inline-block;
+}
+
+.card{
+
+}
+
+.solitaire-board-spacer{
+    height: 135px;
 }
 
 .aceOfClubs{
@@ -173,7 +184,7 @@
 .threeOfHearts{
     background-position: -408px  96px;
 }
-.cardBack{
+.faceOfDown{
     background-position: -544px  96px;
 }
 .redJoker{
@@ -182,6 +193,6 @@
 .blackJoker{
      background-position: -680px  96px;
  }
-.emptySpot{
+.blankOfCard{
     background-position: -751px  96px;
 }

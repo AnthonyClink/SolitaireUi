@@ -16,10 +16,10 @@ describe('The Game Controller ', function(){
 
         passedInUrl = url;
 
-        self.get = function(){
+        self.get = function () {
             isCalled = true;
             return {};
-        }
+        };s
 
         return self;
       };
