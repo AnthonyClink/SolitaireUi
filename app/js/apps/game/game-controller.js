@@ -11,6 +11,7 @@
         $scope.$on('SOLITAIRE_BOARD_LOADED', function(){
             gameBoard = boardService.getGameBoard();
 		    $scope.gameBoard = gameBoard;
+            $scope.gameBoardLoaded = true;
             refreshPlayArea();
         });
 

@@ -52,6 +52,7 @@
                     info(name + ': ' + object);
                 }
             });
+            $rootScope.gameBoardLoaded = true;
             $rootScope.$broadcast('SOLITAIRE_BOARD_LOADED');
         });
 
