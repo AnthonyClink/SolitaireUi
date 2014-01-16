@@ -9,11 +9,4 @@
         }
     }});
 
-    app.addUiRouteConfiguration({name: 'home.todos', config: {
-        url: 'todos',
-        views: {
-            //overwrite the content div when state is home.todos
-            'content@': {templateUrl: 'views/home/todos.html'}
-        }
-    }});
 })(solitaire);

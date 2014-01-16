@@ -156,11 +156,23 @@
             return getPile('diamondsDeck');
         };
 
+        self.updatePile = function(name, rawPileData){
+           var pileIndex = _.indexOf(piles, getPile(name));
+            piles[pileIndex] = new Pile(name, rawPileData);
+        };
+
+        self.updateOnDrawCard = function(data){
+            self.updatePile('drawDeck',data.drawDeck);
+            self.updatePile('discardDeck', data.discardDeck);
+        };
+
         var getPile = function(name){
             return _.filterWithProperty(piles, 'name', name)[0];
         };
 
         self.getPile = getPile;
+
+
 
         return self;
     }
