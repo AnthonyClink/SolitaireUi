@@ -5,13 +5,14 @@
 <div id="solitaire" class="container">
     <div class="row" id="solitaire-score-area">
         <div class="col-lg-12">
-            <div class="col-lg-2">
+            <div class="col-lg-2 ng-hide" ng-show="gameBoardLoaded" >
 
                 <div
                     drag="drawPileTopCard"
                     ui-draggable="{{drawPileTopCard.isMoveable()}}"
                     on-drop-success="dropSuccessHandler($event, 0, gameBoard.getDrawPile())"
-                    class="card {{drawPileTopCard.getCSS()}}">&nbsp;
+                    ng_click="drawCard()"
+                    class="card {{drawPileTopCard.getCSS()}}">&nbsp
                 </div>
 
                 <div
@@ -22,20 +23,22 @@
                 </div>
 
             </div>
+            <!--set this up so that it's like discard and draw-->
             <div class="col-lg-10">
                 <div
                     ui-on-Drop="onDrop($event,$data,resPile)"
-                    drag="resPile.getTopCard()"
+                    drag="getResolutionByName($index)"
                     ui-draggable="{{card.isMoveable()}}"
                     on-drop-success="dropSuccessHandler($event, $index, resPile)"
-                    ng-repeat="resPile in gameBoard.getResolutionPiles()"
+                    ng-repeat="resPile in gameBoard.getResolutionPiles() track by $index"
                     class="card {{resPile.getTopCard().getCSS()}}">&nbsp;
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="row solitaire-board-spacer">&nbsp;</div>
+    <div class="row solitaire-board-spacer">&nbsp;
+    </div>
 
     <div class="row" id="solitaire-play-area">
         <div class="col-lg-12 col-lg-push-2">

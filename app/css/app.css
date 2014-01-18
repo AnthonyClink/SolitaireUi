@@ -25,6 +25,11 @@
     opacity: 30;
 }
 
+.done-true{
+    text-decoration: line-through;
+    color: #808080;
+}
+
 #solitaire-play-area div{
     display: inline-block;
 }

@@ -5,12 +5,16 @@
         logName = 'solitaire.GameController: ',
         gameBoard;
 
-    var GameController = function($scope, $state, boardService, $log, _){
+    var GameController = function($scope, $state, boardService, $log, _, $resource){
         log = $log;
-        
+
+
+        var drawResource = $resource('http://localhost:8080/solitare/gameboard/{:gameBoardId}/drawcard', {gameBoardId : 0});
+
         $scope.$on('SOLITAIRE_BOARD_LOADED', function(){
             gameBoard = boardService.getGameBoard();
 		    $scope.gameBoard = gameBoard;
+            $scope.gameBoardLoaded = true;
             refreshPlayArea();
         });
 
@@ -28,6 +32,27 @@
             refreshPlayArea();
         };
 
+        var resolutionPileNames = ['hearts', 'spades', 'diamonds', 'clubs'];
+
+
+        $scope.rawResource = {};
+
+        $scope.drawCard = function(){
+
+                var data = drawResource.get(null, function(){
+                    gameBoard.updateOnDrawCard(data);
+                        refreshPlayArea();
+                }
+            );
+        };
+
+        $scope.getResolutionByName = function(index){
+            var name = resolutionPileNames[index];
+            if(name === 'hearts'){
+              return $scope.heartPileTopCard;
+          }
+        };
+
         function refreshPlayArea(){
             $scope.discardPileTopCard = gameBoard.getDiscardPile().getTopCard();
             $scope.drawPileTopCard = gameBoard.getDrawPile().getTopCard();
@@ -35,6 +60,7 @@
             $scope.heartPileTopCard = gameBoard.getHearts().getTopCard();
             $scope.spadePileTopCard = gameBoard.getSpades().getTopCard();
             $scope.diamondPileTopCard = gameBoard.getDiamonds().getTopCard();
+
         }
     };
 	
@@ -45,7 +71,7 @@
     //make constructor accessible via the solitare namespace
     app.GameController = GameController;
 
-    app.controller('gameController', ['$scope', '$state', 'boardService', '$log', '_', GameController]);
+    app.controller('gameController', ['$scope', '$state', 'boardService', '$log', '_', '$resource', GameController]);
 
 //pass in the solitare platform namespace to the closure
 })(solitaire);

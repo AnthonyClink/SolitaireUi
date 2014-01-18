@@ -4,9 +4,13 @@
 
 
     var HomeController = function($scope, $state){
-	
+
+
 
     };
+
+
+
 	
 
     //make constructor accessible via the solitare namespace
