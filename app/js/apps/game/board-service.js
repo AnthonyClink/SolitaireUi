@@ -101,7 +101,7 @@
 
         self.getPiles = function(){
             return piles;
-        }
+        };
 
         self.getDrawPile = function(){
             return getPile('drawDeck');
@@ -162,7 +162,7 @@
         self.getPile = getPile;
 
         return self;
-    }
+    };
 
     var Pile = function(name, pileData){
 
@@ -235,8 +235,7 @@
 
         self.isMoveable = function(){
             return self.isFaceUp() && self.rank !== 'BLANK';
-        }
-
+        };
 
         self.getCSS = function(){
 
