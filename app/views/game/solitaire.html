@@ -2,56 +2,59 @@
 <!-- <li ng-repeat="card in gameBoard.drawDeck.cards"><img src="{{card.imageUrl}}"></li> -->
 <!-- </ul> -->
 
-<div id="solitaire" class="container">
-    <div class="row" id="solitaire-score-area">
-        <div class="col-lg-12">
-            <div class="col-lg-2 ng-hide" ng-show="gameBoardLoaded" >
-
-                <div
-                    drag="drawPileTopCard"
-                    ui-draggable="{{drawPileTopCard.isMoveable()}}"
-                    on-drop-success="dropSuccessHandler($event, 0, gameBoard.getDrawPile())"
-                    ng_click="drawCard()"
-                    class="card {{drawPileTopCard.getCSS()}}">&nbsp
-                </div>
-
-                <div
-                    drag="discardPileTopCard"
-                    ui-draggable="{{discardPileTopCard.isMoveable()}}"
-                    on-drop-success="dropSuccessHandler($event, 0, gameBoard.getDiscardPile())"
-                    class="card {{discardPileTopCard.getCSS()}}">&nbsp;
-                </div>
-
+<div id="solitaire" class="container-fluid">
+    <div class="row">
+        <dov id="solitaire-score-area">
+            <div class="col-md-1">
+                <div class="card faceOfDown">&nbsp;</div>
             </div>
-            <!--set this up so that it's like discard and draw-->
-            <div class="col-lg-10">
-                <div
-                    ui-on-Drop="onDrop($event,$data,resPile)"
-                    drag="getResolutionByName($index)"
-                    ui-draggable="{{card.isMoveable()}}"
-                    on-drop-success="dropSuccessHandler($event, $index, resPile)"
-                    ng-repeat="resPile in gameBoard.getResolutionPiles() track by $index"
-                    class="card {{resPile.getTopCard().getCSS()}}">&nbsp;
-                </div>
+            <div class="col-md-1">
+                <div class="card twoOfClubs">&nbsp;</div>
+            </div>
+            <div class="col-md-1 col-md-offset-2">
+                <div class="card aceOfClubs">&nbsp;</div>
+            </div>
+            <div class="col-md-1">
+                <div class="card aceOfSpades">&nbsp;</div>
+            </div>
+            <div class="col-md-1">
+                <div class="card aceOfHearts">&nbsp;</div>
+            </div>
+            <div class="col-md-1">
+                <div class="card aceOfDiamonds">&nbsp;</div>
+            </div>
+        </dov>
+    </div>
+    <div class="solitaire-board-spacer">&nbsp;</div>
+
+
+    <div class="row">
+        <div id="solitaire-play-area">
+            <div class="col-sm-1 ">
+                <div class="card aceOfDiamonds">&nbsp;</div>
+            </div>
+            <div class="col-sm-1 ">
+                <div class="card aceOfDiamonds">&nbsp;</div>
+            </div>
+            <div class="col-sm-1 ">
+                <div class="card aceOfDiamonds">&nbsp;</div>
+            </div>
+            <div class="col-sm-1 ">
+                <div class="card aceOfDiamonds">&nbsp;</div>
+            </div>
+            <div class="col-sm-1 ">
+                <div class="card aceOfDiamonds">&nbsp;</div>
+            </div>
+            <div class="col-sm-1 ">
+                <div class="card aceOfDiamonds">&nbsp;</div>
+            </div>
+            <div class="col-sm-1 ">
+                <div class="card aceOfDiamonds">&nbsp;</div>
+            </div>
+            <div class="col-sm-1 ">
+                <div class="card aceOfDiamonds">&nbsp;</div>
             </div>
         </div>
     </div>
-
-    <div class="row solitaire-board-spacer">&nbsp;
-    </div>
-
-    <div class="row" id="solitaire-play-area">
-        <div class="col-lg-12 col-lg-push-2">
-            <ul class="col-lg-1 col-lg-pull-1"
-                ui-on-Drop="onDrop($event,$data,playArea)"
-                ng-repeat="playArea in gameBoard.getPlayAreaPiles()">
-                <li drag="card"
-                    ui-draggable="{{card.isMoveable()}}"
-                    on-drop-success="dropSuccessHandler($event, $index, playArea)"
-                    ng-repeat="card in playArea.getCards() track by $index"
-                    class="card col-lg-2 col-push-1 {{card.getCSS()}}">&nbsp;
-                </li>
-            </ul>
-        </div>
-    </div>
+    <span class="card aceOfClubs">{{}}</span>
 </div>

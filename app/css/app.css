@@ -21,6 +21,10 @@
     border-radius: 8px;
 }
 
+#solitaire{
+   width:1125px;
+}
+
 .on-drag-enter{
     opacity: 30;
 }

@@ -11,45 +11,9 @@
 
     <body ng-app="solitaire.platform">
 
-			<div ui-view="header"></div>
 
-			<ul>
-
-				<li>
-					<a href="#/game">
-						<span>Game</span>
-					</a>
-				</li>
-
-                <li>
-                    <a href="#/todos">
-                        <span>Todos</span>
-                    </a>
-                </li>
-				
-				<li>
-					<a href="#/game">
-						<span>Solitaire</span>
-					</a>
-				</li>
-			</ul>
-
-		</div>
-
-		<div>
-			<div ui-view="content"></div>
-			<div ui-view="menu"></div>
-		</div>
-
-		<div id="footer">
-			<!-- Here's some values to keep an eye on in the sample in order to understand $state and $stateParams -->
-			$state = {{$state.current.name}}
-			$stateParams = {{$stateParams}}
-			$state full url = {{ $state.$current.url.source }}
-			<!-- $state.$current is not a public api, we are using it to
-				 display the full url for learning purposes-->
-
-		</div>
+            <div ui-view="content"></div>
+        </div>
 
 		<script src="lib/lodash.js"></script>
         <script src="lib/jquery.min.js"></script>
@@ -59,14 +23,7 @@
 		<script src="lib/angular/angular-resource.js"></script>
 		<script src="lib/angular/ui-bootstrap-tpls-0.9.0.js"></script>
 		<script src="js/apps/platform/solitaire-platform.js"></script>
-        <script src="js/util/lodash-service.js"></script>
-        <script src="js/apps/game/board-service.js"></script>
-        <script src="js/apps/home/home-configuration.js"></script>
-		<script src="js/apps/home/home-controller.js"></script>
-        <script src="js/apps/todos/todo-configuration.js"></script>
-        <script src="js/apps/todos/todo-controller.js"></script>
 		<script src="js/apps/game/game-configuration.js"></script>
-		<script src="js/apps/game/game-controller.js"></script>
 		<script src="js/app.js"></script>
 
     </body>

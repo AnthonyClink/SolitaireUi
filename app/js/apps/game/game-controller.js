@@ -5,63 +5,11 @@
         logName = 'solitaire.GameController: ',
         gameBoard;
 
-    var GameController = function($scope, $state, boardService, $log, _, $resource){
+    var GameController = function($scope, $state, gameService, $log, _, $resource){
         log = $log;
 
+        $scope.gameBoard = gameService.getGame();
 
-        var drawResource = $resource('http://localhost:8080/solitare/gameboard/{:gameBoardId}/drawcard', {gameBoardId : 0});
-
-        $scope.$on('SOLITAIRE_BOARD_LOADED', function(){
-            gameBoard = boardService.getGameBoard();
-		    $scope.gameBoard = gameBoard;
-            $scope.gameBoardLoaded = true;
-            refreshPlayArea();
-        });
-
-        $scope.dropSuccessHandler = function($event,index,pile){
-            info('Deleting card in ' + pile.getName() + '  at index: ' + index);
-            pile.removeCard(index);
-            info('    Results: [' + _.map(pile.getCards(), function(card){return card.shortName}) + ']');
-            refreshPlayArea();
-        };
-
-        $scope.onDrop = function($event,$data,pile){
-            info('Adding card ' + $data.longName + " to pile " + pile.getName());
-            pile.addCard(new app.Card($data));
-            info('    Results: [' + _.map(pile.getCards(), function(card){return card.shortName}) + ']');
-            refreshPlayArea();
-        };
-
-        var resolutionPileNames = ['hearts', 'spades', 'diamonds', 'clubs'];
-
-
-        $scope.rawResource = {};
-
-        $scope.drawCard = function(){
-
-                var data = drawResource.get(null, function(){
-                    gameBoard.updateOnDrawCard(data);
-                        refreshPlayArea();
-                }
-            );
-        };
-
-        $scope.getResolutionByName = function(index){
-            var name = resolutionPileNames[index];
-            if(name === 'hearts'){
-              return $scope.heartPileTopCard;
-          }
-        };
-
-        function refreshPlayArea(){
-            $scope.discardPileTopCard = gameBoard.getDiscardPile().getTopCard();
-            $scope.drawPileTopCard = gameBoard.getDrawPile().getTopCard();
-            $scope.clubPileTopCard = gameBoard.getClubs().getTopCard();
-            $scope.heartPileTopCard = gameBoard.getHearts().getTopCard();
-            $scope.spadePileTopCard = gameBoard.getSpades().getTopCard();
-            $scope.diamondPileTopCard = gameBoard.getDiamonds().getTopCard();
-
-        }
     };
 	
     function info(message){
@@ -71,7 +19,7 @@
     //make constructor accessible via the solitare namespace
     app.GameController = GameController;
 
-    app.controller('gameController', ['$scope', '$state', 'boardService', '$log', '_', '$resource', GameController]);
+    app.controller('gameController', ['$scope', '$state', 'gameService', '$log', '_', '$resource', GameController]);
 
 //pass in the solitare platform namespace to the closure
 })(solitaire);

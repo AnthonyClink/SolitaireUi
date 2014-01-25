@@ -4,34 +4,26 @@
 
 describe('The Game Controller ', function(){
 
-  var scope, resource, state, controller, isCalled, passedInUrl;
+  var scope, gameService, state, controller, isCalled, passedInUrl;
 
   beforeEach(function(){
       scope = {};
 
-      state = {};
+      var gameService = {};
+      isCalled = false;
 
-      resource = function(url){
-        var self = {};
+      gameService.getGame = function(){
+          isCalled = true;
+          return {};
+      }
 
-        passedInUrl = url;
-
-        self.get = function () {
-            isCalled = true;
-            return {};
-        };
-
-        return self;
-      };
-
-      controller = new solitaire.GameController(scope, state, null, null, null);
+      controller = new solitaire.GameController(scope, state, gameService, null, null);
   });
 
 
   it('should add a gameBoard to the scope', function() {
       expect(scope.gameBoard).toBeDefined();
       expect(isCalled).toBe(true);
-      expect(passedInUrl).toBe('http://localhost:8080/solitare/gameboard');
   });
 
 });
