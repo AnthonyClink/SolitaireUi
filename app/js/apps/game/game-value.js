@@ -810,7 +810,149 @@
                 "faceUp":true
             }
         }
-    }
+    };
+
+    app.value('mockGame', {
+        "id":"1",
+        "REGULAR_5":{
+            "cards":[
+
+            ],
+            "gameSpotType":"REGULAR",
+            "size":0,
+            "topCard":null
+        },
+        "DRAW":{
+            "cards":[
+                {
+                    "rank":"ACE",
+                    "suit":"HEART",
+                    "cardState":"FACE_UP",
+                    "fullName":"Ace Of Hearts",
+                    "color":"RED",
+                    "black":false,
+                    "red":true,
+                    "shortName":"A-H",
+                    "faceDown":false,
+                    "faceUp":true
+                },
+                {
+                    "rank":"ACE",
+                    "suit":"SPADE",
+                    "cardState":"FACE_UP",
+                    "fullName":"Ace Of Spades",
+                    "color":"BLACK",
+                    "black":true,
+                    "red":false,
+                    "shortName":"A-S",
+                    "faceDown":false,
+                    "faceUp":true
+                }
+            ],
+            "gameSpotType":"DRAW",
+            "size":2,
+            "topCard":{
+                "rank":"ACE",
+                "suit":"SPADE",
+                "cardState":"FACE_UP",
+                "fullName":"Ace Of Spades",
+                "color":"BLACK",
+                "black":true,
+                "red":false,
+                "shortName":"A-S",
+                "faceDown":false,
+                "faceUp":true
+            }
+        },
+        "REGULAR_4":{
+            "cards":[
+
+            ],
+            "gameSpotType":"REGULAR",
+            "size":0,
+            "topCard":null
+        },
+        "REGULAR_6":{
+            "cards":[
+
+            ],
+            "gameSpotType":"REGULAR",
+            "size":0,
+            "topCard":null
+        },
+        "REGULAR_1":{
+            "cards":[
+
+            ],
+            "gameSpotType":"REGULAR",
+            "size":0,
+            "topCard":null
+        },
+        "RESOLUTION_HEARTS":{
+            "cards":[
+
+            ],
+            "gameSpotType":"RESOLUTION",
+            "size":0,
+            "topCard":null
+        },
+        "RESOLUTION_SPADE":{
+            "cards":[
+
+            ],
+            "gameSpotType":"RESOLUTION",
+            "size":0,
+            "topCard":null
+        },
+        "RESOLUTION_DIAMONDS":{
+            "cards":[
+
+            ],
+            "gameSpotType":"RESOLUTION",
+            "size":0,
+            "topCard":null
+        },
+        "REGULAR_3":{
+            "cards":[
+
+            ],
+            "gameSpotType":"REGULAR",
+            "size":0,
+            "topCard":null
+        },
+        "RESOLUTION_CLUB":{
+            "cards":[
+
+            ],
+            "gameSpotType":"RESOLUTION",
+            "size":0,
+            "topCard":null
+        },
+        "REGULAR_7":{
+            "cards":[
+
+            ],
+            "gameSpotType":"REGULAR",
+            "size":0,
+            "topCard":null
+        },
+        "DISCARD":{
+            "cards":[
+
+            ],
+            "gameSpotType":"DISCARD",
+            "size":0,
+            "topCard":null
+        },
+        "REGULAR_2":{
+            "cards":[
+
+            ],
+            "gameSpotType":"REGULAR",
+            "size":0,
+            "topCard":null
+        }
+    });
 
     app.value('rawGame', game);
 

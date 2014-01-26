@@ -7,7 +7,6 @@
         var rawData = rawGame;
 
         var homePiles = [];
-        var libraryPiles = [];
         var playAreaPiles = [];
 
         function createPile(name, pile){
@@ -19,6 +18,30 @@
                 piles.push(createPile(name, pile));
             };
         });
+
+        self.drawCard = function(){
+
+            if(self.getDrawPile().length === 0){
+                return;
+            }
+
+            var drawPile = self.getDrawPile();
+            var card = drawPile.getTopCard();
+            var discardPile = self.getDiscardPile();
+
+            card.turnFaceUp();
+            drawPile.removeCard(card);
+            discardPile.addCard(card);
+
+        }
+
+        self.getDrawPile = function(){
+            return self.getPile('DRAW');
+        };
+
+        self.getDiscardPile = function(){
+            return self.getPile('DISCARD');
+        }
 
         self.getHome = function(){
 
@@ -191,11 +214,11 @@
         return self;
     }
 
-    var GameResource = function($resource, rawGame, __){
+    var GameResource = function($resource, rawGame, mockGame, __){
         var self = {};
         _ = __;
         self.GET = function(id){
-            return rawGame;
+            return mockGame;
         };
 
 
@@ -214,7 +237,7 @@
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
 
-    app.factory('gameResource', ['$resource', 'rawGame', '_', GameResource]);
+    app.factory('gameResource', ['$resource', 'rawGame', 'mockGame', '_', GameResource]);
     app.factory('solitaireDataService', ['gameResource', SolitaireDataService]);
 
 })(solitaire);

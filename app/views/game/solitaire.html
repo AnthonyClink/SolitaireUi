@@ -6,8 +6,14 @@
     <div class="container">
         <div class="row">
             <dov id="solitaire-score-area">
-                <div class="col-sm-1" ng-repeat="pile in game.getLibrary()">
-                    <div class="{{pile.getTopCard().getCSS()}}">&nbsp;</div>
+                <div class="col-sm-1">
+                    <div
+                       class="{{drawPile.getTopCard().getCSS()}}"
+                       ng-click="drawCard()"
+                    >&nbsp;</div>
+                </div>
+                <div class="col-sm-1">
+                    <div class="{{discardPile.getTopCard().getCSS()}}">&nbsp;</div>
                 </div>
                 <div class="col-sm-1">&nbsp;</div>
                 <div class="col-sm-1" ng-repeat="pile in game.getHome()">
