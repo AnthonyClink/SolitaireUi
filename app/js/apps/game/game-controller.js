@@ -5,10 +5,12 @@
         logName = 'solitaire.GameController: ',
         gameBoard;
 
-    var GameController = function($scope, $state, gameService, $log, _, $resource){
+    var GameController = function($scope, $state, $log, _, solitaireDataService){
         log = $log;
 
-        $scope.gameBoard = gameService.getGame();
+        var game = solitaireDataService.getGame();
+
+        $scope.game = game;
 
     };
 	
@@ -19,7 +21,7 @@
     //make constructor accessible via the solitare namespace
     app.GameController = GameController;
 
-    app.controller('gameController', ['$scope', '$state', 'gameService', '$log', '_', '$resource', GameController]);
+    app.controller('gameController', ['$scope', '$state', '$log', '_', 'solitaireDataService', GameController]);
 
 //pass in the solitare platform namespace to the closure
 })(solitaire);

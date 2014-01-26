@@ -2,59 +2,31 @@
 <!-- <li ng-repeat="card in gameBoard.drawDeck.cards"><img src="{{card.imageUrl}}"></li> -->
 <!-- </ul> -->
 
-<div id="solitaire" class="container-fluid">
-    <div class="row">
-        <dov id="solitaire-score-area">
-            <div class="col-md-1">
-                <div class="card faceOfDown">&nbsp;</div>
-            </div>
-            <div class="col-md-1">
-                <div class="card twoOfClubs">&nbsp;</div>
-            </div>
-            <div class="col-md-1 col-md-offset-2">
-                <div class="card aceOfClubs">&nbsp;</div>
-            </div>
-            <div class="col-md-1">
-                <div class="card aceOfSpades">&nbsp;</div>
-            </div>
-            <div class="col-md-1">
-                <div class="card aceOfHearts">&nbsp;</div>
-            </div>
-            <div class="col-md-1">
-                <div class="card aceOfDiamonds">&nbsp;</div>
-            </div>
-        </dov>
-    </div>
-    <div class="solitaire-board-spacer">&nbsp;</div>
+<div id="solitaire">
+    <div class="container">
+        <div class="row">
+            <dov id="solitaire-score-area">
+                <div class="col-sm-1" ng-repeat="pile in game.getLibrary()">
+                    <div class="{{pile.getTopCard().getCSS()}}">&nbsp;</div>
+                </div>
+                <div class="col-sm-1">&nbsp;</div>
+                <div class="col-sm-1" ng-repeat="pile in game.getHome()">
+                    <div class="{{pile.getTopCard().getCSS()}}">&nbsp;</div>
+                </div>
+            </dov>
+        </div>
+
+        <div class="solitaire-board-spacer">&nbsp;</div>
 
 
-    <div class="row">
-        <div id="solitaire-play-area">
-            <div class="col-sm-1 ">
-                <div class="card aceOfDiamonds">&nbsp;</div>
-            </div>
-            <div class="col-sm-1 ">
-                <div class="card aceOfDiamonds">&nbsp;</div>
-            </div>
-            <div class="col-sm-1 ">
-                <div class="card aceOfDiamonds">&nbsp;</div>
-            </div>
-            <div class="col-sm-1 ">
-                <div class="card aceOfDiamonds">&nbsp;</div>
-            </div>
-            <div class="col-sm-1 ">
-                <div class="card aceOfDiamonds">&nbsp;</div>
-            </div>
-            <div class="col-sm-1 ">
-                <div class="card aceOfDiamonds">&nbsp;</div>
-            </div>
-            <div class="col-sm-1 ">
-                <div class="card aceOfDiamonds">&nbsp;</div>
-            </div>
-            <div class="col-sm-1 ">
-                <div class="card aceOfDiamonds">&nbsp;</div>
+        <div class="row">
+            <div id="solitaire-play-area">
+                <div class="col-sm-1" ng-repeat="pile in game.getPlayArea()">
+                    <div ng-repeat="card in pile.getCards()" class="{{card.getCSS()}}">&nbsp;</div>
+                </div>
+
             </div>
         </div>
     </div>
-    <span class="card aceOfClubs">{{}}</span>
+
 </div>

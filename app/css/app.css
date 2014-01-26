@@ -22,7 +22,9 @@
 }
 
 #solitaire{
-   width:1125px;
+   width: 1150px;
+   min-width: 500px;
+   padding: 0 15px;
 }
 
 .on-drag-enter{
@@ -199,7 +201,7 @@
 .threeOfHearts{
     background-position: -408px  96px;
 }
-.faceOfDown{
+.faceDown{
     background-position: -544px  96px;
 }
 .redJoker{
