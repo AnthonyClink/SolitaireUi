@@ -21,7 +21,7 @@
 
         self.drawCard = function(){
 
-            if(self.getDrawPile().length === 0){
+            if(self.getDrawPile().getTopCard().getRank() === 'BLANK'){
                 return;
             }
 
@@ -32,6 +32,17 @@
             card.turnFaceUp();
             drawPile.removeCard(card);
             discardPile.addCard(card);
+
+        }
+
+       self.resetDrawDeck = function(){
+            var discardPile = self.getDiscardPile();
+            var drawPile = self.getDrawPile();
+            while(discardPile.getCards().length !== 0){
+                var card = discardPile.getCards().pop();
+                card.turnFaceDown();
+                drawPile.addCard(card);
+            };
 
         }
 
@@ -221,7 +232,7 @@
         _ = __;
 
         self.GET = function(id){
-            return mockGame;
+            return rawGame;
         };
 
       return self;

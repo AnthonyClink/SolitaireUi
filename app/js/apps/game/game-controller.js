@@ -14,6 +14,7 @@
         $scope.drawPile = game.getPile('DRAW');
         $scope.discardPile = game.getPile('DISCARD');
         $scope.drawCard = game.drawCard;
+        $scope.resetDrawPile = game.resetDrawDeck;
 
     };
 	
