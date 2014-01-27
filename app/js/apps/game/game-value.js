@@ -1,956 +1,563 @@
 (function(app){
 
     var game = {
-        "id":"0",
-        "RESOLUTION_HEARTS":{
+        "id":"1",
+        "RESOLUTION_DIAMONDS":{
             "cards":[
 
-            ],
-            "gameSpotType":"RESOLUTION",
-            "size":0,
-            "topCard":null
-        },
-        "RESOLUTION_CLUB":{
-            "cards":[
-
-            ],
-            "gameSpotType":"RESOLUTION",
-            "size":0,
-            "topCard":null
-        },
-        "DRAW":{
-            "cards":[
-                {
-                    "rank":"QUEEN",
-                    "suit":"CLUB",
-                    "cardState":"FACE_DOWN",
-                    "fullName":"Queen Of Clubs",
-                    "color":"BLACK",
-                    "black":true,
-                    "red":false,
-                    "shortName":"Q-C",
-                    "faceDown":true,
-                    "faceUp":false
-                },
-                {
-                    "rank":"SIX",
-                    "suit":"CLUB",
-                    "cardState":"FACE_DOWN",
-                    "fullName":"Six Of Clubs",
-                    "color":"BLACK",
-                    "black":true,
-                    "red":false,
-                    "shortName":"6-C",
-                    "faceDown":true,
-                    "faceUp":false
-                },
-                {
-                    "rank":"SEVEN",
-                    "suit":"HEART",
-                    "cardState":"FACE_DOWN",
-                    "fullName":"Seven Of Hearts",
-                    "color":"RED",
-                    "black":false,
-                    "red":true,
-                    "shortName":"7-H",
-                    "faceDown":true,
-                    "faceUp":false
-                },
-                {
-                    "rank":"EIGHT",
-                    "suit":"CLUB",
-                    "cardState":"FACE_DOWN",
-                    "fullName":"Eight Of Clubs",
-                    "color":"BLACK",
-                    "black":true,
-                    "red":false,
-                    "shortName":"8-C",
-                    "faceDown":true,
-                    "faceUp":false
-                },
-                {
-                    "rank":"ACE",
-                    "suit":"SPADE",
-                    "cardState":"FACE_DOWN",
-                    "fullName":"Ace Of Spades",
-                    "color":"BLACK",
-                    "black":true,
-                    "red":false,
-                    "shortName":"A-S",
-                    "faceDown":true,
-                    "faceUp":false
-                },
-                {
-                    "rank":"FIVE",
-                    "suit":"HEART",
-                    "cardState":"FACE_DOWN",
-                    "fullName":"Five Of Hearts",
-                    "color":"RED",
-                    "black":false,
-                    "red":true,
-                    "shortName":"5-H",
-                    "faceDown":true,
-                    "faceUp":false
-                },
-                {
-                    "rank":"NINE",
-                    "suit":"HEART",
-                    "cardState":"FACE_DOWN",
-                    "fullName":"Nine Of Hearts",
-                    "color":"RED",
-                    "black":false,
-                    "red":true,
-                    "shortName":"9-H",
-                    "faceDown":true,
-                    "faceUp":false
-                },
-                {
-                    "rank":"SEVEN",
-                    "suit":"SPADE",
-                    "cardState":"FACE_DOWN",
-                    "fullName":"Seven Of Spades",
-                    "color":"BLACK",
-                    "black":true,
-                    "red":false,
-                    "shortName":"7-S",
-                    "faceDown":true,
-                    "faceUp":false
-                },
-                {
-                    "rank":"JACK",
-                    "suit":"HEART",
-                    "cardState":"FACE_DOWN",
-                    "fullName":"Jack Of Hearts",
-                    "color":"RED",
-                    "black":false,
-                    "red":true,
-                    "shortName":"J-H",
-                    "faceDown":true,
-                    "faceUp":false
-                },
-                {
-                    "rank":"SIX",
-                    "suit":"HEART",
-                    "cardState":"FACE_DOWN",
-                    "fullName":"Six Of Hearts",
-                    "color":"RED",
-                    "black":false,
-                    "red":true,
-                    "shortName":"6-H",
-                    "faceDown":true,
-                    "faceUp":false
-                },
-                {
-                    "rank":"FOUR",
-                    "suit":"SPADE",
-                    "cardState":"FACE_DOWN",
-                    "fullName":"Four Of Spades",
-                    "color":"BLACK",
-                    "black":true,
-                    "red":false,
-                    "shortName":"4-S",
-                    "faceDown":true,
-                    "faceUp":false
-                },
-                {
-                    "rank":"KING",
-                    "suit":"HEART",
-                    "cardState":"FACE_DOWN",
-                    "fullName":"King Of Hearts",
-                    "color":"RED",
-                    "black":false,
-                    "red":true,
-                    "shortName":"K-H",
-                    "faceDown":true,
-                    "faceUp":false
-                },
-                {
-                    "rank":"TEN",
-                    "suit":"DIAMOND",
-                    "cardState":"FACE_DOWN",
-                    "fullName":"Ten Of Diamonds",
-                    "color":"RED",
-                    "black":false,
-                    "red":true,
-                    "shortName":"10-D",
-                    "faceDown":true,
-                    "faceUp":false
-                },
-                {
-                    "rank":"TWO",
-                    "suit":"SPADE",
-                    "cardState":"FACE_DOWN",
-                    "fullName":"Two Of Spades",
-                    "color":"BLACK",
-                    "black":true,
-                    "red":false,
-                    "shortName":"2-S",
-                    "faceDown":true,
-                    "faceUp":false
-                },
-                {
-                    "rank":"EIGHT",
-                    "suit":"DIAMOND",
-                    "cardState":"FACE_DOWN",
-                    "fullName":"Eight Of Diamonds",
-                    "color":"RED",
-                    "black":false,
-                    "red":true,
-                    "shortName":"8-D",
-                    "faceDown":true,
-                    "faceUp":false
-                },
-                {
-                    "rank":"EIGHT",
-                    "suit":"HEART",
-                    "cardState":"FACE_DOWN",
-                    "fullName":"Eight Of Hearts",
-                    "color":"RED",
-                    "black":false,
-                    "red":true,
-                    "shortName":"8-H",
-                    "faceDown":true,
-                    "faceUp":false
-                },
-                {
-                    "rank":"KING",
-                    "suit":"CLUB",
-                    "cardState":"FACE_DOWN",
-                    "fullName":"King Of Clubs",
-                    "color":"BLACK",
-                    "black":true,
-                    "red":false,
-                    "shortName":"K-C",
-                    "faceDown":true,
-                    "faceUp":false
-                },
-                {
-                    "rank":"FOUR",
-                    "suit":"CLUB",
-                    "cardState":"FACE_DOWN",
-                    "fullName":"Four Of Clubs",
-                    "color":"BLACK",
-                    "black":true,
-                    "red":false,
-                    "shortName":"4-C",
-                    "faceDown":true,
-                    "faceUp":false
-                },
-                {
-                    "rank":"TWO",
-                    "suit":"DIAMOND",
-                    "cardState":"FACE_DOWN",
-                    "fullName":"Two Of Diamonds",
-                    "color":"RED",
-                    "black":false,
-                    "red":true,
-                    "shortName":"2-D",
-                    "faceDown":true,
-                    "faceUp":false
-                },
-                {
-                    "rank":"SEVEN",
-                    "suit":"DIAMOND",
-                    "cardState":"FACE_DOWN",
-                    "fullName":"Seven Of Diamonds",
-                    "color":"RED",
-                    "black":false,
-                    "red":true,
-                    "shortName":"7-D",
-                    "faceDown":true,
-                    "faceUp":false
-                },
-                {
-                    "rank":"ACE",
-                    "suit":"HEART",
-                    "cardState":"FACE_DOWN",
-                    "fullName":"Ace Of Hearts",
-                    "color":"RED",
-                    "black":false,
-                    "red":true,
-                    "shortName":"A-H",
-                    "faceDown":true,
-                    "faceUp":false
-                },
-                {
-                    "rank":"NINE",
-                    "suit":"CLUB",
-                    "cardState":"FACE_DOWN",
-                    "fullName":"Nine Of Clubs",
-                    "color":"BLACK",
-                    "black":true,
-                    "red":false,
-                    "shortName":"9-C",
-                    "faceDown":true,
-                    "faceUp":false
-                },
-                {
-                    "rank":"TEN",
-                    "suit":"HEART",
-                    "cardState":"FACE_DOWN",
-                    "fullName":"Ten Of Hearts",
-                    "color":"RED",
-                    "black":false,
-                    "red":true,
-                    "shortName":"10-H",
-                    "faceDown":true,
-                    "faceUp":false
-                },
-                {
-                    "rank":"ACE",
-                    "suit":"DIAMOND",
-                    "cardState":"FACE_DOWN",
-                    "fullName":"Ace Of Diamonds",
-                    "color":"RED",
-                    "black":false,
-                    "red":true,
-                    "shortName":"A-D",
-                    "faceDown":true,
-                    "faceUp":false
-                }
-            ],
-            "gameSpotType":"DRAW",
-            "size":24,
-            "topCard":{
-                "rank":"ACE",
-                "suit":"DIAMOND",
-                "cardState":"FACE_DOWN",
-                "fullName":"Ace Of Diamonds",
-                "color":"RED",
-                "black":false,
-                "red":true,
-                "shortName":"A-D",
-                "faceDown":true,
-                "faceUp":false
-            }
+            ]
         },
         "REGULAR_3":{
             "cards":[
                 {
-                    "rank":"THREE",
-                    "suit":"CLUB",
+                    "rank":"QUEEN",
+                    "suit":"SPADES",
                     "cardState":"FACE_DOWN",
-                    "fullName":"Three Of Clubs",
+                    "fullName":"Queen Of Spades",
                     "color":"BLACK",
-                    "black":true,
-                    "red":false,
-                    "shortName":"3-C",
-                    "faceDown":true,
-                    "faceUp":false
+                    "shortName":"Q-S"
                 },
-                {
-                    "rank":"EIGHT",
-                    "suit":"SPADE",
-                    "cardState":"FACE_DOWN",
-                    "fullName":"Eight Of Spades",
-                    "color":"BLACK",
-                    "black":true,
-                    "red":false,
-                    "shortName":"8-S",
-                    "faceDown":true,
-                    "faceUp":false
-                },
-                {
-                    "rank":"SIX",
-                    "suit":"SPADE",
-                    "cardState":"FACE_UP",
-                    "fullName":"Six Of Spades",
-                    "color":"BLACK",
-                    "black":true,
-                    "red":false,
-                    "shortName":"6-S",
-                    "faceDown":false,
-                    "faceUp":true
-                }
-            ],
-            "gameSpotType":"REGULAR",
-            "size":3,
-            "topCard":{
-                "rank":"SIX",
-                "suit":"SPADE",
-                "cardState":"FACE_UP",
-                "fullName":"Six Of Spades",
-                "color":"BLACK",
-                "black":true,
-                "red":false,
-                "shortName":"6-S",
-                "faceDown":false,
-                "faceUp":true
-            }
-        },
-        "RESOLUTION_DIAMONDS":{
-            "cards":[
-
-            ],
-            "gameSpotType":"RESOLUTION",
-            "size":0,
-            "topCard":null
-        },
-        "REGULAR_7":{
-            "cards":[
                 {
                     "rank":"FOUR",
-                    "suit":"DIAMOND",
+                    "suit":"CLUBS",
                     "cardState":"FACE_DOWN",
-                    "fullName":"Four Of Diamonds",
-                    "color":"RED",
-                    "black":false,
-                    "red":true,
-                    "shortName":"4-D",
-                    "faceDown":true,
-                    "faceUp":false
-                },
-                {
-                    "rank":"JACK",
-                    "suit":"DIAMOND",
-                    "cardState":"FACE_DOWN",
-                    "fullName":"Jack Of Diamonds",
-                    "color":"RED",
-                    "black":false,
-                    "red":true,
-                    "shortName":"J-D",
-                    "faceDown":true,
-                    "faceUp":false
-                },
-                {
-                    "rank":"NINE",
-                    "suit":"DIAMOND",
-                    "cardState":"FACE_DOWN",
-                    "fullName":"Nine Of Diamonds",
-                    "color":"RED",
-                    "black":false,
-                    "red":true,
-                    "shortName":"9-D",
-                    "faceDown":true,
-                    "faceUp":false
-                },
-                {
-                    "rank":"FIVE",
-                    "suit":"CLUB",
-                    "cardState":"FACE_DOWN",
-                    "fullName":"Five Of Clubs",
+                    "fullName":"Four Of Clubs",
                     "color":"BLACK",
-                    "black":true,
-                    "red":false,
-                    "shortName":"5-C",
-                    "faceDown":true,
-                    "faceUp":false
+                    "shortName":"4-C"
                 },
                 {
-                    "rank":"FIVE",
-                    "suit":"SPADE",
-                    "cardState":"FACE_DOWN",
-                    "fullName":"Five Of Spades",
-                    "color":"BLACK",
-                    "black":true,
-                    "red":false,
-                    "shortName":"5-S",
-                    "faceDown":true,
-                    "faceUp":false
-                },
-                {
-                    "rank":"JACK",
-                    "suit":"CLUB",
-                    "cardState":"FACE_DOWN",
-                    "fullName":"Jack Of Clubs",
-                    "color":"BLACK",
-                    "black":true,
-                    "red":false,
-                    "shortName":"J-C",
-                    "faceDown":true,
-                    "faceUp":false
-                },
-                {
-                    "rank":"THREE",
-                    "suit":"SPADE",
+                    "rank":"TEN",
+                    "suit":"SPADES",
                     "cardState":"FACE_UP",
-                    "fullName":"Three Of Spades",
+                    "fullName":"Ten Of Spades",
                     "color":"BLACK",
-                    "black":true,
-                    "red":false,
-                    "shortName":"3-S",
-                    "faceDown":false,
-                    "faceUp":true
+                    "shortName":"10-S"
                 }
-            ],
-            "gameSpotType":"REGULAR",
-            "size":7,
-            "topCard":{
-                "rank":"THREE",
-                "suit":"SPADE",
-                "cardState":"FACE_UP",
-                "fullName":"Three Of Spades",
-                "color":"BLACK",
-                "black":true,
-                "red":false,
-                "shortName":"3-S",
-                "faceDown":false,
-                "faceUp":true
-            }
-        },
-        "DISCARD":{
-            "cards":[
-
-            ],
-            "gameSpotType":"DISCARD",
-            "size":0,
-            "topCard":null
-        },
-        "RESOLUTION_SPADE":{
-            "cards":[
-
-            ],
-            "gameSpotType":"RESOLUTION",
-            "size":0,
-            "topCard":null
-        },
-        "REGULAR_5":{
-            "cards":[
-                {
-                    "rank":"THREE",
-                    "suit":"DIAMOND",
-                    "cardState":"FACE_DOWN",
-                    "fullName":"Three Of Diamonds",
-                    "color":"RED",
-                    "black":false,
-                    "red":true,
-                    "shortName":"3-D",
-                    "faceDown":true,
-                    "faceUp":false
-                },
-                {
-                    "rank":"TWO",
-                    "suit":"HEART",
-                    "cardState":"FACE_DOWN",
-                    "fullName":"Two Of Hearts",
-                    "color":"RED",
-                    "black":false,
-                    "red":true,
-                    "shortName":"2-H",
-                    "faceDown":true,
-                    "faceUp":false
-                },
-                {
-                    "rank":"SEVEN",
-                    "suit":"CLUB",
-                    "cardState":"FACE_DOWN",
-                    "fullName":"Seven Of Clubs",
-                    "color":"BLACK",
-                    "black":true,
-                    "red":false,
-                    "shortName":"7-C",
-                    "faceDown":true,
-                    "faceUp":false
-                },
-                {
-                    "rank":"JACK",
-                    "suit":"SPADE",
-                    "cardState":"FACE_DOWN",
-                    "fullName":"Jack Of Spades",
-                    "color":"BLACK",
-                    "black":true,
-                    "red":false,
-                    "shortName":"J-S",
-                    "faceDown":true,
-                    "faceUp":false
-                },
-                {
-                    "rank":"KING",
-                    "suit":"DIAMOND",
-                    "cardState":"FACE_UP",
-                    "fullName":"King Of Diamonds",
-                    "color":"RED",
-                    "black":false,
-                    "red":true,
-                    "shortName":"K-D",
-                    "faceDown":false,
-                    "faceUp":true
-                }
-            ],
-            "gameSpotType":"REGULAR",
-            "size":5,
-            "topCard":{
-                "rank":"KING",
-                "suit":"DIAMOND",
-                "cardState":"FACE_UP",
-                "fullName":"King Of Diamonds",
-                "color":"RED",
-                "black":false,
-                "red":true,
-                "shortName":"K-D",
-                "faceDown":false,
-                "faceUp":true
-            }
+            ]
         },
         "REGULAR_4":{
             "cards":[
                 {
-                    "rank":"FIVE",
-                    "suit":"DIAMOND",
+                    "rank":"NINE",
+                    "suit":"HEARTS",
                     "cardState":"FACE_DOWN",
-                    "fullName":"Five Of Diamonds",
+                    "fullName":"Nine Of Hearts",
                     "color":"RED",
-                    "black":false,
-                    "red":true,
-                    "shortName":"5-D",
-                    "faceDown":true,
-                    "faceUp":false
+                    "shortName":"9-H"
                 },
                 {
-                    "rank":"QUEEN",
-                    "suit":"DIAMOND",
+                    "rank":"SEVEN",
+                    "suit":"CLUBS",
                     "cardState":"FACE_DOWN",
-                    "fullName":"Queen Of Diamonds",
-                    "color":"RED",
-                    "black":false,
-                    "red":true,
-                    "shortName":"Q-D",
-                    "faceDown":true,
-                    "faceUp":false
-                },
-                {
-                    "rank":"TEN",
-                    "suit":"CLUB",
-                    "cardState":"FACE_DOWN",
-                    "fullName":"Ten Of Clubs",
+                    "fullName":"Seven Of Clubs",
                     "color":"BLACK",
-                    "black":true,
-                    "red":false,
-                    "shortName":"10-C",
-                    "faceDown":true,
-                    "faceUp":false
+                    "shortName":"7-C"
                 },
                 {
-                    "rank":"QUEEN",
-                    "suit":"HEART",
+                    "rank":"JACK",
+                    "suit":"CLUBS",
+                    "cardState":"FACE_DOWN",
+                    "fullName":"Jack Of Clubs",
+                    "color":"BLACK",
+                    "shortName":"J-C"
+                },
+                {
+                    "rank":"NINE",
+                    "suit":"DIAMONDS",
                     "cardState":"FACE_UP",
-                    "fullName":"Queen Of Hearts",
+                    "fullName":"Nine Of Diamonds",
                     "color":"RED",
-                    "black":false,
-                    "red":true,
-                    "shortName":"Q-H",
-                    "faceDown":false,
-                    "faceUp":true
+                    "shortName":"9-D"
                 }
-            ],
-            "gameSpotType":"REGULAR",
-            "size":4,
-            "topCard":{
-                "rank":"QUEEN",
-                "suit":"HEART",
-                "cardState":"FACE_UP",
-                "fullName":"Queen Of Hearts",
-                "color":"RED",
-                "black":false,
-                "red":true,
-                "shortName":"Q-H",
-                "faceDown":false,
-                "faceUp":true
-            }
+            ]
+        },
+        "DISCARD":{
+            "cards":[
+
+            ]
         },
         "REGULAR_2":{
             "cards":[
                 {
-                    "rank":"THREE",
-                    "suit":"HEART",
+                    "rank":"SEVEN",
+                    "suit":"HEARTS",
                     "cardState":"FACE_DOWN",
-                    "fullName":"Three Of Hearts",
+                    "fullName":"Seven Of Hearts",
                     "color":"RED",
-                    "black":false,
-                    "red":true,
-                    "shortName":"3-H",
-                    "faceDown":true,
-                    "faceUp":false
+                    "shortName":"7-H"
                 },
                 {
-                    "rank":"ACE",
-                    "suit":"CLUB",
-                    "cardState":"FACE_UP",
-                    "fullName":"Ace Of Clubs",
-                    "color":"BLACK",
-                    "black":true,
-                    "red":false,
-                    "shortName":"A-C",
-                    "faceDown":false,
-                    "faceUp":true
-                }
-            ],
-            "gameSpotType":"REGULAR",
-            "size":2,
-            "topCard":{
-                "rank":"ACE",
-                "suit":"CLUB",
-                "cardState":"FACE_UP",
-                "fullName":"Ace Of Clubs",
-                "color":"BLACK",
-                "black":true,
-                "red":false,
-                "shortName":"A-C",
-                "faceDown":false,
-                "faceUp":true
-            }
-        },
-        "REGULAR_1":{
-            "cards":[
-                {
                     "rank":"NINE",
-                    "suit":"SPADE",
+                    "suit":"SPADES",
                     "cardState":"FACE_UP",
                     "fullName":"Nine Of Spades",
                     "color":"BLACK",
-                    "black":true,
-                    "red":false,
-                    "shortName":"9-S",
-                    "faceDown":false,
-                    "faceUp":true
+                    "shortName":"9-S"
                 }
-            ],
-            "gameSpotType":"REGULAR",
-            "size":1,
-            "topCard":{
-                "rank":"NINE",
-                "suit":"SPADE",
-                "cardState":"FACE_UP",
-                "fullName":"Nine Of Spades",
-                "color":"BLACK",
-                "black":true,
-                "red":false,
-                "shortName":"9-S",
-                "faceDown":false,
-                "faceUp":true
-            }
+            ]
         },
         "REGULAR_6":{
             "cards":[
                 {
-                    "rank":"KING",
-                    "suit":"SPADE",
+                    "rank":"FIVE",
+                    "suit":"SPADES",
                     "cardState":"FACE_DOWN",
-                    "fullName":"King Of Spades",
+                    "fullName":"Five Of Spades",
                     "color":"BLACK",
-                    "black":true,
-                    "red":false,
-                    "shortName":"K-S",
-                    "faceDown":true,
-                    "faceUp":false
+                    "shortName":"5-S"
                 },
                 {
-                    "rank":"FOUR",
-                    "suit":"HEART",
+                    "rank":"THREE",
+                    "suit":"SPADES",
                     "cardState":"FACE_DOWN",
-                    "fullName":"Four Of Hearts",
-                    "color":"RED",
-                    "black":false,
-                    "red":true,
-                    "shortName":"4-H",
-                    "faceDown":true,
-                    "faceUp":false
-                },
-                {
-                    "rank":"TEN",
-                    "suit":"SPADE",
-                    "cardState":"FACE_DOWN",
-                    "fullName":"Ten Of Spades",
+                    "fullName":"Three Of Spades",
                     "color":"BLACK",
-                    "black":true,
-                    "red":false,
-                    "shortName":"10-S",
-                    "faceDown":true,
-                    "faceUp":false
-                },
-                {
-                    "rank":"QUEEN",
-                    "suit":"SPADE",
-                    "cardState":"FACE_DOWN",
-                    "fullName":"Queen Of Spades",
-                    "color":"BLACK",
-                    "black":true,
-                    "red":false,
-                    "shortName":"Q-S",
-                    "faceDown":true,
-                    "faceUp":false
+                    "shortName":"3-S"
                 },
                 {
                     "rank":"SIX",
-                    "suit":"DIAMOND",
+                    "suit":"DIAMONDS",
                     "cardState":"FACE_DOWN",
                     "fullName":"Six Of Diamonds",
                     "color":"RED",
-                    "black":false,
-                    "red":true,
-                    "shortName":"6-D",
-                    "faceDown":true,
-                    "faceUp":false
+                    "shortName":"6-D"
+                },
+                {
+                    "rank":"KING",
+                    "suit":"HEARTS",
+                    "cardState":"FACE_DOWN",
+                    "fullName":"King Of Hearts",
+                    "color":"RED",
+                    "shortName":"K-H"
+                },
+                {
+                    "rank":"QUEEN",
+                    "suit":"CLUBS",
+                    "cardState":"FACE_DOWN",
+                    "fullName":"Queen Of Clubs",
+                    "color":"BLACK",
+                    "shortName":"Q-C"
+                },
+                {
+                    "rank":"TEN",
+                    "suit":"HEARTS",
+                    "cardState":"FACE_UP",
+                    "fullName":"Ten Of Hearts",
+                    "color":"RED",
+                    "shortName":"10-H"
+                }
+            ]
+        },
+        "RESOLUTION_SPADES":{
+            "cards":[
+
+            ]
+        },
+        "RESOLUTION_HEARTS":{
+            "cards":[
+
+            ]
+        },
+        "RESOLUTION_CLUBS":{
+            "cards":[
+
+            ]
+        },
+        "REGULAR_5":{
+            "cards":[
+                {
+                    "rank":"EIGHT",
+                    "suit":"DIAMONDS",
+                    "cardState":"FACE_DOWN",
+                    "fullName":"Eight Of Diamonds",
+                    "color":"RED",
+                    "shortName":"8-D"
                 },
                 {
                     "rank":"TWO",
-                    "suit":"CLUB",
-                    "cardState":"FACE_UP",
+                    "suit":"CLUBS",
+                    "cardState":"FACE_DOWN",
                     "fullName":"Two Of Clubs",
                     "color":"BLACK",
-                    "black":true,
-                    "red":false,
-                    "shortName":"2-C",
-                    "faceDown":false,
-                    "faceUp":true
+                    "shortName":"2-C"
+                },
+                {
+                    "rank":"JACK",
+                    "suit":"HEARTS",
+                    "cardState":"FACE_DOWN",
+                    "fullName":"Jack Of Hearts",
+                    "color":"RED",
+                    "shortName":"J-H"
+                },
+                {
+                    "rank":"ACE",
+                    "suit":"DIAMONDS",
+                    "cardState":"FACE_DOWN",
+                    "fullName":"Ace Of Diamonds",
+                    "color":"RED",
+                    "shortName":"A-D"
+                },
+                {
+                    "rank":"JACK",
+                    "suit":"DIAMONDS",
+                    "cardState":"FACE_UP",
+                    "fullName":"Jack Of Diamonds",
+                    "color":"RED",
+                    "shortName":"J-D"
                 }
-            ],
-            "gameSpotType":"REGULAR",
-            "size":6,
-            "topCard":{
-                "rank":"TWO",
-                "suit":"CLUB",
-                "cardState":"FACE_UP",
-                "fullName":"Two Of Clubs",
-                "color":"BLACK",
-                "black":true,
-                "red":false,
-                "shortName":"2-C",
-                "faceDown":false,
-                "faceUp":true
-            }
+            ]
+        },
+        "REGULAR_7":{
+            "cards":[
+                {
+                    "rank":"QUEEN",
+                    "suit":"HEARTS",
+                    "cardState":"FACE_DOWN",
+                    "fullName":"Queen Of Hearts",
+                    "color":"RED",
+                    "shortName":"Q-H"
+                },
+                {
+                    "rank":"THREE",
+                    "suit":"CLUBS",
+                    "cardState":"FACE_DOWN",
+                    "fullName":"Three Of Clubs",
+                    "color":"BLACK",
+                    "shortName":"3-C"
+                },
+                {
+                    "rank":"EIGHT",
+                    "suit":"SPADES",
+                    "cardState":"FACE_DOWN",
+                    "fullName":"Eight Of Spades",
+                    "color":"BLACK",
+                    "shortName":"8-S"
+                },
+                {
+                    "rank":"TWO",
+                    "suit":"DIAMONDS",
+                    "cardState":"FACE_DOWN",
+                    "fullName":"Two Of Diamonds",
+                    "color":"RED",
+                    "shortName":"2-D"
+                },
+                {
+                    "rank":"FIVE",
+                    "suit":"CLUBS",
+                    "cardState":"FACE_DOWN",
+                    "fullName":"Five Of Clubs",
+                    "color":"BLACK",
+                    "shortName":"5-C"
+                },
+                {
+                    "rank":"TEN",
+                    "suit":"DIAMONDS",
+                    "cardState":"FACE_DOWN",
+                    "fullName":"Ten Of Diamonds",
+                    "color":"RED",
+                    "shortName":"10-D"
+                },
+                {
+                    "rank":"ACE",
+                    "suit":"SPADES",
+                    "cardState":"FACE_UP",
+                    "fullName":"Ace Of Spades",
+                    "color":"BLACK",
+                    "shortName":"A-S"
+                }
+            ]
+        },
+        "DRAW":{
+            "cards":[
+                {
+                    "rank":"TEN",
+                    "suit":"CLUBS",
+                    "cardState":"FACE_DOWN",
+                    "fullName":"Ten Of Clubs",
+                    "color":"BLACK",
+                    "shortName":"10-C"
+                },
+                {
+                    "rank":"THREE",
+                    "suit":"HEARTS",
+                    "cardState":"FACE_DOWN",
+                    "fullName":"Three Of Hearts",
+                    "color":"RED",
+                    "shortName":"3-H"
+                },
+                {
+                    "rank":"SEVEN",
+                    "suit":"DIAMONDS",
+                    "cardState":"FACE_DOWN",
+                    "fullName":"Seven Of Diamonds",
+                    "color":"RED",
+                    "shortName":"7-D"
+                },
+                {
+                    "rank":"FOUR",
+                    "suit":"HEARTS",
+                    "cardState":"FACE_DOWN",
+                    "fullName":"Four Of Hearts",
+                    "color":"RED",
+                    "shortName":"4-H"
+                },
+                {
+                    "rank":"EIGHT",
+                    "suit":"CLUBS",
+                    "cardState":"FACE_DOWN",
+                    "fullName":"Eight Of Clubs",
+                    "color":"BLACK",
+                    "shortName":"8-C"
+                },
+                {
+                    "rank":"JACK",
+                    "suit":"SPADES",
+                    "cardState":"FACE_DOWN",
+                    "fullName":"Jack Of Spades",
+                    "color":"BLACK",
+                    "shortName":"J-S"
+                },
+                {
+                    "rank":"SIX",
+                    "suit":"CLUBS",
+                    "cardState":"FACE_DOWN",
+                    "fullName":"Six Of Clubs",
+                    "color":"BLACK",
+                    "shortName":"6-C"
+                },
+                {
+                    "rank":"TWO",
+                    "suit":"SPADES",
+                    "cardState":"FACE_DOWN",
+                    "fullName":"Two Of Spades",
+                    "color":"BLACK",
+                    "shortName":"2-S"
+                },
+                {
+                    "rank":"NINE",
+                    "suit":"CLUBS",
+                    "cardState":"FACE_DOWN",
+                    "fullName":"Nine Of Clubs",
+                    "color":"BLACK",
+                    "shortName":"9-C"
+                },
+                {
+                    "rank":"SIX",
+                    "suit":"SPADES",
+                    "cardState":"FACE_DOWN",
+                    "fullName":"Six Of Spades",
+                    "color":"BLACK",
+                    "shortName":"6-S"
+                },
+                {
+                    "rank":"ACE",
+                    "suit":"CLUBS",
+                    "cardState":"FACE_DOWN",
+                    "fullName":"Ace Of Clubs",
+                    "color":"BLACK",
+                    "shortName":"A-C"
+                },
+                {
+                    "rank":"ACE",
+                    "suit":"HEARTS",
+                    "cardState":"FACE_DOWN",
+                    "fullName":"Ace Of Hearts",
+                    "color":"RED",
+                    "shortName":"A-H"
+                },
+                {
+                    "rank":"KING",
+                    "suit":"CLUBS",
+                    "cardState":"FACE_DOWN",
+                    "fullName":"King Of Clubs",
+                    "color":"BLACK",
+                    "shortName":"K-C"
+                },
+                {
+                    "rank":"TWO",
+                    "suit":"HEARTS",
+                    "cardState":"FACE_DOWN",
+                    "fullName":"Two Of Hearts",
+                    "color":"RED",
+                    "shortName":"2-H"
+                },
+                {
+                    "rank":"FOUR",
+                    "suit":"SPADES",
+                    "cardState":"FACE_DOWN",
+                    "fullName":"Four Of Spades",
+                    "color":"BLACK",
+                    "shortName":"4-S"
+                },
+                {
+                    "rank":"KING",
+                    "suit":"SPADES",
+                    "cardState":"FACE_DOWN",
+                    "fullName":"King Of Spades",
+                    "color":"BLACK",
+                    "shortName":"K-S"
+                },
+                {
+                    "rank":"FIVE",
+                    "suit":"DIAMONDS",
+                    "cardState":"FACE_DOWN",
+                    "fullName":"Five Of Diamonds",
+                    "color":"RED",
+                    "shortName":"5-D"
+                },
+                {
+                    "rank":"FIVE",
+                    "suit":"HEARTS",
+                    "cardState":"FACE_DOWN",
+                    "fullName":"Five Of Hearts",
+                    "color":"RED",
+                    "shortName":"5-H"
+                },
+                {
+                    "rank":"EIGHT",
+                    "suit":"HEARTS",
+                    "cardState":"FACE_DOWN",
+                    "fullName":"Eight Of Hearts",
+                    "color":"RED",
+                    "shortName":"8-H"
+                },
+                {
+                    "rank":"THREE",
+                    "suit":"DIAMONDS",
+                    "cardState":"FACE_DOWN",
+                    "fullName":"Three Of Diamonds",
+                    "color":"RED",
+                    "shortName":"3-D"
+                },
+                {
+                    "rank":"SEVEN",
+                    "suit":"SPADES",
+                    "cardState":"FACE_DOWN",
+                    "fullName":"Seven Of Spades",
+                    "color":"BLACK",
+                    "shortName":"7-S"
+                },
+                {
+                    "rank":"FOUR",
+                    "suit":"DIAMONDS",
+                    "cardState":"FACE_DOWN",
+                    "fullName":"Four Of Diamonds",
+                    "color":"RED",
+                    "shortName":"4-D"
+                },
+                {
+                    "rank":"SIX",
+                    "suit":"HEARTS",
+                    "cardState":"FACE_DOWN",
+                    "fullName":"Six Of Hearts",
+                    "color":"RED",
+                    "shortName":"6-H"
+                },
+                {
+                    "rank":"KING",
+                    "suit":"DIAMONDS",
+                    "cardState":"FACE_DOWN",
+                    "fullName":"King Of Diamonds",
+                    "color":"RED",
+                    "shortName":"K-D"
+                }
+            ]
+        },
+        "REGULAR_1":{
+            "cards":[
+                {
+                    "rank":"QUEEN",
+                    "suit":"DIAMONDS",
+                    "cardState":"FACE_UP",
+                    "fullName":"Queen Of Diamonds",
+                    "color":"RED",
+                    "shortName":"Q-D"
+                }
+            ]
         }
     };
 
     app.value('mockGame', {
-        "id":"1",
+        "id":"0",
+        "RESOLUTION_SPADES":{
+            "cards":[
+
+            ]
+        },
+        "REGULAR_7":{
+            "cards":[
+
+            ]
+        },
+        "REGULAR_1":{
+            "cards":[
+
+            ]
+        },
+        "REGULAR_2":{
+            "cards":[
+
+            ]
+        },
+        "DISCARD":{
+            "cards":[
+
+            ]
+        },
+        "RESOLUTION_CLUBS":{
+            "cards":[
+
+            ]
+        },
+        "REGULAR_4":{
+            "cards":[
+
+            ]
+        },
+        "RESOLUTION_HEARTS":{
+            "cards":[
+
+            ]
+        },
+        "REGULAR_6":{
+            "cards":[
+
+            ]
+        },
+        "RESOLUTION_DIAMONDS":{
+            "cards":[
+
+            ]
+        },
+        "REGULAR_3":{
+            "cards":[
+
+            ]
+        },
         "REGULAR_5":{
             "cards":[
 
-            ],
-            "gameSpotType":"REGULAR",
-            "size":0,
-            "topCard":null
+            ]
         },
         "DRAW":{
             "cards":[
                 {
                     "rank":"ACE",
-                    "suit":"HEART",
-                    "cardState":"FACE_DOWN",
+                    "suit":"HEARTS",
+                    "cardState":"FACE_UP",
                     "fullName":"Ace Of Hearts",
                     "color":"RED",
-                    "black":false,
-                    "red":true,
-                    "shortName":"A-H",
-                    "faceDown":false,
-                    "faceUp":true
+                    "shortName":"A-H"
                 },
                 {
                     "rank":"ACE",
-                    "suit":"SPADE",
-                    "cardState":"FACE_DOWN",
+                    "suit":"SPADES",
+                    "cardState":"FACE_UP",
                     "fullName":"Ace Of Spades",
                     "color":"BLACK",
-                    "black":true,
-                    "red":false,
-                    "shortName":"A-S",
-                    "faceDown":false,
-                    "faceUp":true
+                    "shortName":"A-S"
                 }
-            ],
-            "gameSpotType":"DRAW",
-            "size":2,
-            "topCard":{
-                "rank":"ACE",
-                "suit":"SPADE",
-                "cardState":"FACE_UP",
-                "fullName":"Ace Of Spades",
-                "color":"BLACK",
-                "black":true,
-                "red":false,
-                "shortName":"A-S",
-                "faceDown":false,
-                "faceUp":true
-            }
-        },
-        "REGULAR_4":{
-            "cards":[
-
-            ],
-            "gameSpotType":"REGULAR",
-            "size":0,
-            "topCard":null
-        },
-        "REGULAR_6":{
-            "cards":[
-
-            ],
-            "gameSpotType":"REGULAR",
-            "size":0,
-            "topCard":null
-        },
-        "REGULAR_1":{
-            "cards":[
-
-            ],
-            "gameSpotType":"REGULAR",
-            "size":0,
-            "topCard":null
-        },
-        "RESOLUTION_HEARTS":{
-            "cards":[
-
-            ],
-            "gameSpotType":"RESOLUTION",
-            "size":0,
-            "topCard":null
-        },
-        "RESOLUTION_SPADE":{
-            "cards":[
-
-            ],
-            "gameSpotType":"RESOLUTION",
-            "size":0,
-            "topCard":null
-        },
-        "RESOLUTION_DIAMONDS":{
-            "cards":[
-
-            ],
-            "gameSpotType":"RESOLUTION",
-            "size":0,
-            "topCard":null
-        },
-        "REGULAR_3":{
-            "cards":[
-
-            ],
-            "gameSpotType":"REGULAR",
-            "size":0,
-            "topCard":null
-        },
-        "RESOLUTION_CLUB":{
-            "cards":[
-
-            ],
-            "gameSpotType":"RESOLUTION",
-            "size":0,
-            "topCard":null
-        },
-        "REGULAR_7":{
-            "cards":[
-
-            ],
-            "gameSpotType":"REGULAR",
-            "size":0,
-            "topCard":null
-        },
-        "DISCARD":{
-            "cards":[
-
-            ],
-            "gameSpotType":"DISCARD",
-            "size":0,
-            "topCard":null
-        },
-        "REGULAR_2":{
-            "cards":[
-
-            ],
-            "gameSpotType":"REGULAR",
-            "size":0,
-            "topCard":null
+            ]
         }
     });
 
