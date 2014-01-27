@@ -38,39 +38,31 @@
        self.resetDrawDeck = function(){
             var discardPile = self.getDiscardPile();
             var drawPile = self.getDrawPile();
+
             app.isBlankCard(drawPile.getTopCard());
+
             while(discardPile.getCards().length !== 0){
                 var card = discardPile.getCards().pop();
                 card.turnFaceDown();
                 drawPile.addCard(card);
             };
-
-        }
+        };
 
         self.moveTopCardToResolutionPile = function(pile){
+
             var topCard = pile.getTopCard();
+
             if(app.isBlankCard(topCard)){
                 return;
             }
+
             if(app.isFaceDown(topCard)){
                 return;
             }
 
             var toPile;
-            switch (topCard.getSuit()){
-                case 'HEARTS':
-                    toPile = self.getPile('RESOLUTION_HEARTS');
-                    break;
-                case 'CLUBS':
-                    toPile = self.getPile('RESOLUTION_CLUBS');
-                    break;
-                case 'DIAMONDS':
-                    toPile = self.getPile('RESOLUTION_DIAMONDS');
-                    break;
-                case 'SPADES':
-                    toPile = self.getPile('RESOLUTION_SPADES');
-                    break;
-            }
+            toPile = self.getPile('RESOLUTION_' + topCard.getSuit());
+
             toPile.addCard(topCard);
             pile.removeCard(topCard);
         };
@@ -81,7 +73,7 @@
 
         self.getDiscardPile = function(){
             return self.getPile('DISCARD');
-        }
+        };
 
         self.getHome = function(){
 
@@ -93,15 +85,6 @@
             }
 
             return homePiles;
-        };
-
-        self.getLibrary = function(){
-            if(libraryPiles.length == 0){
-                libraryPiles.push(self.getPile('DRAW'));
-                libraryPiles.push(self.getPile('DISCARD'));
-            }
-
-            return libraryPiles;
         };
 
         self.getPlayArea = function(){
@@ -129,7 +112,7 @@
             }
 
             if(possiblePileToReturn === 0){
-                throw error('We cannnot seem to locate the pile named: ' + name);
+                throw Error('We cannot seem to locate the pile named: ' + name);
             }
 
             return possiblePileToReturn[0];
@@ -233,6 +216,7 @@
                 css = nameArray[0].toLowerCase();
                 css = 'card ' + css + capFirstLetter(nameArray[1]) + nameArray[2];
             }
+
             if(self.isFaceDown()){
                 css = 'card faceDown';
             }
@@ -292,6 +276,6 @@
     app.Pile = Pile;
 
     app.factory('gameResource', ['$resource', 'rawGame', 'mockGame', '_', GameResource]);
-    app.factory('solitaireDataService', ['gameResource', "_", SolitaireDataService]);
+    app.factory('solitaireDataService', ['gameResource', SolitaireDataService]);
 
 })(solitaire);
