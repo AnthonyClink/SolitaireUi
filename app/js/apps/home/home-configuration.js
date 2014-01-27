@@ -4,8 +4,15 @@
         url: '/',
         views: {
             header: {templateUrl: 'views/home/header.html'},
-            content: {controller: 'homeController', templateUrl: 'views/home/goals.html'},
+            content: {templateUrl: 'views/home/goals.html'},
             menu: {templateUrl: 'views/home/menu.html'}
+        }
+    }});
+
+    app.addUiRouteConfiguration({name: 'home.todos', config:{
+        url:'todos',
+        views:{
+            'content@':{templateUrl: 'views/home/todos.html'}
         }
     }});
 

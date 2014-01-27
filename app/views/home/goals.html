@@ -1,11 +1,28 @@
-<h3>Goals:</h3>
+<h6 style="color: red">Please note that the ui is no where near complete... this boxed in single column layout is only for testing purposes</h6>
+<h3>Steve, Anthony - Why did you decide to build Solitaire?</h3>
 <p>
     We are attempting to build a fluid rest platform jam packed full of features for data
-    analysis with some fun easy APIs for push notifications and customer data gathering.
+    analysis with some fun easy APIs for handling complex data structures from a web service.
 </p>
 <p>
-    For both Steve and I, this is a new endevor. We are attempting to create a platform that is completly java se compliant
-    utilizing as close to pure jsr standard API's to create a rich set of features to allow easy creation of complex data gathering
+    For both Steve and I, this is all new. I am a professional developer, but have never created something truly from scratch.
+    <br />
+    We are attempting to create a platform that is completely Java SE compliant
+    <br />The features we hope to include in the overall platform are:
+
+    <ul>
+        <li>No XML configuration beyond a few simple POM's and a very trivial web.xml file</li>
+        <li>No complex wiring of common services</li>
+        <li>Fully testable complete with all current test driven methodologies</li>
+        <li>Complete separation between the ui and the API for ClinkWorks product</li>
+        <li>Out of the box polygot database support</li>
+        <li>Generated UI</li>
+        <li>Annotation based event API</li>
+        <li>Annotation based business rule engine</li>
+        <li>Annotation based API security administration</li>
+    </ul>
+
+    We are going to attempt to accomplish this feat utilizing as close to pure jsr standard API's to create very simple platform with a rich set of standards compliant features to allow easy creation of complex user centric data management systems.
     systems.
     <br />
     We hope that you enjoy our first project and please feel free to message us at any time.
@@ -16,23 +33,23 @@
 </p>
 
 <p>
-    For those of you interested, heres the overall archetecture for the platform:
+    For those of you interested, here is an overview of the overall architecture for the platform:
 
     <h4>Server</h4>
     <ul>
-        <li>RESTFul java api using the JAX-RS API through the implementation Jersey</li>
-        <li>Object to relational data mapping provided through the Java Persistence API via Apache OpenJPA</li>
-        <li>Object serialization/desearlization provided through the JAXB API via Jackson</li>
+        <li>RESTful services are provided through the JAX-RS API through the reference implementation Jersey</li>
+        <li>Object to relational data mapping provided through the Java Persistence API via the reference implementation Apache OpenJPA</li>
+        <li>Object serialization/deserialization provided through the JAXB API via the Jackson Object Serialization API</li>
         <li>Configuration and dependency management provided through JSR-299 via Google Guice</li>
         <li>Collections management provided by Google Guava</li>
     </ul>
     <h4>Client</h4>
-<ul>
-    <li>MVC provided by Angular</li>
-    <li>Object serialization/deserliazation provided through Angular.$Resource</li>
-    <li>Data binding provided by Angular</li>
-    <li>REST API management provided by Angular.$Resource</li>
-    <li>Collections management provided by LoDash via a custom angular service</li>
-    <li>REST/UI management done via a custom data api</li>
-</ul>
+    <ul>
+        <li>MVC provided by Angular</li>
+        <li>Object serialization/deserliazation provided through Angular.$Resource</li>
+        <li>Data binding provided by Angular</li>
+        <li>REST API management provided by Angular.$Resource</li>
+        <li>Collections management provided by LoDash via a custom angular service</li>
+        <li>REST/UI management done via a custom data api</li>
+    </ul>
 </p>
