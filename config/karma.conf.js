@@ -10,9 +10,9 @@ module.exports = function(config){
       'app/js/apps/platform/solitaire-platform.js',
       'app/js/util/lodash-service.js',
       'app/js/apps/game/solitaire-data-access-api',
-      'app/js/apps/game/game-value.js',
-      'app/js/apps/game/game-configuration.js',
-      'app/js/apps/game/game-controller.js',
+      '../app/js/apps/game/solitaire-value-objects.js',
+      '../app/js/apps/game/solitaire-configuration.js',
+      '../app/js/apps/game/solitaire-controller.js',
       'app/js/app.js',
       'app/js/**/*.js',
       'test/unit/**/*.js'
