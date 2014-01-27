@@ -31,5 +31,41 @@
             </li>
             <li><span>Implement win screen</span></li>
         </ul>
+
+        <p style="font-weight: bold;">For those of you interested, here is an overview of the overall architecture for the platform:</p>
+
+        <h4>Server</h4>
+        <ul style="color: #009999;">
+            <li>RESTful services are provided through the JAX-RS API through the reference implementation Jersey</li>
+            <li>Object to relational data mapping provided through the Java Persistence API via the reference implementation Apache OpenJPA</li>
+            <li>Object serialization/deserialization provided through the JAXB API via the Jackson Object Serialization API</li>
+            <li>Configuration and dependency management provided through JSR-299 via Google Guice</li>
+            <li>Collections management provided by Google Guava</li>
+            <li>Build Management - Maven</li>
+            <li>Continuous Build Server - Jenkins</li>
+            <li>Project management and task tracking Kanbanize (free and awesome btw - lacking features but has enough for a 2 man team)</li>
+            <li>Project hosting by Amazon EC2 Cloud</li>
+            <li>Development Server - Jetty</li>
+            <li>Development Database - H2</li>
+            <li>Production Server - Tomcat</li>
+            <li>Production Database - PostgreSQL</li>
+            <li>TDD software - JUnit</li>
+            <li>Mock framework - JMockIt</li>
+        </ul>
+        <h4>Client</h4>
+        <ul style="color: #009999;">
+            <li>Production Server - Apache Server</li>
+            <li>Test Server - Karma</li>
+            <li>MVC provided by Angular</li>
+            <li>Object serialization/deserialization provided through Angular.$resource</li>
+            <li>Data binding provided by Angular</li>
+            <li>REST API management provided by Angular.$resource</li>
+            <li>Collections management provided by LoDash via a ClinkWorks Service</li>
+            <li>SERVER/UI Data Management done via a ClinkWorks domain model</li>
+            <li>Build Management - Grunt</li>
+            <li>TDD software - Jasmine</li>
+            <li>Dependency Management - NPM</li>
+            <li>Mock Framework - Angular.$mock</li>
+        </ul>
     </li>
 </ul>

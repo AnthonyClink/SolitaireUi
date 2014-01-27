@@ -2,36 +2,6 @@
 <h3 style="padding-left: 20px">Steve, Anthony - Why did you decide to build Solitaire?</h3>
 
 <dl style="padding-left: 20px">
-    <dt>Why did we go down the path of building solitaire</dt>
-    <dd>
-            <p>
-                <p>For both Steve and I, we wanted to see if we can build a solid API for implementing ... something...</p>
-                <p>We experimented with several pretty neat ideas, and decided on the features we needed so support.</p>
-                <p>Once we had the feature list, the rest fell into place quite nicely.</p>
-                <p>The first thing we did was decide what technologies we needed to support as API providers
-                    and we needed to decided exactly how we were going to treat the api as far as testing.</p>
-                <p>The next step we took was evaluate early on how we were going to support the test piramid</p>
-                <p>After a few months of research and building prototypes we settled on the current technology suite we are are currently supporting with v.0.0.1 - SNAPSHOT of  the solitaire rest api</p>
-                <p>After that, we dove into learning the typical application stack for javascript developers. <br />
-                    Steve is a new Developer, and ive never written front end javascript. So we had a huge learning curve to overcome when it came to the UI
-                    luckly due to previous Node.JS experience and Angulars amazing documentation, we decided on the front end api approach.</p>
-
-                 <p>
-                     So for a few months, Steve and I spent time learning and prototyping out these various technologies and decided it was
-                     time to apply our knowledge and start building this platform.</p>
-
-                <p class="lead" style="padding-left: 20px;">
-                    THUS <span style="font-weight: bold">DUN DUN DUNNNNN!!!<br />
-                    <span style="font-weight: bolder"> - Solitaire - </span></span>
-                </p>
-            </p>
-            <p>
-                This platform is <span style="font-style: italic">supposed</span> to be a full featured and
-                fluid rest platform that happens to be jam packed full of features for data
-                analysis including some fun and easy APIs for handling complex data structures not only to and from a web service, but to other protocols and messaging systems.
-            </p>
-
-    </dd>
     <dt>So what we are actually building here?</dt>
     <dd>
         <div style="padding-left: 25px;">
@@ -60,20 +30,21 @@
         </div>
     </dd>
     <dt>The features we hope to include in the overall platform are:</dt>
-    <dd></dd>
-
+    <dd>
         <ul>
             <li>No XML configuration beyond a few simple POM's and a very trivial web.xml file</li>
             <li>No complex wiring of common services</li>
-            <li><span style="font-weight: bold;">Fully testable, fully tested</span><ul>
-                <li>Easy unit testability</li>
-                <li>Configurability of "Test Environments"</li>
-                <li>Separation between system integration tests and external integration tests</li>
-                <li>Easy configuration of complex test scenarios</li>
-                <li>Easy configuration of complex system integration scenarios</li>
-                <li>Custom REST test framework</li>
-                <li>Custom system integration test runner</li>
-            </ul></li>
+            <li><span style="font-weight: bold;">Fully testable, fully tested</span>
+                <ul>
+                    <li>Easy unit testability</li>
+                    <li>Configurability of "Test Environments"</li>
+                    <li>Separation between system integration tests and external integration tests</li>
+                    <li>Easy configuration of complex test scenarios</li>
+                    <li>Easy configuration of complex system integration scenarios</li>
+                    <li>Custom REST test framework</li>
+                    <li>Custom system integration test runner</li>
+                </ul>
+            </li>
             <li>Complete separation between internal ClinkWorks API and consumers (including internal)</li>
             <li>Out of the box polygot database support</li>
             <li>Generated UI using a combination of LowDash Node.JS and Angular.$resource</li>
@@ -81,51 +52,44 @@
             <li>Annotation based business rule engine</li>
             <li>Annotation based API security administration</li>
         </ul>
+    </dd>
+    <dt>Why did we go down the path of building solitaire</dt>
+    <dd>
+        <p>
+        <p>For both Steve and I, we wanted to see if we can build a solid API for implementing ... something...</p>
+        <p>We experimented with several pretty neat ideas, and decided on the features we needed so support.</p>
+        <p>Once we had the feature list, the rest fell into place quite nicely.</p>
+        <p>
+            The first thing we did was decide what technologies we needed to support as API providers
+            and we needed to decided exactly how we were going to treat the api as far as testing.
+        </p>
+        <p>The next step we took was evaluate early on how we were going to support the test piramid</p>
+        <p>After a few months of research and building prototypes we settled on the current technology suite we are are currently supporting with v.0.0.1 - SNAPSHOT of  the solitaire rest api</p>
+        <p>
+        <p>After that, we dove into learning the typical application stack for javascript developers.</p>
+        <p>
+            Steve is a new Developer, and ive never written front end javascript. So we had a huge learning curve to overcome when it came to the UI
+            luckly due to previous Node.JS experience and AngularJS' amazing documentation, we decided on the front end api approach.
+        </p>
+        <p>
+            So for a few months, Steve and I spent time learning and prototyping out these various technologies and decided it was
+            time to apply our knowledge and start building this platform.
+        </p>
 
-    </ul>
+        <p class="lead" style="padding-left: 20px;">
+            THUS <span style="font-weight: bold">DUN DUN DUNNNNN!!!<br />
+                    <span style="font-weight: bolder"> - Solitaire - </span></span>
+        </p>
+
+    </dd>
 
 
-    <p>We hope that you enjoy our first project and please feel free to message us at any time.</p>
-
-    <p>
-        Anthony: AnthonyJClink@gmail.com<br />
-        Steve: designatnight1@gmail.com<br />
-    </p>
-
-    <p style="font-weight: bold;">For those of you interested, here is an overview of the overall architecture for the platform:</p>
-
-    <h4>Server</h4>
-    <ul style="color: #009999;">
-        <li>RESTful services are provided through the JAX-RS API through the reference implementation Jersey</li>
-        <li>Object to relational data mapping provided through the Java Persistence API via the reference implementation Apache OpenJPA</li>
-        <li>Object serialization/deserialization provided through the JAXB API via the Jackson Object Serialization API</li>
-        <li>Configuration and dependency management provided through JSR-299 via Google Guice</li>
-        <li>Collections management provided by Google Guava</li>
-        <li>Build Management - Maven</li>
-        <li>Continuous Build Server - Jenkins</li>
-        <li>Project management and task tracking Kanbanize (free and awesome btw - lacking features but has enough for a 2 man team)</li>
-        <li>Project hosting by Amazon EC2 Cloud</li>
-        <li>Development Server - Jetty</li>
-        <li>Development Database - H2</li>
-        <li>Production Server - Tomcat</li>
-        <li>Production Database - PostgreSQL</li>
-        <li>TDD software - JUnit</li>
-        <li>Mock framework - JMockIt</li>
-    </ul>
-    <h4>Client</h4>
-    <ul style="color: #009999;">
-        <li>Production Server - Apache Server</li>
-        <li>Test Server - Karma</li>
-        <li>MVC provided by Angular</li>
-        <li>Object serialization/deserialization provided through Angular.$resource</li>
-        <li>Data binding provided by Angular</li>
-        <li>REST API management provided by Angular.$resource</li>
-        <li>Collections management provided by LoDash via a ClinkWorks Service</li>
-        <li>SERVER/UI Data Management done via a ClinkWorks domain model</li>
-        <li>Build Management - Grunt</li>
-        <li>TDD software - Jasmine</li>
-        <li>Dependency Management - NPM</li>
-        <li>Mock Framework - Angular.$mock</li>
-    </ul>
+    <dt>We hope that you enjoy our first project and please feel free to message us at any time.</dt>
+    <dd>
+        <div style="color: #009999;">
+            Anthony: AnthonyJClink@gmail.com<br />
+            Steve: designatnight1@gmail.com<br />
+        </div>
+    </dd>
 </dl>
 </div>
