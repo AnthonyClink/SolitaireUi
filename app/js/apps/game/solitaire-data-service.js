@@ -1,5 +1,6 @@
 (function(app){
-    var resource, _;
+    var resource, _,
+        rawCardData = [];
 
     var Table = function(rawGame){
         var self = {};
@@ -148,13 +149,16 @@
        };
 
        self.addCard = function(card){
+           rawData.cards.push(_.filter(rawCardData, {card:card})[0].rawData);
            cards.push(card);
        };
 
        self.removeCard = function(card){
+
            var index = cards.indexOf(card);
            if(index != -1) {
                cards.splice(index, 1);
+               rawData.cards.splice(index, 1);
            }
        };
 
@@ -168,6 +172,8 @@
     var Card = function(rawCard){
         var self = {},
             rawData = rawCard;
+
+
 
         self.getRank = function(){
             return rawData.rank;
@@ -223,6 +229,8 @@
 
             return css;
         };
+
+        rawCardData.push({card:self, rawData:rawData});
 
         return self;
     };
