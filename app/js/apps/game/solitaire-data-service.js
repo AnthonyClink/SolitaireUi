@@ -215,12 +215,14 @@
     }
 
     var GameResource = function($resource, rawGame, mockGame, __){
+
         var self = {};
+
         _ = __;
+
         self.GET = function(id){
             return mockGame;
         };
-
 
       return self;
     };
