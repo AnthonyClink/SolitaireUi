@@ -46,10 +46,10 @@
         self.getHome = function(){
 
             if(homePiles.length == 0){
-                homePiles.push(self.getPile('RESOLUTION_CLUB'));
+                homePiles.push(self.getPile('RESOLUTION_CLUBS'));
                 homePiles.push(self.getPile('RESOLUTION_HEARTS'));
                 homePiles.push(self.getPile('RESOLUTION_DIAMONDS'));
-                homePiles.push(self.getPile('RESOLUTION_SPADE'));
+                homePiles.push(self.getPile('RESOLUTION_SPADES'));
             }
 
             return homePiles;
