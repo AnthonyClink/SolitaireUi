@@ -13,7 +13,7 @@
                     >&nbsp;</div>
                 </div>
                 <div class="col-sm-1">
-                    <div class="{{discardPile.getTopCard().getCSS()}}">&nbsp;</div>
+                    <div ng-dblclick="moveTopCardToResolutionPile(discardPile)" class="{{discardPile.getTopCard().getCSS()}}">&nbsp;</div>
                 </div>
                 <div class="col-sm-1">
                     <button ng-click="resetDrawPile()" type="button">Reset Draw Pile</button>
@@ -29,7 +29,7 @@
 
         <div class="row">
             <div id="solitaire-play-area">
-                <div class="col-sm-1" ng-repeat="pile in game.getPlayArea()">
+                <div class="col-sm-1" ng-dblclick="moveTopCardToResolutionPile(pile)" ng-repeat="pile in game.getPlayArea()">
                     <div ng-hide="pile.getCards().length !== 0">
                         <div class="card blankOfCard"></div>
                     </div>

@@ -19,6 +19,17 @@ var solitaire = (function(ng){
                 $rootScope.$stateParams = $stateParams;
             }]);
 
+    ui.isBlankCard = function(card){
+        if(!card){
+            return true;
+        }
+        return card.getRank() === 'BLANK';
+    }
+
+    ui.isFaceDown = function(card){
+        return card.isFaceDown();
+    }
+
     //expose helper functions to namespace
     ui.addUiRouteConfiguration = addUiRouteConfiguration;
     ui.getConfigs = getConfigs;
