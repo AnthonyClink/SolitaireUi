@@ -1,16 +1,38 @@
 <h3>Goals:</h3>
 <p>
-    The goals of this platform is to provide an easy means of demoing Nike Platform api's. <br />
-    We as API developers do not get alot of contact with the clients of our API and this platform is an attempt
-    to give an easy way to view and sample Nike Platform services.
+    We are attempting to build a fluid rest platform jam packed full of features for data
+    analysis with some fun easy APIs for push notifications and customer data gathering.
+</p>
+<p>
+    For both Steve and I, this is a new endevor. We are attempting to create a platform that is completly java se compliant
+    utilizing as close to pure jsr standard API's to create a rich set of features to allow easy creation of complex data gathering
+    systems.
+    <br />
+    We hope that you enjoy our first project and please feel free to message us at any time.
+</p>
+<p>
+    Anthony: AnthonyJClink@gmail.com<br />
+    Steve: designatnight1@gmail.com<br />
 </p>
 
+<p>
+    For those of you interested, heres the overall archetecture for the platform:
 
-<form>
-    First name: <input type="text" ng-model="firstName"><br>
-    Last name: <input type="text" ng-model="lastName">
-    Sex (M/F):<input type="text" ng-model="sex">
-</form>
-<span>
-    {{firstName}} {{ lastName}} {{sex}}
-</span>
+    <h4>Server</h4>
+    <ul>
+        <li>RESTFul java api using the JAX-RS API through the implementation Jersey</li>
+        <li>Object to relational data mapping provided through the Java Persistence API via Apache OpenJPA</li>
+        <li>Object serialization/desearlization provided through the JAXB API via Jackson</li>
+        <li>Configuration and dependency management provided through JSR-299 via Google Guice</li>
+        <li>Collections management provided by Google Guava</li>
+    </ul>
+    <h4>Client</h4>
+<ul>
+    <li>MVC provided by Angular</li>
+    <li>Object serialization/deserliazation provided through Angular.$Resource</li>
+    <li>Data binding provided by Angular</li>
+    <li>REST API management provided by Angular.$Resource</li>
+    <li>Collections management provided by LoDash via a custom angular service</li>
+    <li>REST/UI management done via a custom data api</li>
+</ul>
+</p>

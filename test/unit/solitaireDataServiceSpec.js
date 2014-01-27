@@ -4,18 +4,21 @@
 
 describe('The Solitaire Data Service', function(){
 
-    var service;
+    var service, dataApi, gameResource;
 
     beforeEach(function(){
-        var gameResource = {};
+        gameResource = {},
+            dataApi = new solitaire.DataAccessAPI(new solitaire.__());
 
         solitaire.testGame = solitaire.createRawGame();
+
+
 
         gameResource.GET = function(id){
           return solitaire.testGame;
         };
 
-        service = new solitaire.SolitaireDataService(gameResource, new solitaire.__());
+        service = new solitaire.SolitaireDataService(gameResource, dataApi);
     });
 
 

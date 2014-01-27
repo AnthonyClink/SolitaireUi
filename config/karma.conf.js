@@ -9,6 +9,7 @@ module.exports = function(config){
       'app/lib/lodash.js',
       'app/js/apps/platform/solitaire-platform.js',
       'app/js/util/lodash-service.js',
+      'app/js/apps/game/solitaire-data-access-api',
       'app/js/apps/game/game-value.js',
       'app/js/apps/game/game-configuration.js',
       'app/js/apps/game/game-controller.js',

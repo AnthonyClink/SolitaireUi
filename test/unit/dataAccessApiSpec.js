@@ -4,10 +4,14 @@
 
 describe('The Data Access API', function(){
 
-    var _;
+    var _, Card, Pile, Table, dataApi;
 
     beforeEach(function(){
         _ = new solitaire.__();
+        dataApi = new solitaire.DataAccessAPI(_);
+        Card = dataApi.Card;
+        Pile = dataApi.Pile;
+        Table = dataApi.Table;
         //note this line is just to get the closure to have lodash without relying on angular
         new solitaire.GameResource(null,null, null, _);
     });
@@ -15,7 +19,7 @@ describe('The Data Access API', function(){
 
     describe('The Card Data API', function() {
        it('should accept raw data in the json format the server is expected to deliver', function(){
-          var card = new solitaire.Card(getJsonDataForFaceUpAceOfSpades());
+          var card = new Card(getJsonDataForFaceUpAceOfSpades());
 
           expect(card.getSuit()).toBe('SPADES');
           expect(card.getRank()).toBe('ACE');
@@ -29,7 +33,7 @@ describe('The Data Access API', function(){
 
       it('should be able to properly manipulate the state of the raw data and handle the changes', function(){
           var json = getJsonDataForFaceDownAceOfSpades();
-          var card = new solitaire.Card(json);
+          var card = new Card(json);
           expect(card.getCSS()).toBe('card faceDown');
           expect(json.cardState).toBe('FACE_DOWN');
           expect(card.turnFaceUp().isFaceUp()).toBe(true);
@@ -40,7 +44,7 @@ describe('The Data Access API', function(){
 
     describe('The Pile Data API', function(){
       it('should be able to properly accept raw json data for an empty pile', function(){
-          var pile = new solitaire.Pile('DRAW', getJsonDataForAnEmptyPile());
+          var pile = new Pile('DRAW', getJsonDataForAnEmptyPile());
           expect(pile.getCards().length).toBe(0);
           expect(pile.getName()).toBe('DRAW');
           expect(pile.getTopCard().getRank()).toBe('BLANK');
@@ -49,8 +53,8 @@ describe('The Data Access API', function(){
 
       it('should be able to properly manipulate the state of the raw data and handle the changes', function(){
          var json = getJsonDataForAnEmptyPile();
-         var pile = new solitaire.Pile('DRAW', json);
-         var ace = new solitaire.Card(getJsonDataForFaceUpAceOfSpades());
+         var pile = new Pile('DRAW', json);
+         var ace = new Card(getJsonDataForFaceUpAceOfSpades());
          pile.addCard(ace);
          expect(json.cards[0].rank).toBe('ACE');
          expect(json.cards[0].suit).toBe('SPADES');
@@ -70,7 +74,7 @@ describe('The Data Access API', function(){
         it('should be able to take in game data and represent that data through the table api', function(){
             var json = getJsonDataForAnEmptyFullyInitalizedTable();
 
-            var table = new solitaire.Table(json);
+            var table = new Table(json);
 
             _.forEach(solitaire.PILE_NAMES, function(elm){
                var pile = table.getPile(elm);
@@ -83,9 +87,9 @@ describe('The Data Access API', function(){
         it('should be able to update the raw json of the game through the data api', function(){
            var json = getJsonDataForAnEmptyFullyInitalizedTable();
 
-           var table = new solitaire.Table(json);
+           var table = new Table(json);
 
-           var card = new solitaire.Card(getJsonDataForFaceDownAceOfSpades());
+           var card = new Card(getJsonDataForFaceDownAceOfSpades());
 
            var drawPile = table.getPile('DRAW');
 
@@ -102,7 +106,7 @@ describe('The Data Access API', function(){
 
         it('should provide functionality drawing cards and adding them to the discard pile face up', function(){
             var json = getJsonDataForAGameSetupWithAFaceDownAceInTheDrawPile();
-            var table = new solitaire.Table(json);
+            var table = new Table(json);
 
             var drawPile = table.getPile('DRAW');
             var discardPile = table.getPile('DISCARD');
@@ -119,7 +123,7 @@ describe('The Data Access API', function(){
 
         it('should provide functionality to moving the top card of a pile to the correct resolution pile', function(){
             var json = getJsonDataForAGameSetupWithAFaceUpAceInTheDiscardPile();
-            var table = new solitaire.Table(json);
+            var table = new Table(json);
             table.moveTopCardToResolutionPile(table.getPile('DISCARD'));
             expect(json.RESOLUTION_SPADES.cards.length).toBe(1);
             expect(json.DISCARD.cards.length).toBe(0);
@@ -127,7 +131,7 @@ describe('The Data Access API', function(){
 
         it('should provide the ability to reset the cards in the discard deck, in proper order, to the draw deck', function(){
             var json = getJsonDataForAGameSetupWithTwoFaceDownAcesInTheDrawPile();
-            var table = new solitaire.Table(json);
+            var table = new Table(json);
             var drawPile = table.getPile('DRAW');
             var discardPile = table.getPile('DISCARD');
 
@@ -163,13 +167,13 @@ describe('The Data Access API', function(){
              id:"0",
              DRAW : {cards:[]}
            };
-           var table = new solitaire.Table(json);
+           var table = new Table(json);
            expect(function(){table.getPile('DISCARD');}).toThrow();
         });
 
         it('should cause no error when draw card is called with an empty draw pile', function(){
            var json = getJsonDataForAnEmptyFullyInitalizedTable();
-           var table = new solitaire.Table(json);
+           var table = new Table(json);
 
            table.drawCard();
             //assuring no exception is thrown... not sure how to create assserts for this in jasmine.
@@ -180,7 +184,7 @@ describe('The Data Access API', function(){
 
         it('should cause no error when move to resolution pile has no target top card', function(){
             var json = getJsonDataForAnEmptyFullyInitalizedTable();
-            var table = new solitaire.Table(json);
+            var table = new Table(json);
 
             table.moveTopCardToResolutionPile(table.getDiscardPile());
 
@@ -195,7 +199,7 @@ describe('The Data Access API', function(){
 
         it('should provide no error when reset is called without data in the piles', function(){
            var json = getJsonDataForAnEmptyFullyInitalizedTable();
-           var table = new solitaire.Table(json);
+           var table = new Table(json);
            table.resetLibrary();
             _.forEach(solitaire.PILE_NAMES, function(name){
                 expect(table.getPile(name).getCards().length).toBe(0);

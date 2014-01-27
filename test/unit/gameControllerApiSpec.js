@@ -4,14 +4,14 @@
 
 describe('The Solitaire Game Controller', function(){
 
-    var controller, _, scope, dataService, log, json;
+    var controller, _, scope, dataAccessApi, dataService, log, json;
 
     beforeEach(function(){
         scope = {},
             dataService = {},
-            log = {};
-
-        _ = new solitaire.__();
+            log = {},
+            _ = new solitaire.__(),
+            dataAccessApi = new solitaire.DataAccessAPI(_);
 
         log.info = function(message){
             //write to nothing... no need to clog up the log files or console
@@ -21,8 +21,8 @@ describe('The Solitaire Game Controller', function(){
         solitaire.testGame = json;
 
         dataService.getGame = function(){
-            return new solitaire.Table(json);
-        }
+            return new dataAccessApi.Table(json);
+        };
 
         controller = new solitaire.GameController(scope, log, _, dataService);
     });
