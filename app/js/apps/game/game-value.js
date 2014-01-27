@@ -544,7 +544,7 @@
                 {
                     "rank":"ACE",
                     "suit":"HEARTS",
-                    "cardState":"FACE_UP",
+                    "cardState":"FACE_DOWN",
                     "fullName":"Ace Of Hearts",
                     "color":"RED",
                     "shortName":"A-H"
@@ -552,7 +552,7 @@
                 {
                     "rank":"ACE",
                     "suit":"SPADES",
-                    "cardState":"FACE_UP",
+                    "cardState":"FACE_DOWN",
                     "fullName":"Ace Of Spades",
                     "color":"BLACK",
                     "shortName":"A-S"

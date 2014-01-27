@@ -21,7 +21,7 @@
 
         self.drawCard = function(){
 
-            if(self.getDrawPile().length === 0){
+            if(self.getDrawPile().getTopCard().getRank() === 'BLANK'){
                 return;
             }
 
@@ -34,6 +34,46 @@
             discardPile.addCard(card);
 
         }
+
+       self.resetDrawDeck = function(){
+            var discardPile = self.getDiscardPile();
+            var drawPile = self.getDrawPile();
+            app.isBlankCard(drawPile.getTopCard());
+            while(discardPile.getCards().length !== 0){
+                var card = discardPile.getCards().pop();
+                card.turnFaceDown();
+                drawPile.addCard(card);
+            };
+
+        }
+
+        self.moveTopCardToResolutionPile = function(pile){
+            var topCard = pile.getTopCard();
+            if(app.isBlankCard(topCard)){
+                return;
+            }
+            if(app.isFaceDown(topCard)){
+                return;
+            }
+
+            var toPile;
+            switch (topCard.getSuit()){
+                case 'HEARTS':
+                    toPile = self.getPile('RESOLUTION_HEARTS');
+                    break;
+                case 'CLUBS':
+                    toPile = self.getPile('RESOLUTION_CLUBS');
+                    break;
+                case 'DIAMONDS':
+                    toPile = self.getPile('RESOLUTION_DIAMONDS');
+                    break;
+                case 'SPADES':
+                    toPile = self.getPile('RESOLUTION_SPADES');
+                    break;
+            }
+            toPile.addCard(topCard);
+            pile.removeCard(topCard);
+        };
 
         self.getDrawPile = function(){
             return self.getPile('DRAW');
@@ -53,6 +93,15 @@
             }
 
             return homePiles;
+        };
+
+        self.getLibrary = function(){
+            if(libraryPiles.length == 0){
+                libraryPiles.push(self.getPile('DRAW'));
+                libraryPiles.push(self.getPile('DISCARD'));
+            }
+
+            return libraryPiles;
         };
 
         self.getPlayArea = function(){
@@ -206,12 +255,14 @@
     }
 
     var GameResource = function($resource, rawGame, mockGame, __){
-        var self = {};
-        _ = __;
-        self.GET = function(id){
-            return mockGame;
-        };
 
+        var self = {};
+
+        _ = __;
+
+        self.GET = function(id){
+            return rawGame;
+        };
 
       return self;
     };
