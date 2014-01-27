@@ -8,7 +8,7 @@ describe('The Data Access API', function(){
 
     beforeEach(function(){
         _ = new solitaire.__();
-        //note this line is just to get the closure to have underscore without relying on angular
+        //note this line is just to get the closure to have lodash without relying on angular
         new solitaire.GameResource(null,null, null, _);
     });
 
