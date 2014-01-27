@@ -216,7 +216,12 @@
       return self;
     };
 
-    var SolitaireDataService = function(gameResource){
+    var SolitaireDataService = function(gameResource, __){
+
+        if(!_){
+            _ = __;
+        }
+
         var self = {};
         self.getGame = function(){
             return new Table(gameResource.GET(0));
@@ -228,7 +233,14 @@
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
 
+    app.GameResource = GameResource;
+    app.SolitaireDataService = SolitaireDataService;
+    app.BlankCard = BlankCard;
+    app.Card = Card;
+    app.Table = Table;
+    app.Pile = Pile;
+
     app.factory('gameResource', ['$resource', 'rawGame', 'mockGame', '_', GameResource]);
-    app.factory('solitaireDataService', ['gameResource', SolitaireDataService]);
+    app.factory('solitaireDataService', ['gameResource', "_", SolitaireDataService]);
 
 })(solitaire);

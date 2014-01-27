@@ -560,7 +560,6 @@
             ]
         }
     });
-
+    app.testGame = game;
     app.value('rawGame', game);
-
 })(solitaire);
