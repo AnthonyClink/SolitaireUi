@@ -36,14 +36,15 @@
 
         }
 
-       self.resetDrawDeck = function(){
+       self.resetLibrary = function(){
             var discardPile = self.getDiscardPile();
             var drawPile = self.getDrawPile();
 
             app.isBlankCard(drawPile.getTopCard());
 
             while(discardPile.getCards().length !== 0){
-                var card = discardPile.getCards().pop();
+                var card = discardPile.getTopCard();
+                discardPile.removeCard(card);
                 card.turnFaceDown();
                 drawPile.addCard(card);
             };
@@ -108,11 +109,7 @@
                 return name === pile.getName();
             });
 
-            if(possiblePileToReturn > 1){
-                throw Error('For some reason you have more than 1 pile named: ' + name);
-            }
-
-            if(possiblePileToReturn === 0){
+            if(possiblePileToReturn.length === 0){
                 throw Error('We cannot seem to locate the pile named: ' + name);
             }
 

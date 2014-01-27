@@ -16,7 +16,7 @@
                     <div ng-dblclick="moveTopCardToResolutionPile(discardPile)" class="{{discardPile.getTopCard().getCSS()}}">&nbsp;</div>
                 </div>
                 <div class="col-sm-1">
-                    <button ng-click="resetDrawPile()" type="button">Reset Draw Pile</button>
+                    <button ng-click="resetLibrary()" type="button">Reset Draw Pile</button>
                 </div>
                 <div class="col-sm-1" ng-repeat="pile in game.getHome()">
                     <div class="{{pile.getTopCard().getCSS()}}">&nbsp;</div>

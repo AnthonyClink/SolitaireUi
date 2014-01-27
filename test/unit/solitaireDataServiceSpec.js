@@ -2,7 +2,7 @@
 
 /* jasmine specs for controllers go here */
 
-describe('The Game Service ', function(){
+describe('The Solitaire Data Service', function(){
 
     var service;
 
@@ -17,7 +17,8 @@ describe('The Game Service ', function(){
     });
 
 
-    it('should contain access to the game data', function() {
+    it('should be able to provide access to the Data Access API', function() {
+        var gameJson = solitaire.testGame;
         var gameBoard = service.getGame();
         expect(gameBoard).toBeDefined();
         expect(gameBoard.getDrawPile().getCards().length).toBe(24);
@@ -30,6 +31,10 @@ describe('The Game Service ', function(){
         expect(lastPileCards.length).toBe(7);
         expect(lastPileCards[0].isFaceDown()).toBe(true);
         expect(lastPileCards[6].isFaceUp()).toBe(true);
+
+        gameBoard.drawCard();
+
+        expect(gameJson.DRAW.cards.length).toBe(23);
     });
 
 });

@@ -560,6 +560,48 @@
             ]
         }
     });
+
+    var LIBRARY_PILE_NAMES = [
+        'DRAW',
+        'DISCARD'
+    ];
+
+    var RESOLUTION_PILE_NAMES = [
+        'RESOLUTION_CLUBS',
+        'RESOLUTION_HEARTS',
+        'RESOLUTION_SPADES',
+        'RESOLUTION_CLUBS'
+    ];
+
+    var PLAY_AREA_PILE_NAMES = [
+        'REGULAR_1',
+        'REGULAR_2',
+        'REGULAR_3',
+        'REGULAR_4',
+        'REGULAR_5',
+        'REGULAR_6',
+        'REGULAR_7'
+    ];
+
+    var PILE_NAMES = [];
+
+    var _ = new app.__();
+
+    _.forEach(LIBRARY_PILE_NAMES, function(elm){PILE_NAMES.push(elm)});
+    _.forEach(RESOLUTION_PILE_NAMES, function(elm){PILE_NAMES.push(elm)});
+    _.forEach(PLAY_AREA_PILE_NAMES, function(elm){PILE_NAMES.push(elm)});
+
+    app.constant('LIBRARY_PILE_NAMES', LIBRARY_PILE_NAMES);
+    app.constant('RESOLUTION_PILE_NAMES', RESOLUTION_PILE_NAMES);
+    app.constant('PLAY_AREA_PILE_NAMES', PLAY_AREA_PILE_NAMES);
+    app.constant('PILE_NAMES', PILE_NAMES);
+
+    app.PILE_NAMES = PILE_NAMES;
+    app.PLAY_AREA_PILE_NAMES = PLAY_AREA_PILE_NAMES;
+    app.LIBRARY_PILE_NAMES = LIBRARY_PILE_NAMES;
+    app.RESOLUTION_PILE_NAMES = RESOLUTION_PILE_NAMES;
+
     app.testGame = game;
     app.value('rawGame', game);
+
 })(solitaire);
