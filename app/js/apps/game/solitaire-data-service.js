@@ -1,14 +1,14 @@
 (function(app){
-    var resource, _,
+    var resource,
+        _,
         rawCardData = [];
 
     var Table = function(rawGame){
-        var self = {};
-        var piles = [];
-        var rawData = rawGame;
-
-        var homePiles = [];
-        var playAreaPiles = [];
+        var self = {},
+            piles = [],
+            rawData = rawGame,
+            homePiles = [],
+            playAreaPiles = [];
 
         function createPile(name, pile){
             return new Pile(name, pile);
@@ -17,7 +17,7 @@
         _.forOwn(rawData, function(pile, name){
             if(name[0] !== '$' && name !== 'id'){
                 piles.push(createPile(name, pile));
-            };
+            }
         });
 
         self.drawCard = function(){
@@ -34,7 +34,7 @@
             drawPile.removeCard(card);
             discardPile.addCard(card);
 
-        }
+        };
 
        self.resetLibrary = function(){
             var discardPile = self.getDiscardPile();
@@ -47,7 +47,8 @@
                 discardPile.removeCard(card);
                 card.turnFaceDown();
                 drawPile.addCard(card);
-            };
+            }
+
         };
 
         self.moveTopCardToResolutionPile = function(pile){
@@ -227,21 +228,24 @@
             return css;
         };
 
+        self.getShortName = function(){
+            return rawData.shortName;
+        };
+
         rawCardData.push({card:self, rawData:rawData});
 
         return self;
     };
 
     var BlankCard = function(){
-        var self = new Card({
+        return new Card({
             "rank":"BLANK",
             "suit":"CARD",
             "cardState":"FACE_UP",
             "fullName":"Blank Of Card",
             "color": undefined
         });
-        return self;
-    }
+    };
 
     var GameResource = function($resource, rawGame, mockGame, __){
 
@@ -256,11 +260,7 @@
       return self;
     };
 
-    var SolitaireDataService = function(gameResource, __){
-
-        if(!_){
-            _ = __;
-        }
+    var SolitaireDataService = function(gameResource){
 
         var self = {};
         self.getGame = function(){

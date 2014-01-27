@@ -9,6 +9,8 @@ describe('The Solitaire Data Service', function(){
     beforeEach(function(){
         var gameResource = {};
 
+        solitaire.testGame = solitaire.createRawGame();
+
         gameResource.GET = function(id){
           return solitaire.testGame;
         };
