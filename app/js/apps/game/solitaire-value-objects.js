@@ -572,7 +572,7 @@
         'RESOLUTION_CLUBS',
         'RESOLUTION_HEARTS',
         'RESOLUTION_SPADES',
-        'RESOLUTION_CLUBS'
+        'RESOLUTION_DIAMONDS'
     ];
 
     var PLAY_AREA_PILE_NAMES = [

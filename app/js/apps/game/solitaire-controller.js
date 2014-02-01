@@ -11,7 +11,6 @@
 
         info('preparing data manipulation api for use in the ui: ');
         var game = solitaireDataService.getGame();
-
         _.forEach(solitaire.PILE_NAMES, function(name){
             info('Prepared data for ' + name + ': ' + _.map(game.getPile(name).getCards(), function(card){
                 return '{' + (card.isFaceDown() ? "F-D" : card.getShortName()) + '}';
@@ -28,7 +27,7 @@
 
     function info(message){
         log.info(logName + message);
-    }
+    };
 
     //make constructor accessible via the solitare namespace
     app.GameController = GameController;

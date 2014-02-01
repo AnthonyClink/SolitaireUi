@@ -121,12 +121,48 @@ describe('The Data Access API', function(){
             expect(discardPile.getCards()[0].isFaceUp()).toBe(true);
         });
 
-        it('should provide functionality to moving the top card of a pile to the correct resolution pile', function(){
-            var json = getJsonDataForAGameSetupWithAFaceUpAceInTheDiscardPile();
+        it('should provide functionality to moving a spade of a pile to the correct resolution pile', function(){
+            var json = getJsonDataForAnEmptyFullyInitalizedTable();
             var table = new Table(json);
+            table.getDiscardPile().addCard(new Card(createFaceUpCard('ACE', 'SPADES')));
             table.moveTopCardToResolutionPile(table.getPile('DISCARD'));
             expect(json.RESOLUTION_SPADES.cards.length).toBe(1);
             expect(json.DISCARD.cards.length).toBe(0);
+            expect(table.getPile('RESOLUTION_SPADES').getCards().length).toBe(1);
+        });
+
+        it('should provide functionality to moving a diamond of a pile to the correct resolution pile', function(){
+            var json = getJsonDataForAnEmptyFullyInitalizedTable();
+            var table = new Table(json);
+            table.getDiscardPile().addCard(new Card(createFaceUpCard('ACE', 'DIAMONDS')));
+            table.moveTopCardToResolutionPile(table.getPile('DISCARD'));
+            expect(json.RESOLUTION_DIAMONDS.cards.length).toBe(1);
+            expect(json.DISCARD.cards.length).toBe(0);
+            expect(table.getPile('RESOLUTION_DIAMONDS').getCards().length).toBe(1);
+        });
+
+        it('should provide functionality to moving a clubs of a pile to the correct resolution pile', function(){
+            var json = getJsonDataForAnEmptyFullyInitalizedTable();
+            var table = new Table(json);
+            table.getDiscardPile().addCard(new Card(createFaceUpCard('ACE', 'CLUBS')));
+            table.moveTopCardToResolutionPile(table.getPile('DISCARD'));
+            expect(json.RESOLUTION_CLUBS.cards.length).toBe(1);
+            expect(json.DISCARD.cards.length).toBe(0);
+            expect(table.getPile('RESOLUTION_CLUBS').getCards().length).toBe(1);
+        });
+
+        it('should provide functionality to moving a heart of a pile to the correct resolution pile', function(){
+            var json = getJsonDataForAnEmptyFullyInitalizedTable();
+            var table = new Table(json);
+            table.getDiscardPile().addCard(new Card(createFaceUpCard('ACE', 'HEARTS')));
+            table.moveTopCardToResolutionPile(table.getPile('DISCARD'));
+            expect(json.RESOLUTION_HEARTS.cards.length).toBe(1);
+            expect(json.DISCARD.cards.length).toBe(0);
+            expect(table.getPile('RESOLUTION_HEARTS').getCards().length).toBe(1);
+        });
+
+        it('should provide the resolution piles in the same order every get', function(){
+
         });
 
         it('should provide the ability to reset the cards in the discard deck, in proper order, to the draw deck', function(){
@@ -208,6 +244,19 @@ describe('The Data Access API', function(){
 
     });
 
+    function createFaceUpCard(rank, suit){
+        var card = getJsonDataForFaceUpAceOfSpades();
+        card.rank = rank;
+        card.suit = suit;
+        return card;
+    }
+
+    function createFaceDownCard(rank, suit){
+        var card = getJsonDataForFaceDownAceOfSpades();
+        card.rank = rank;
+        card.suit = suit;
+        return card;
+    }
 
     function getJsonDataForAGameSetupWithTwoFaceDownAcesInTheDrawPile(){
         var tableData = getJsonDataForAnEmptyFullyInitalizedTable();
