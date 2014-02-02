@@ -4,7 +4,7 @@
 
 describe('The Data Access API', function(){
 
-    var _, Card, Pile, Table, dataApi;
+    var _, Card, Pile, Table, dataApi, testData;
 
     beforeEach(function(){
         _ = new solitaire.__();
@@ -12,100 +12,109 @@ describe('The Data Access API', function(){
         Card = dataApi.Card;
         Pile = dataApi.Pile;
         Table = dataApi.Table;
+        testData = solitaire.testJson;
         //note this line is just to get the closure to have lodash without relying on angular
         new solitaire.GameResource(null,null, null, _);
     });
 
 
     describe('The Card Data API', function() {
-       it('should accept raw data in the json format the server is expected to deliver', function(){
-          var card = new Card(getJsonDataForFaceUpAceOfSpades());
+        it('should accept raw data in the json format the server is expected to deliver', function(){
+            var card = new Card(testData.getJsonDataForFaceUpAceOfSpades());
 
-          expect(card.getSuit()).toBe('SPADES');
-          expect(card.getRank()).toBe('ACE');
-          expect(card.isFaceDown()).toBe(false);
-          expect(card.isFaceUp()).toBe(true);
-          expect(card.isRed()).toBe(false);
-          expect(card.isBlack()).toBe(true);
-          expect(card.getCSS()).toBe('card aceOfSpades');
+            expect(card.getSuit()).toBe('SPADES');
+            expect(card.getRank()).toBe('ACE');
+            expect(card.isFaceDown()).toBe(false);
+            expect(card.isFaceUp()).toBe(true);
+            expect(card.isRed()).toBe(false);
+            expect(card.isBlack()).toBe(true);
+            expect(card.getCSS()).toBe('card aceOfSpades');
 
-       });
+        });
 
-      it('should be able to properly manipulate the state of the raw data and handle the changes', function(){
-          var json = getJsonDataForFaceDownAceOfSpades();
-          var card = new Card(json);
-          expect(card.getCSS()).toBe('card faceDown');
-          expect(json.cardState).toBe('FACE_DOWN');
-          expect(card.turnFaceUp().isFaceUp()).toBe(true);
-          expect(json.cardState).toBe('FACE_UP');
-          expect(card.getCSS()).toBe('card aceOfSpades');
-      })
+        it('should be able to properly manipulate the state of the raw data and handle the changes', function(){
+            var json = testData.getJsonDataForFaceDownAceOfSpades();
+            var card = new Card(json);
+            expect(card.getCSS()).toBe('card faceDown');
+            expect(json.cardState).toBe('FACE_DOWN');
+            expect(card.turnFaceUp().isFaceUp()).toBe(true);
+            expect(json.cardState).toBe('FACE_UP');
+            expect(card.getCSS()).toBe('card aceOfSpades');
+        })
     });
 
     describe('The Pile Data API', function(){
-      it('should be able to properly accept raw json data for an empty pile', function(){
-          var pile = new Pile('DRAW', getJsonDataForAnEmptyPile());
-          expect(pile.getCards().length).toBe(0);
-          expect(pile.getName()).toBe('DRAW');
-          expect(pile.getTopCard().getRank()).toBe('BLANK');
-          expect(pile.isEmpty()).toBe(true);
-      });
+        it('should be able to properly accept raw json data for an empty pile', function(){
+            var pile = new Pile('DRAW', testData.getJsonDataForAnEmptyPile());
+            expect(pile.getCards().length).toBe(0);
+            expect(pile.getName()).toBe('DRAW');
+            expect(pile.getTopCard().getRank()).toBe('BLANK');
+            expect(pile.isEmpty()).toBe(true);
+        });
 
-      it('should be able to properly manipulate the state of the raw data and handle the changes', function(){
-         var json = getJsonDataForAnEmptyPile();
-         var pile = new Pile('DRAW', json);
-         var ace = new Card(getJsonDataForFaceUpAceOfSpades());
-         pile.addCard(ace);
-         expect(json.cards[0].rank).toBe('ACE');
-         expect(json.cards[0].suit).toBe('SPADES');
-         expect(pile.getCards()[0]).toBe(ace);
-         expect(pile.getTopCard()).toBe(ace);
-         expect(pile.isEmpty()).toBe(false);
-         pile.removeCard(ace);
-         expect(pile.isEmpty()).toBe(true);
-         expect(pile.getTopCard().getRank()).toBe('BLANK');
-         expect(json.cards.length).toBe(0);
-      });
+        it('should be able to properly manipulate the state of the raw data and handle the changes', function(){
+            var json = testData.getJsonDataForAnEmptyPile();
+            var pile = new Pile('DRAW', json);
+            var ace = new Card(testData.getJsonDataForFaceUpAceOfSpades());
+            pile.addCard(ace);
+            expect(json.cards[0].rank).toBe('ACE');
+            expect(json.cards[0].suit).toBe('SPADES');
+            expect(pile.getCards()[0]).toBe(ace);
+            expect(pile.getTopCard()).toBe(ace);
+            expect(pile.isEmpty()).toBe(false);
+            pile.removeCard(ace);
+            expect(pile.isEmpty()).toBe(true);
+            expect(pile.getTopCard().getRank()).toBe('BLANK');
+            expect(json.cards.length).toBe(0);
+        });
+
+        it('should provide card index when given a card', function(){
+           var json = testData.getJsonDataForAnEmptyPile();
+            json.cards.push(testData.getJsonDataForFaceUpAceOfSpades());
+            var pile = new Pile('testPile', json);
+            var ace = pile.getTopCard();
+            expect(pile.getIndex(ace)).toBe(0);
+        });
 
     });
 
     describe('The Table Data API', function(){
 
         it('should be able to take in game data and represent that data through the table api', function(){
-            var json = getJsonDataForAnEmptyFullyInitalizedTable();
+            var json = testData.getJsonDataForAnEmptyFullyInitalizedTable();
 
             var table = new Table(json);
 
             _.forEach(solitaire.PILE_NAMES, function(elm){
-               var pile = table.getPile(elm);
-               expect(pile).toBeDefined();
-               expect(pile.getCards().length).toBe(0);
+                var pile = table.getPile(elm);
+                expect(pile).toBeDefined();
+                expect(pile.getCards().length).toBe(0);
             });
 
         });
 
         it('should be able to update the raw json of the game through the data api', function(){
-           var json = getJsonDataForAnEmptyFullyInitalizedTable();
+            var json = testData.getJsonDataForAnEmptyFullyInitalizedTable();
 
-           var table = new Table(json);
+            var table = new Table(json);
 
-           var card = new Card(getJsonDataForFaceDownAceOfSpades());
+            var card = new Card(testData.getJsonDataForFaceDownAceOfSpades());
 
-           var drawPile = table.getPile('DRAW');
+            var drawPile = table.getPile('DRAW');
 
             //note this is from the internal pile api, this is affecting the json passed into the table object
-           drawPile.addCard(card);
+            drawPile.addCard(card);
 
-           //test to ensure that the table json object gets the proper raw data update
-           //this is important when we gear up to send data to /solitaire/game/{id} - PUT
-           expect(json.DRAW.cards[0].rank).toBe('ACE');
-           expect(json.DRAW.cards[0].suit).toBe('SPADES');
-           expect(drawPile.getCards()[0].isFaceDown()).toBe(true);
+            //test to ensure that the table json object gets the proper raw data update
+            //this is important when we gear up to send data to /solitaire/game/{id} - PUT
+            expect(json.DRAW.cards[0].rank).toBe('ACE');
+            expect(json.DRAW.cards[0].suit).toBe('SPADES');
+            expect(drawPile.getCards()[0].isFaceDown()).toBe(true);
 
         });
 
         it('should provide functionality drawing cards and adding them to the discard pile face up', function(){
-            var json = getJsonDataForAGameSetupWithAFaceDownAceInTheDrawPile();
+            var json = testData.getJsonDataForAGameSetupWithAFaceDownAceInTheDrawPile();
             var table = new Table(json);
 
             var drawPile = table.getPile('DRAW');
@@ -122,9 +131,9 @@ describe('The Data Access API', function(){
         });
 
         it('should provide functionality to moving a spade of a pile to the correct resolution pile', function(){
-            var json = getJsonDataForAnEmptyFullyInitalizedTable();
+            var json = testData.getJsonDataForAnEmptyFullyInitalizedTable();
             var table = new Table(json);
-            table.getDiscardPile().addCard(new Card(createFaceUpCard('ACE', 'SPADES')));
+            table.getDiscardPile().addCard(new Card(testData.createFaceUpCard('ACE', 'SPADES')));
             table.moveTopCardToResolutionPile(table.getPile('DISCARD'));
             expect(json.RESOLUTION_SPADES.cards.length).toBe(1);
             expect(json.DISCARD.cards.length).toBe(0);
@@ -132,9 +141,9 @@ describe('The Data Access API', function(){
         });
 
         it('should provide functionality to moving a diamond of a pile to the correct resolution pile', function(){
-            var json = getJsonDataForAnEmptyFullyInitalizedTable();
+            var json = testData.getJsonDataForAnEmptyFullyInitalizedTable();
             var table = new Table(json);
-            table.getDiscardPile().addCard(new Card(createFaceUpCard('ACE', 'DIAMONDS')));
+            table.getDiscardPile().addCard(new Card(testData.createFaceUpCard('ACE', 'DIAMONDS')));
             table.moveTopCardToResolutionPile(table.getPile('DISCARD'));
             expect(json.RESOLUTION_DIAMONDS.cards.length).toBe(1);
             expect(json.DISCARD.cards.length).toBe(0);
@@ -142,9 +151,9 @@ describe('The Data Access API', function(){
         });
 
         it('should provide functionality to moving a clubs of a pile to the correct resolution pile', function(){
-            var json = getJsonDataForAnEmptyFullyInitalizedTable();
+            var json = testData.getJsonDataForAnEmptyFullyInitalizedTable();
             var table = new Table(json);
-            table.getDiscardPile().addCard(new Card(createFaceUpCard('ACE', 'CLUBS')));
+            table.getDiscardPile().addCard(new Card(testData.createFaceUpCard('ACE', 'CLUBS')));
             table.moveTopCardToResolutionPile(table.getPile('DISCARD'));
             expect(json.RESOLUTION_CLUBS.cards.length).toBe(1);
             expect(json.DISCARD.cards.length).toBe(0);
@@ -152,21 +161,17 @@ describe('The Data Access API', function(){
         });
 
         it('should provide functionality to moving a heart of a pile to the correct resolution pile', function(){
-            var json = getJsonDataForAnEmptyFullyInitalizedTable();
+            var json = testData.getJsonDataForAnEmptyFullyInitalizedTable();
             var table = new Table(json);
-            table.getDiscardPile().addCard(new Card(createFaceUpCard('ACE', 'HEARTS')));
+            table.getDiscardPile().addCard(new Card(testData.createFaceUpCard('ACE', 'HEARTS')));
             table.moveTopCardToResolutionPile(table.getPile('DISCARD'));
             expect(json.RESOLUTION_HEARTS.cards.length).toBe(1);
             expect(json.DISCARD.cards.length).toBe(0);
             expect(table.getPile('RESOLUTION_HEARTS').getCards().length).toBe(1);
         });
 
-        it('should provide the resolution piles in the same order every get', function(){
-
-        });
-
         it('should provide the ability to reset the cards in the discard deck, in proper order, to the draw deck', function(){
-            var json = getJsonDataForAGameSetupWithTwoFaceDownAcesInTheDrawPile();
+            var json = testData.getJsonDataForAGameSetupWithTwoFaceDownAcesInTheDrawPile();
             var table = new Table(json);
             var drawPile = table.getPile('DRAW');
             var discardPile = table.getPile('DISCARD');
@@ -199,19 +204,19 @@ describe('The Data Access API', function(){
         });
 
         it('should throw an error when a pile cannot be located', function(){
-           var json = {
-             id:"0",
-             DRAW : {cards:[]}
-           };
-           var table = new Table(json);
-           expect(function(){table.getPile('DISCARD');}).toThrow();
+            var json = {
+                id:"0",
+                DRAW : {cards:[]}
+            };
+            var table = new Table(json);
+            expect(function(){table.getPile('DISCARD');}).toThrow();
         });
 
         it('should cause no error when draw card is called with an empty draw pile', function(){
-           var json = getJsonDataForAnEmptyFullyInitalizedTable();
-           var table = new Table(json);
+            var json = testData.getJsonDataForAnEmptyFullyInitalizedTable();
+            var table = new Table(json);
 
-           table.drawCard();
+            table.drawCard();
             //assuring no exception is thrown... not sure how to create assserts for this in jasmine.
             _.forEach(solitaire.PILE_NAMES, function(name){
                 expect(table.getPile(name).getCards().length).toBe(0);
@@ -219,7 +224,7 @@ describe('The Data Access API', function(){
         });
 
         it('should cause no error when move to resolution pile has no target top card', function(){
-            var json = getJsonDataForAnEmptyFullyInitalizedTable();
+            var json = testData.getJsonDataForAnEmptyFullyInitalizedTable();
             var table = new Table(json);
 
             table.moveTopCardToResolutionPile(table.getDiscardPile());
@@ -227,16 +232,16 @@ describe('The Data Access API', function(){
             //assuring no exception is thrown... not sure how to create assserts for this in jasmine.
 
             _.forEach(solitaire.PILE_NAMES, function(name){
-               expect(table.getPile(name).getCards().length).toBe(0);
+                expect(table.getPile(name).getCards().length).toBe(0);
             });
 
 
         });
 
         it('should provide no error when reset is called without data in the piles', function(){
-           var json = getJsonDataForAnEmptyFullyInitalizedTable();
-           var table = new Table(json);
-           table.resetLibrary();
+            var json = testData.getJsonDataForAnEmptyFullyInitalizedTable();
+            var table = new Table(json);
+            table.resetLibrary();
             _.forEach(solitaire.PILE_NAMES, function(name){
                 expect(table.getPile(name).getCards().length).toBe(0);
             });
@@ -244,145 +249,4 @@ describe('The Data Access API', function(){
 
     });
 
-    function createFaceUpCard(rank, suit){
-        var card = getJsonDataForFaceUpAceOfSpades();
-        card.rank = rank;
-        card.suit = suit;
-        return card;
-    }
-
-    function createFaceDownCard(rank, suit){
-        var card = getJsonDataForFaceDownAceOfSpades();
-        card.rank = rank;
-        card.suit = suit;
-        return card;
-    }
-
-    function getJsonDataForAGameSetupWithTwoFaceDownAcesInTheDrawPile(){
-        var tableData = getJsonDataForAnEmptyFullyInitalizedTable();
-        tableData.DRAW.cards.push(getJsonDataForFaceDownAceOfSpades());
-        tableData.DRAW.cards.push(getJsonDataForFaceDownAceOfHearts());
-        return tableData;
-    }
-
-    function getJsonDataForAGameSetupWithAFaceDownAceInTheDrawPile(){
-        var tableData = getJsonDataForAnEmptyFullyInitalizedTable();
-        tableData.DRAW.cards.push(getJsonDataForFaceDownAceOfSpades());
-        return tableData;
-    }
-
-    function getJsonDataForAGameSetupWithAFaceUpAceInTheDiscardPile(){
-        var tableData = getJsonDataForAnEmptyFullyInitalizedTable();
-        tableData.DISCARD.cards.push(getJsonDataForFaceUpAceOfSpades());
-        return tableData;
-    }
-
-    function getJsonDataForAnEmptyFullyInitalizedTable(){
-        return {
-            "id":"0",
-            "RESOLUTION_SPADES":{
-            "cards":[
-
-            ]
-        },
-            "REGULAR_7":{
-            "cards":[
-
-            ]
-        },
-            "REGULAR_1":{
-            "cards":[
-
-            ]
-        },
-            "REGULAR_2":{
-            "cards":[
-
-            ]
-        },
-            "DISCARD":{
-            "cards":[
-
-            ]
-        },
-            "RESOLUTION_CLUBS":{
-            "cards":[
-
-            ]
-        },
-            "REGULAR_4":{
-            "cards":[
-
-            ]
-        },
-            "RESOLUTION_HEARTS":{
-            "cards":[
-
-            ]
-        },
-            "REGULAR_6":{
-            "cards":[
-
-            ]
-        },
-            "RESOLUTION_DIAMONDS":{
-            "cards":[
-
-            ]
-        },
-            "REGULAR_3":{
-            "cards":[
-
-            ]
-        },
-            "REGULAR_5":{
-            "cards":[
-
-            ]
-        },
-            "DRAW":{
-            "cards":[
-
-            ]
-        }
-       }
-    }
-
-    function getJsonDataForFaceDownAceOfSpades(){
-        return {
-            "rank":"ACE",
-            "suit":"SPADES",
-            "cardState":"FACE_DOWN",
-            "fullName":"Ace Of Spades",
-            "color":"BLACK",
-            "shortName":"A-S"
-        };
-    }
-
-    function getJsonDataForFaceDownAceOfHearts(){
-        return {
-            "rank":"ACE",
-            "suit":"HEARTS",
-            "cardState":"FACE_DOWN",
-            "fullName":"Ace Of Hearts",
-            "color":"RED",
-            "shortName":"A-H"
-        };
-    }
-
-
-    function getJsonDataForFaceUpAceOfSpades(){
-        return {
-            "rank":"ACE",
-            "suit":"SPADES",
-            "cardState":"FACE_UP",
-            "fullName":"Ace Of Spades",
-            "color":"BLACK",
-            "shortName":"A-S"
-        };
-    }
-
-    function getJsonDataForAnEmptyPile(){
-        return {"cards":[]};
-    }
 });

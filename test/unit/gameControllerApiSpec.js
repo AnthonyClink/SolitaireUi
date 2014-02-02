@@ -28,6 +28,8 @@ describe('The Solitaire Game Controller', function(){
     });
 
 
+
+
     it('should enable the scope to utilize the Data Access API', function() {
         var game = scope.game;
 

@@ -24,18 +24,20 @@ var solitaire = (function(ng){
             return true;
         }
         return card.getRank() === 'BLANK';
-    }
+    };
 
     ui.isFaceDown = function(card){
         return card.isFaceDown();
-    }
+    };
 
     //expose helper functions to namespace
     ui.addUiRouteConfiguration = addUiRouteConfiguration;
     ui.getConfigs = getConfigs;
+
     ui.capFirstLetter = function(string){
         return string.charAt(0).toUpperCase() + string.slice(1);
-    }
+    };
+
     return ui;
 //pass angular into the nikePlatform namespace
 })(angular);

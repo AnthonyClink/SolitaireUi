@@ -181,7 +181,14 @@
             return cards;
         };
 
+       self.getIndex = function(card){
+
+           return _.indexOf(cards, card);
+       };
+
+
         return self;
+
     };
 
     var Card = function(rawCard){
