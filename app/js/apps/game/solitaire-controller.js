@@ -12,9 +12,11 @@
 
         scope.selectedCard = null;
 
-        scope.inSelectedState = function(){
+        self.isCardSelected = function(){
             return selectedState;
-        };
+        }
+
+        scope.inSelectedState = self.isCardSelected;
 
         self.selectCard = function(pile, card){
             scope.selectedCard = card;
@@ -60,6 +62,16 @@
             }));
         });
 
+        function handleClick(pile, card){
+            if(clickToMoveHandler.isCardSelected()){
+                clickToMoveHandler.selectPile(pile);
+            }else{
+                clickToMoveHandler.selectCard(pile, card);
+            }
+        }
+
+        $scope.clickToMove = handleClick;
+
         $scope.game = game;
         $scope.drawPile = game.getPile('DRAW');
         $scope.discardPile = game.getPile('DISCARD');
@@ -89,7 +101,7 @@
     //make constructor accessible via the solitare namespace
     app.GameController = GameController;
     app.ClickToMoveHandler = ClickToMoveHandler;
-    app.controller('gameController', ['$scope', '$log', '_', 'clickToMoveHandler', 'solitaireDataService', GameController]);
+    app.controller('gameController', ['$scope', '$log', '_', 'solitaireDataService', GameController]);
 
     //this function is primarlarly for unit testing purposes. we need to find a better way to do this TODO: fix me
     app.setLoDash = function(__){
