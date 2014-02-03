@@ -19,6 +19,9 @@
         scope.inSelectedState = self.isCardSelected;
 
         self.selectCard = function(pile, card){
+            if(!card || card.getRank() === 'BLANK'){
+                return;
+            }
             scope.selectedCard = card;
             selectedState = true;
             scope.selectedPile = pile;
@@ -42,6 +45,12 @@
             scope.selectedPile = null;
 
         };
+
+        self.cancelEvent = function(){
+            selectedState = false;
+            scope.selectedCard = null;
+            scope.selectedPile = null;
+        }
 
         self.selectedState = selectedState;
 
@@ -75,8 +84,18 @@
         $scope.game = game;
         $scope.drawPile = game.getPile('DRAW');
         $scope.discardPile = game.getPile('DISCARD');
-        $scope.drawCard = game.drawCard;
-        $scope.resetLibrary = game.resetLibrary;
+        $scope.drawCard = function(){
+            if(clickToMoveHandler.isCardSelected()){
+                clickToMoveHandler.cancelEvent();
+            }
+            return game.drawCard();
+        }
+        $scope.resetLibrary = function(){
+            if(clickToMoveHandler.isCardSelected()){
+                clickToMoveHandler.cancelEvent();
+            }
+            return game.resetLibrary();
+        }
         $scope.moveTopCardToResolutionPile = game.moveTopCardToResolutionPile;
 
 

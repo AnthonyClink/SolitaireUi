@@ -57,6 +57,7 @@
             var discardPile = self.getDiscardPile();
             var drawPile = self.getDrawPile();
 
+
             app.isBlankCard(drawPile.getTopCard());
 
             while(discardPile.getCards().length !== 0){
