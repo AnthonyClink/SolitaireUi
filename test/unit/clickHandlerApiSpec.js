@@ -35,23 +35,22 @@ describe('The Click Handler API', function(){
     });
 
     it('responds to click events and allows the scope to be updated with selected state and provides scope with knowlege about the selected card', function(){
-        var card = faceUpAceOfSpades;
         var pile1 = new dataApi.Pile('testPile', testData.getJsonDataForAnEmptyPile());
-        pile1.addCard(card);
-        clickHandler.selectCard(pile1, card);
-        expect(scope.selectedCard).toBe(card);
+        pile1.addCard(faceUpAceOfSpades);
+        clickHandler.selectCard(pile1, faceUpAceOfSpades);
+        expect(scope.selectedCard).toBe(faceUpAceOfSpades);
         expect(scope.inSelectedState()).toBe(true);
     });
 
     it('should attempt to move the selected card to the newly selected pile', function(){
-        var card = faceUpAceOfSpades;
-        scope.selectedCard = card;
+
+        scope.selectedCard = faceUpAceOfSpades;
         clickHandler.selectedState = true;
 
         var selectedPile = new dataApi.Pile('testPile', testData.getJsonDataForAnEmptyPile());
         var targetPile = new dataApi.Pile('testPile2', testData.getJsonDataForAnEmptyPile());
 
-        selectedPile.addCard(card);
+        selectedPile.addCard(faceUpAceOfSpades);
 
         scope.selectedPile = selectedPile;
 
@@ -65,18 +64,16 @@ describe('The Click Handler API', function(){
     });
 
     it('should move all cards below the selected card to the new pile', function(){
-        var card = faceUpAceOfSpades;
-        var card2 = faceUpAceOfHearts;
 
-        scope.selectedCard = card;
+        scope.selectedCard = faceUpAceOfSpades;
         clickHandler.selectedState = true;
 
         var selectedPile = new dataApi.Pile('testPile', testData.getJsonDataForAnEmptyPile());
         var targetPile = new dataApi.Pile('testPile2', testData.getJsonDataForAnEmptyPile());
 
         selectedPile.addCard(new dataApi.Card(testData.createFaceUpCard('ACE', 'DIAMONDS')));
-        selectedPile.addCard(card);
-        selectedPile.addCard(card2);
+        selectedPile.addCard(faceUpAceOfSpades);
+        selectedPile.addCard(faceUpAceOfHearts);
 
         scope.selectedPile = selectedPile;
 
@@ -84,8 +81,8 @@ describe('The Click Handler API', function(){
 
         expect(selectedPile.getCards().length).toBe(1);
         expect(targetPile.getCards().length).toBe(2);
-        expect(targetPile.getTopCard()).toBe(card2);
-        expect(targetPile.getCards()[0]).toBe(card);
+        expect(targetPile.getTopCard()).toBe(faceUpAceOfHearts);
+        expect(targetPile.getCards()[0]).toBe(faceUpAceOfSpades);
     })
 
 });
