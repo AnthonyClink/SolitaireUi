@@ -53,6 +53,7 @@ describe('The Click Handler API', function(){
         selectedPile.addCard(faceUpAceOfSpades);
 
         scope.selectedPile = selectedPile;
+        scope.associatedCards = [faceUpAceOfSpades];
 
         clickHandler.selectPile(targetPile);
 
@@ -76,6 +77,7 @@ describe('The Click Handler API', function(){
         selectedPile.addCard(faceUpAceOfHearts);
 
         scope.selectedPile = selectedPile;
+        scope.associatedCards = [faceUpAceOfSpades, faceUpAceOfHearts];
 
         clickHandler.selectPile(targetPile);
 

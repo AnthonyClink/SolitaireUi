@@ -37,8 +37,6 @@ describe('The Solitaire Game Controller', function(){
         expect(game.getDrawPile().getCards().length).toBe(24);
         expect(scope.drawPile).toBe(game.getDrawPile());
         expect(scope.discardPile).toBe(game.getDiscardPile());
-        expect(scope.drawCard).toBe(game.drawCard);
-        expect(scope.resetLibrary).toBe(game.resetLibrary);
         expect(scope.moveTopCardToResolutionPile).toBe(game.moveTopCardToResolutionPile);
         scope.drawCard();
         expect(scope.discardPile.getCards().length).toBe(1);

@@ -5,7 +5,7 @@
         logName = 'solitaire.GameController: ',
         _;
 
-    var ClickToMoveHandler = function(scope){
+    var ClickToMoveHandler = function(scope, game){
 
         var self = {};
         var selectedState = false;
@@ -14,30 +14,59 @@
 
         self.isCardSelected = function(){
             return selectedState;
-        }
+        };
 
         scope.inSelectedState = self.isCardSelected;
 
         self.selectCard = function(pile, card){
+
             if(!card || card.getRank() === 'BLANK'){
                 return;
             }
+
+            var selectedCards = [];
+
+            var pileCards = pile.getCards();
+
+            var cardIndex = _.indexOf(pileCards, card);
+
+            for(var i = cardIndex; i < pileCards.length; i++){
+
+                selectedCards.push(pileCards[i]);
+
+            }
+
+
             scope.selectedCard = card;
+            scope.associatedCards = selectedCards;
+
             selectedState = true;
+
             scope.selectedPile = pile;
         };
 
         self.selectPile = function(targetPile){
-            var selectedPileCards =  scope.selectedPile.getCards();
-            var cardIndex = _.indexOf(selectedPileCards, scope.selectedCard);
-            var selectedCards = [];
-            for(var i = cardIndex; i < selectedPileCards.length; i++){
-                selectedCards.push(selectedPileCards[i]);
-            }
+
+            var selectedCards = scope.associatedCards;
+
             for(var i = 0; i < selectedCards.length; i++){
 
-                scope.selectedPile.removeCard(selectedCards[i]);
-                targetPile.addCard(selectedCards[i]);
+                var selectedCard = selectedCards[i];
+
+                scope.selectedPile.removeCard(selectedCard);
+
+                var targetPileType = targetPile.getName().split('_');
+
+                if(targetPileType.length > 0 && targetPileType[0] === 'RESOLUTION'){
+                    var aPile = game.getPile('RESOLUTION_' + selectedCard.getSuit());
+                    aPile.addCard(selectedCard);
+                }else{
+                    targetPile.addCard(selectedCard);
+                }
+
+
+
+
             }
 
             selectedState = false;
@@ -50,7 +79,7 @@
             selectedState = false;
             scope.selectedCard = null;
             scope.selectedPile = null;
-        }
+        };
 
         self.selectedState = selectedState;
 
@@ -61,10 +90,11 @@
         log = $log;
         _ = __;
 
-        var clickToMoveHandler = new ClickToMoveHandler($scope);
-
         info('preparing data manipulation api for use in the ui: ');
-        var game = solitaireDataService.getGame();
+
+        game = solitaireDataService.getGame();
+        var clickToMoveHandler = new ClickToMoveHandler($scope, game);
+
         _.forEach(solitaire.PILE_NAMES, function(name){
             info('Prepared data for ' + name + ': ' + _.map(game.getPile(name).getCards(), function(card){
                 return '{' + (card.isFaceDown() ? "F-D" : card.getShortName()) + '}';
@@ -84,33 +114,22 @@
         $scope.game = game;
         $scope.drawPile = game.getPile('DRAW');
         $scope.discardPile = game.getPile('DISCARD');
+
         $scope.drawCard = function(){
             if(clickToMoveHandler.isCardSelected()){
                 clickToMoveHandler.cancelEvent();
             }
             return game.drawCard();
-        }
+        };
+
         $scope.resetLibrary = function(){
             if(clickToMoveHandler.isCardSelected()){
                 clickToMoveHandler.cancelEvent();
             }
             return game.resetLibrary();
-        }
+        };
+
         $scope.moveTopCardToResolutionPile = game.moveTopCardToResolutionPile;
-
-
-        //If move handler is not in select state
-        // and the user clicks on a card
-        // the clicked card is saved off and the state changes to selected state
-
-
-
-        //If move handler is in select state
-        // and the user clicks on a pile
-        // the selected card is passed to the games move card function
-        // the selected card is then cleared from memory
-        // teh state is then moved to not selected
-
     };
 
     function info(message){
