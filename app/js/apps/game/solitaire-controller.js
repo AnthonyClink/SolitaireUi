@@ -92,6 +92,8 @@
 
         info('preparing data manipulation api for use in the ui: ');
 
+        $scope.emptyResolutionPileCss = app.emptyResolutionPileCss;
+
         game = solitaireDataService.getGame();
         var clickToMoveHandler = new ClickToMoveHandler($scope, game);
 

@@ -19,7 +19,10 @@
                     <button ng-click="resetLibrary()" type="button">Reset Draw Pile</button>
                 </div>
                 <div class="col-sm-1" ng-repeat="pile in game.getHome()">
-                    <div ng-click='clickToMove(pile, pile.getTopCard())' class="{{pile.getTopCard().getCSS()}}">&nbsp;</div>
+                    <div ng-hide="pile.getCards().length !== 0">
+                        <div ng-click='clickToMove(pile,null)' class="card {{emptyResolutionPileCss[pile.getName()]}} resolutionEmpty">&nbsp; </div>
+                    </div>
+                    <div ng-show="pile.getCards().length > 0" ng-click='clickToMove(pile, pile.getTopCard())' class="{{pile.getTopCard().getCSS()}}">&nbsp;</div>
                 </div>
             </div>
         </div>
@@ -33,7 +36,7 @@
                     <div ng-hide="pile.getCards().length !== 0">
                         <div ng-click='clickToMove(pile,null)' class="card blankOfCard"></div>
                     </div>
-                    <div ng-click='clickToMove(pile, card)' ng-repeat="card in pile.getCards()" class="{{card.getCSS()}}">&nbsp;</div>
+                    <div ng-click='clickToMove(pile, card)' ng-repeat="card in pile.getCards()" class="{{card.getCSS()}} ">&nbsp;</div>
                 </div>
 
             </div>

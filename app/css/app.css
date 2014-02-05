@@ -216,6 +216,9 @@
 .blankOfCard{
     background-position: -751px  96px;
 }
+.resolutionEmpty{
+opacity: .35;
+}
 p{
     text-indent: 15px;
 }

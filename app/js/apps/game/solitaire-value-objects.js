@@ -585,6 +585,13 @@
         'REGULAR_7'
     ];
 
+    app.emptyResolutionPileCss =  {
+        RESOLUTION_CLUBS:'aceOfClubs',
+        RESOLUTION_HEARTS:'aceOfHearts',
+        RESOLUTION_DIAMONDS:'aceOfDiamonds',
+        RESOLUTION_SPADES:'aceOfSpades'
+    };
+
     var PILE_NAMES = [];
 
     var _ = new app.__();
