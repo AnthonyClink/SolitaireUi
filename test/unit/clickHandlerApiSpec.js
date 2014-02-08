@@ -10,8 +10,6 @@ describe('The Click Handler API', function(){
 
         _ = new solitaire.__();
 
-        solitaire.setLoDash(_);
-
         dataApi = new solitaire.DataAccessAPI(_);
 
         var aceOSpades = testData.getJsonDataForFaceUpAceOfSpades();
@@ -23,91 +21,67 @@ describe('The Click Handler API', function(){
 
         faceUpAceOfHearts = new dataApi.Card(heartData);
 
-        clickHandler = new solitaire.ClickToMoveHandler(scope);
+        clickHandler = new solitaire.ClickToMoveHandler(_);
 
     });
 
     it('can initialize the scopes selected state', function(){
-        expect(scope.selectedCard).toBeDefined();
-        expect(scope.inSelectedState).toBeDefined();
-       expect(scope.selectedCard).toBe(null);
-       expect(scope.inSelectedState()).toBe(false);
+        expect(clickHandler.isInSelectedState()).toBe(false);
+       expect(clickHandler.getCurrentMove()).toBe(null);
     });
 
     it('responds to click events and allows the scope to be updated with selected state and provides scope with knowlege about the selected card', function(){
         var pile1 = new dataApi.Pile('testPile', testData.getJsonDataForAnEmptyPile());
         pile1.addCard(faceUpAceOfSpades);
         clickHandler.selectCard(pile1, faceUpAceOfSpades);
-        expect(scope.selectedCard).toBe(faceUpAceOfSpades);
-        expect(scope.inSelectedState()).toBe(true);
+        expect(clickHandler.getCurrentMove().selectedCard).toBe(faceUpAceOfSpades);
+        expect(clickHandler.isInSelectedState()).toBe(true);
     });
 
     it('should attempt to move the selected card to the newly selected pile', function(){
 
-        scope.selectedCard = faceUpAceOfSpades;
-        clickHandler.selectedState = true;
+        var move = clickHandler.createMove(),
+            game = new dataApi.Table(testData.getJsonDataForAnEmptyFullyInitalizedTable()),
+            selectedPile = game.getPlayArea()[0],
+            targetPile = game.getPlayArea()[1];
 
-        var selectedPile = new dataApi.Pile('testPile', testData.getJsonDataForAnEmptyPile());
-        var targetPile = new dataApi.Pile('testPile2', testData.getJsonDataForAnEmptyPile());
+        move.selectedCard = faceUpAceOfSpades;
+        move.selectedPile = selectedPile;
+        move.associatedCards = [faceUpAceOfSpades];
 
         selectedPile.addCard(faceUpAceOfSpades);
+        clickHandler.selectPile(targetPile, game);
 
-        scope.selectedPile = selectedPile;
-        scope.associatedCards = [faceUpAceOfSpades];
-
-        clickHandler.selectPile(targetPile);
-
-        expect(scope.selectedCard).toBeNull();
-        expect(scope.inSelectedState()).toBe(false);
+        expect(clickHandler.isInSelectedState()).toBe(false);
+        expect(clickHandler.getCurrentMove()).toBe(null);
         expect(targetPile.getCards().length).toBe(1);
-        expect(scope.selectedPile).toBeNull();
         expect(selectedPile.getCards().length).toBe(0);
     });
 
-    it('should turn top card face up if it is face down, when you move cards', function(){
-        var faceUpTwoOfClubs = new dataApi.Card(dataApi.Card(testData.createFaceUpCard('TWO', 'CLUBS')));
-        scope.selectedCard = faceUpTwoOfClubs;
-        clickHandler.selectedState = true;
+    it('should move all cards below the selected card to the new pile ensuring that the remaining top card is face up', function(){
+        var faceDownTwoOfClubs = new dataApi.Card(testData.createFaceDownCard('TWO', 'CLUBS'));
+        var faceDownAceOfHearts = new dataApi.Card(testData.getJsonDataForFaceDownAceOfHearts());
 
-        var selectedPile = new dataApi.Pile('testPile', testData.getJsonDataForAnEmptyPile());
-        var targetPile = new dataApi.Pile('testPile2', testData.getJsonDataForAnEmptyPile());
+        var move = clickHandler.createMove(),
+            game = dataApi.Table(testData.getJsonDataForAnEmptyFullyInitalizedTable()),
+            selectedPile = game.getPlayArea()[0],
+            targetPile = game.getPlayArea()[1];
 
-        selectedPile.addCard(new dataApi.Card(testData.createFaceDownCard('TWO', 'DIAMONDS')));
-        selectedPile.addCard(faceUpTwoOfClubs);
+        selectedPile.addCard(faceDownAceOfHearts);
+        selectedPile.addCard(faceDownTwoOfClubs);
+        selectedPile.addCard(faceUpAceOfSpades);
 
+        move.selectedCard = faceUpAceOfSpades;
+        move.selectedPile = selectedPile;
+        move.associatedCards = [faceUpAceOfSpades];
 
-        scope.selectedPile = selectedPile;
-        scope.associatedCards = [faceUpTwoOfClubs];
+        clickHandler.selectPile(targetPile, game);
 
-        clickHandler.selectPile(targetPile);
-
-        expect(selectedPile.getCards().length).toBe(1);
+        expect(selectedPile.getCards().length).toBe(2);
         expect(targetPile.getCards().length).toBe(1);
         var testTopCard = selectedPile.getTopCard();
         expect(testTopCard.isFaceUp()).toBe(true);
-    })
-
-    it('should move all cards below the selected card to the new pile', function(){
-
-        scope.selectedCard = faceUpAceOfSpades;
-        clickHandler.selectedState = true;
-
-        var selectedPile = new dataApi.Pile('testPile', testData.getJsonDataForAnEmptyPile());
-        var targetPile = new dataApi.Pile('testPile2', testData.getJsonDataForAnEmptyPile());
-
-        selectedPile.addCard(new dataApi.Card(testData.createFaceUpCard('ACE', 'DIAMONDS')));
-        selectedPile.addCard(faceUpAceOfSpades);
-        selectedPile.addCard(faceUpAceOfHearts);
-
-        scope.selectedPile = selectedPile;
-        scope.associatedCards = [faceUpAceOfSpades, faceUpAceOfHearts];
-
-        clickHandler.selectPile(targetPile);
-
-        expect(selectedPile.getCards().length).toBe(1);
-        expect(targetPile.getCards().length).toBe(2);
-        expect(targetPile.getTopCard()).toBe(faceUpAceOfHearts);
-        expect(targetPile.getCards()[0]).toBe(faceUpAceOfSpades);
+        expect(selectedPile.getCards()[0].isFaceUp()).toBe(false);
     })
 
 });

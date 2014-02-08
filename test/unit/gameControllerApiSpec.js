@@ -24,7 +24,12 @@ describe('The Solitaire Game Controller', function(){
             return new dataAccessApi.Table(json);
         };
 
-        controller = new solitaire.GameController(scope, log, _, dataService);
+        var clickHandlerStub = {};
+        clickHandlerStub.isInSelectedState = function(){
+            return false;
+        };
+
+        controller = new solitaire.GameController(scope, log, _, dataService, clickHandlerStub);
     });
 
 
