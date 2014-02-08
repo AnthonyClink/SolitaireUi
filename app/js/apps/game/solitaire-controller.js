@@ -45,7 +45,7 @@
         };
 
         $scope.resetLibrary = function(){
-            if(clickToMoveHandler.isCardSelected()){
+            if(clickToMoveHandler.isInSelectedState()){
                 clickToMoveHandler.cancelEvent();
             }
             return game.resetLibrary();

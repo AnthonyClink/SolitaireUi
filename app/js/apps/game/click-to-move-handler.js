@@ -80,7 +80,10 @@
                 topCard.turnFaceUp();
             }
 
-            self.cancelEvent();
+            var move = currentMove;
+            currentMove = null;
+
+            return move;
 
         };
 

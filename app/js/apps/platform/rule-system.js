@@ -6,6 +6,7 @@
         }
     };
 
+    app.RuleSystem = RuleSystem;
     app.factory('ruleSystem', [RuleSystem]);
 
 })(solitaire);
