@@ -157,7 +157,10 @@
             if(cards.length === 0){
                 return new BlankCard();
             }
-            return cards[cards.length - 1];
+
+            var topCard = cards[cards.length -1];
+
+            return topCard;
         };
 
         self.isEmpty = function(){
@@ -176,6 +179,7 @@
                 cards.splice(index, 1);
                 rawData.cards.splice(index, 1);
             }
+
         };
 
         self.getCards = function(){

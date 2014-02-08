@@ -64,9 +64,11 @@
                     targetPile.addCard(selectedCard);
                 }
 
+                var topCard = scope.selectedPile.getTopCard();
 
-
-
+                if(topCard.isFaceDown()){
+                    topCard.turnFaceUp();
+                }
             }
 
             selectedState = false;

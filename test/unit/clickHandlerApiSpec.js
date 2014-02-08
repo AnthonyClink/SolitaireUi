@@ -64,6 +64,29 @@ describe('The Click Handler API', function(){
         expect(selectedPile.getCards().length).toBe(0);
     });
 
+    it('should turn top card face up if it is face down, when you move cards', function(){
+        var faceUpTwoOfClubs = new dataApi.Card(dataApi.Card(testData.createFaceUpCard('TWO', 'CLUBS')));
+        scope.selectedCard = faceUpTwoOfClubs;
+        clickHandler.selectedState = true;
+
+        var selectedPile = new dataApi.Pile('testPile', testData.getJsonDataForAnEmptyPile());
+        var targetPile = new dataApi.Pile('testPile2', testData.getJsonDataForAnEmptyPile());
+
+        selectedPile.addCard(new dataApi.Card(testData.createFaceDownCard('TWO', 'DIAMONDS')));
+        selectedPile.addCard(faceUpTwoOfClubs);
+
+
+        scope.selectedPile = selectedPile;
+        scope.associatedCards = [faceUpTwoOfClubs];
+
+        clickHandler.selectPile(targetPile);
+
+        expect(selectedPile.getCards().length).toBe(1);
+        expect(targetPile.getCards().length).toBe(1);
+        var testTopCard = selectedPile.getTopCard();
+        expect(testTopCard.isFaceUp()).toBe(true);
+    })
+
     it('should move all cards below the selected card to the new pile', function(){
 
         scope.selectedCard = faceUpAceOfSpades;
