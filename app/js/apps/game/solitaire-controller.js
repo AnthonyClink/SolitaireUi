@@ -98,7 +98,7 @@
 
         $scope.emptyResolutionPileCss = app.emptyResolutionPileCss;
 
-        game = solitaireDataService.getGame();
+        var game = solitaireDataService.getGame();
         var clickToMoveHandler = new ClickToMoveHandler($scope, game);
 
         _.forEach(solitaire.PILE_NAMES, function(name){
@@ -150,7 +150,7 @@
     //this function is primarlarly for unit testing purposes. we need to find a better way to do this TODO: fix me
     app.setLoDash = function(__){
         _ = __;
-    }
+    };
 
 //pass in the solitare platform namespace to the closure
 })(solitaire);

@@ -158,9 +158,7 @@
                 return new BlankCard();
             }
 
-            var topCard = cards[cards.length -1];
-
-            return topCard;
+            return cards[cards.length -1];
         };
 
         self.isEmpty = function(){

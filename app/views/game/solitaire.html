@@ -1,7 +1,3 @@
-<!-- <ul> -->
-<!-- <li ng-repeat="card in gameBoard.drawDeck.cards"><img src="{{card.imageUrl}}"></li> -->
-<!-- </ul> -->
-
 <div id="solitaire">
     <div class="container">
         <div class="row">
@@ -29,7 +25,6 @@
 
         <div class="solitaire-board-spacer">&nbsp;</div>
 
-
         <div class="row">
             <div id="solitaire-play-area">
                 <div class="col-sm-1"  ng-repeat="pile in game.getPlayArea()">
@@ -38,16 +33,7 @@
                     </div>
                     <div ng-click='clickToMove(pile, card)' ng-repeat="card in pile.getCards()" class="{{card.getCSS()}} ">&nbsp;</div>
                 </div>
-
             </div>
         </div>
     </div>
-
-    <!--
-        for now the leadership team does not want to support double click until we analize more of the impact of supporting two
-         click actions on the same div. SO for now, we will leave this code in this comment TODO: implement me before rule implmenetaiotn
-            ng-dblclick="moveTopCardToResolutionPile(pile)"
-    -->
-
-
 </div>
