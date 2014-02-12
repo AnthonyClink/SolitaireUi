@@ -6,23 +6,43 @@
         var localName = name;
         var localData = data;
 
-        this.matchesMove = function(ruleMatchers){
-            var currentMatcher,
-                results = _.transform(localData, function(result, value, key){
+        var matchKey = function(results, ruleMatchers, currentRuleMatcher, currentMoveMatcher, expectedCondition){
 
-                    if(!currentMatcher){
-                        currentMatcher = ruleMatchers[key];
-                    }
+            if(!currentRuleMatcher){
+                currentRuleMatcher = ruleMatchers;
+            }
 
-                    if(currentMatcher){
-                        if(app.isString(value) && value === currentMatcher[key]){
-                            results.push(true);
-                        }else{
-                            currentMatcher = value;
-                        }
-                    }
-
+            if(currentRuleMatcher && angular.isString(currentMoveMatcher)){
+                results.push(currentRuleMatcher[expectedCondition] === currentMoveMatcher);
+            }else{
+                _.forOwn(currentMoveMatcher, function(newMoveMatcher, newCondition){
+                    matchKey(results, ruleMatchers, currentRuleMatcher[expectedCondition], newMoveMatcher, newCondition);
                 });
+            };
+
+            return results;
+        };
+
+        /*
+
+         TARGET : {
+         PILE : {
+         TYPE : 'RESOLUTION'
+         }
+         }
+
+         */
+
+        this.validateMove = function(ruleMatchers){
+            var results = [];
+
+            _.forOwn(localData, function(expectedValue, condition){
+
+
+                matchKey(results, ruleMatchers, undefined, expectedValue, condition);
+
+            });
+
             return _.reduce(results, function(answer){
                 return answer === true;
             });
@@ -30,7 +50,7 @@
     };
 
     var RuleSystem = function(__, gameRules){
-        _ = __,
+        _ = __;
         rules = gameRules;
 
         var createPileData = function(pile){

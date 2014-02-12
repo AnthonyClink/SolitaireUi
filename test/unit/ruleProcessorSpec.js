@@ -32,10 +32,24 @@ describe('The Rule System', function(){
        expect(rule instanceof solitaire.Rule).toBe(true);
     });
 
-    it('should be able to validate a move', function(){
+    it('should return a pass if the rule matchers match the move matchers', function(){
         var resolutionRule = getResolutionRule();
-
+        var move = ruleSystem.createRuleMatchersForMove({
+            targetPile : game.getPile(solitaire.RESOLUTION_PILE_NAMES[0])
+        });
+        var answer = resolutionRule.validateMove(move);
+        expect(answer).toBe(true);
     });
+
+    it('should return a fail if the rule matchers do not match the move matchers', function(){
+        var resolutionRule = getResolutionRule();
+        var move = ruleSystem.createRuleMatchersForMove({
+            targetPile : game.getPile(solitaire.PLAY_AREA_PILE_NAMES[0])
+        });
+        var answer = resolutionRule.validateMove(move);
+        expect(answer).toBe(false);
+    });
+
 
     it('Should be able to wrap a move with rule matchers', function(){
         var move = {};
@@ -71,13 +85,13 @@ describe('The Rule System', function(){
     });
 
     function getResolutionRule(){
-        return new solitaire.Rule('TO_RESOLUTION', {
+        return ruleSystem.createMoveRule('TO_RESOLUTION', {
             TARGET : {
                 PILE : {
                     TYPE : 'RESOLUTION'
                 }
             }
-        }, function(){}, function(){});
+        });
     }
 
 });
