@@ -5,8 +5,6 @@
         logName = 'solitaire.GameController: ',
         _;
 
-
-
     var GameController = function($scope, $log, __, solitaireDataService, clickToMoveHandler){
         log = $log;
         _ = __;
@@ -63,10 +61,10 @@
 
     app.controller('gameController', ['$scope', '$log', '_', 'solitaireDataService', 'clickToMoveHandler', GameController]);
 
-    //this function is primarlarly for unit testing purposes. we need to find a better way to do this TODO: fix me
+    //this function is primarily for unit testing purposes. we need to find a better way to do this TODO: fix me
     app.setLoDash = function(__){
         _ = __;
     };
 
-//pass in the solitare platform namespace to the closure
+//pass in the solitaire platform namespace to the closure
 })(solitaire);

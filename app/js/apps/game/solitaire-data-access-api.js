@@ -143,7 +143,8 @@
         var self = {},
             cards = [],
             rawData = rawPile,
-            localName = name;
+            localName = name,
+            typeArray = name.split('_');
 
         _.forEach(rawData.cards, function(rawCard){
             cards.push(new Card(rawCard));
@@ -189,6 +190,17 @@
            return _.indexOf(cards, card);
        };
 
+       self.getType = function(){
+           return typeArray[0];
+       };
+
+       self.getSubType = function(){
+         return typeArray[1] || undefined;
+       };
+
+        self.getSize = function(){
+            return cards.length;
+        };
 
         return self;
 
