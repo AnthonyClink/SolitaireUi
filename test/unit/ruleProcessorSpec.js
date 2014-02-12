@@ -20,20 +20,14 @@ describe('The Rule System', function(){
     });
 
     it('should be able to construct a rule', function(){
-       var rule = ruleSystem.createMoveRule('TO_RESOLUTION', {
-           TARGET : {
-               PILE : {
-                   TYPE : 'RESOLUTION'
-               }
-           }
-       });
+       var rule = ruleSystem.createMoveRule('TO_RESOLUTION', getJsonForResolutionRule());
 
        expect(rule).toBeDefined();
        expect(rule instanceof solitaire.Rule).toBe(true);
     });
 
     it('should return a pass if the rule matchers match the move matchers', function(){
-        var resolutionRule = getResolutionRule();
+        var resolutionRule =ruleSystem.createMoveRule("TO_RESOLUTION", getJsonForResolutionRule());
         var move = ruleSystem.createRuleMatchersForMove({
             targetPile : game.getPile(solitaire.RESOLUTION_PILE_NAMES[0])
         });
@@ -42,12 +36,36 @@ describe('The Rule System', function(){
     });
 
     it('should return a fail if the rule matchers do not match the move matchers', function(){
-        var resolutionRule = getResolutionRule();
+        var resolutionRule = ruleSystem.createMoveRule("TO_RESOLUTION", getJsonForResolutionRule());
         var move = ruleSystem.createRuleMatchersForMove({
             targetPile : game.getPile(solitaire.PLAY_AREA_PILE_NAMES[0])
         });
         var answer = resolutionRule.validateMove(move);
         expect(answer).toBe(false);
+    });
+
+    it('should be able to handle complex matching scenarios', function(){
+
+        var resolutionRule = ruleSystem.createMoveRule("TO_RESOLUTION_SPADES", getJsonForResolutionSpadesRule());
+
+        var validMove = ruleSystem.createRuleMatchersForMove({
+            targetPile : game.getPile('RESOLUTION_SPADES'),
+            selectedCard : game.getPile(solitaire.PLAY_AREA_PILE_NAMES[6]).getTopCard()
+        });
+
+        var invalidMoveToWrongResolutionPile = ruleSystem.createRuleMatchersForMove({
+            targetPile : game.getPile('RESOLUTION_HEARTS'),
+            selectedCard : game.getPile(solitaire.PLAY_AREA_PILE_NAMES[6]).getTopCard()
+        });
+
+        var invalidMoveWithCorrectResolutionPileWrongSuit = ruleSystem.createRuleMatchersForMove({
+            targetPile : game.getPile('RESOLUTION_SPADES'),
+            selectedCard : game.getPile(solitaire.PLAY_AREA_PILE_NAMES[5]).getTopCard()
+        });
+
+        expect(resolutionRule.validateMove(validMove)).toBe(true);
+        expect(resolutionRule.validateMove(invalidMoveToWrongResolutionPile)).toBe(false);
+        expect(resolutionRule.validateMove(invalidMoveWithCorrectResolutionPileWrongSuit)).toBe(false);
     });
 
 
@@ -84,14 +102,30 @@ describe('The Rule System', function(){
         expect(matchers.SELECTED.ASSOCIATED_CARDS[0].SUIT).toBe('SPADES');
     });
 
-    function getResolutionRule(){
-        return ruleSystem.createMoveRule('TO_RESOLUTION', {
+    function getJsonForResolutionSpadesRule(){
+        return {
+            TARGET : {
+                PILE : {
+                    TYPE : 'RESOLUTION',
+                    SUBTYPE : 'SPADES'
+                }
+            },
+            SELECTED : {
+                CARD : {
+                    SUIT : 'SPADES'
+                }
+            }
+        };
+    }
+
+    function getJsonForResolutionRule(){
+        return  {
             TARGET : {
                 PILE : {
                     TYPE : 'RESOLUTION'
                 }
             }
-        });
+        };
     }
 
 });

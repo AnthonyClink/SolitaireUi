@@ -38,14 +38,11 @@
 
             _.forOwn(localData, function(expectedValue, condition){
 
-
                 matchKey(results, ruleMatchers, undefined, expectedValue, condition);
 
             });
 
-            return _.reduce(results, function(answer){
-                return answer === true;
-            });
+            return !_.contains(results, false);
         };
     };
 
