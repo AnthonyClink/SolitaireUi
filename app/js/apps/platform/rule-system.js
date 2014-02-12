@@ -23,16 +23,6 @@
             return results;
         };
 
-        /*
-
-         TARGET : {
-         PILE : {
-         TYPE : 'RESOLUTION'
-         }
-         }
-
-         */
-
         this.validateMove = function(ruleMatchers){
             var results = [];
 
