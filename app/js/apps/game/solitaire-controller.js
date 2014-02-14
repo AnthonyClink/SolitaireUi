@@ -5,7 +5,7 @@
         logName = 'solitaire.GameController: ',
         _;
 
-    var GameController = function($scope, $log, __, solitaireDataService, clickToMoveHandler){
+    var GameController = function($scope, $log, __, solitaireDataService, clickToMoveHandler, ruleSystem){
         log = $log;
         _ = __;
 
@@ -23,7 +23,8 @@
 
         function handleClick(pile, card){
             if(clickToMoveHandler.isInSelectedState()){
-                clickToMoveHandler.selectPile(pile, game).doMove();
+                var move = clickToMoveHandler.selectPile(pile, game);
+                ruleSystem.processMove(move);
             }else{
                 clickToMoveHandler.selectCard(pile, card);
             }
@@ -59,7 +60,7 @@
     //make constructor accessible via the solitare namespace
     app.GameController = GameController;
 
-    app.controller('gameController', ['$scope', '$log', '_', 'solitaireDataService', 'clickToMoveHandler', GameController]);
+    app.controller('gameController', ['$scope', '$log', '_', 'solitaireDataService', 'clickToMoveHandler', 'ruleSystem', GameController]);
 
     //this function is primarily for unit testing purposes. we need to find a better way to do this TODO: fix me
     app.setLoDash = function(__){

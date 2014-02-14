@@ -39,6 +39,7 @@
         self.getSelectedPile = app.createGetter(moveData.selectedPile);
         self.getAssociatedCards = app.createGetter(moveData.associatedCards);
         self.getTargetPile = app.createGetter(moveData.targetPile);
+        self.getGame = app.createGetter(localGame);
         self.doMove = function(){return processMove(self, localGame)};
 
         return self;

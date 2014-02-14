@@ -1,16 +1,16 @@
 describe('The Rule System', function(){
     var game, _, dataAccessApi, ruleSystem;
 
-    beforeEach(function(){
+    beforeEach(inject(function($interpolate){
         _ = new solitaire.__();
         dataAccessApi = new solitaire.DataAccessAPI(_);
         solitaire.setLoDash(_);
         game = new dataAccessApi.Table(solitaire.createRawGame());
-        ruleSystem = new solitaire.RuleSystem(_, {
+        ruleSystem = new solitaire.RuleSystem(_, $interpolate, {
             MOVE_RULES : [],
             AFTER_EXECUTION_RULES : []
         });
-    });
+    }));
 
     it('should support rules to validate a move, and rules to execute after a move is completed', function(){
         var moveRules = ruleSystem.getMoveRules(),
@@ -20,33 +20,51 @@ describe('The Rule System', function(){
     });
 
     it('should be able to construct a rule', function(){
-       var rule = ruleSystem.createMoveRule('TO_RESOLUTION', getJsonForResolutionRule());
+       var rule = createTestRule(getJsonForResolutionRule());
 
        expect(rule).toBeDefined();
        expect(rule instanceof solitaire.Rule).toBe(true);
     });
 
     it('should return a pass if the rule matchers match the move matchers', function(){
-        var resolutionRule =ruleSystem.createMoveRule("TO_RESOLUTION", getJsonForResolutionRule());
+        var resolutionRule =createTestRule(getJsonForResolutionRule());
         var move = ruleSystem.createRuleMatchersForMove({
             targetPile : game.getPile(solitaire.RESOLUTION_PILE_NAMES[0])
         });
-        var answer = resolutionRule.validateMove(move);
+        var answer = resolutionRule.processMove(move);
         expect(answer).toBe(true);
     });
 
     it('should return a fail if the rule matchers do not match the move matchers', function(){
-        var resolutionRule = ruleSystem.createMoveRule("TO_RESOLUTION", getJsonForResolutionRule());
+        var resolutionRule = createTestRule(getJsonForResolutionRule());
         var move = ruleSystem.createRuleMatchersForMove({
             targetPile : game.getPile(solitaire.PLAY_AREA_PILE_NAMES[0])
         });
-        var answer = resolutionRule.validateMove(move);
+        var answer = resolutionRule.processMove(move);
         expect(answer).toBe(false);
+    });
+
+    it('should be able to interpolate rule data', function(){
+
+        var resolutionRule = createTestRule(getJsonForResolutionPileRuleWithInterpolatedString());
+
+        var validMove = ruleSystem.createRuleMatchersForMove({
+            targetPile : game.getPile('RESOLUTION_SPADES'),
+            selectedCard : game.getPile(solitaire.PLAY_AREA_PILE_NAMES[6]).getTopCard()
+        });
+
+        var invalidMove = ruleSystem.createRuleMatchersForMove({
+            targetPile : game.getPile('RESOLUTION_HEARTS'),
+            selectedCard : game.getPile(solitaire.PLAY_AREA_PILE_NAMES[5]).getTopCard()
+        });
+
+        expect(resolutionRule.processMove(validMove)).toBe(true);
+        expect(resolutionRule.processMove(invalidMove)).toBe(false);
     });
 
     it('should be able to handle complex matching scenarios', function(){
 
-        var resolutionRule = ruleSystem.createMoveRule("TO_RESOLUTION_SPADES", getJsonForResolutionSpadesRule());
+        var resolutionRule = createTestRule(getJsonForResolutionSpadesRule());
 
         var validMove = ruleSystem.createRuleMatchersForMove({
             targetPile : game.getPile('RESOLUTION_SPADES'),
@@ -63,9 +81,9 @@ describe('The Rule System', function(){
             selectedCard : game.getPile(solitaire.PLAY_AREA_PILE_NAMES[5]).getTopCard()
         });
 
-        expect(resolutionRule.validateMove(validMove)).toBe(true);
-        expect(resolutionRule.validateMove(invalidMoveToWrongResolutionPile)).toBe(false);
-        expect(resolutionRule.validateMove(invalidMoveWithCorrectResolutionPileWrongSuit)).toBe(false);
+        expect(resolutionRule.processMove(validMove)).toBe(true);
+        expect(resolutionRule.processMove(invalidMoveToWrongResolutionPile)).toBe(false);
+        expect(resolutionRule.processMove(invalidMoveWithCorrectResolutionPileWrongSuit)).toBe(false);
     });
 
 
@@ -118,6 +136,24 @@ describe('The Rule System', function(){
         };
     }
 
+
+    function getJsonForResolutionPileRuleWithInterpolatedString(){
+        return {
+            TARGET : {
+                PILE : {
+                    TYPE : 'RESOLUTION',
+                    SIZE : 0
+                }
+            },
+            SELECTED : {
+                CARD : {
+                    RANK : 'ACE',
+                    SUIT : '{{TARGET.PILE.SUBTYPE}}'
+                }
+            }
+        };
+    }
+
     function getJsonForResolutionRule(){
         return  {
             TARGET : {
@@ -128,4 +164,7 @@ describe('The Rule System', function(){
         };
     }
 
+    function createTestRule(ruleJson, onSuccess, onFailure){
+        return ruleSystem.createMoveRule('testRule', ruleJson, onSuccess || function(move){}, onFailure || function(move){});
+    }
 });
