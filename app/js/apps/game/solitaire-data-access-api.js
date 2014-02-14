@@ -99,24 +99,20 @@
         self.getHome = function(){
 
             if(homePiles.length == 0){
-                homePiles.push(self.getPile('RESOLUTION_CLUBS'));
-                homePiles.push(self.getPile('RESOLUTION_HEARTS'));
-                homePiles.push(self.getPile('RESOLUTION_DIAMONDS'));
-                homePiles.push(self.getPile('RESOLUTION_SPADES'));
+                _.forEach(app.RESOLUTION_PILE_NAMES, function(name){
+                    homePiles.push(self.getPile(name));
+                });
             }
 
             return homePiles;
         };
 
         self.getPlayArea = function(){
+
             if(playAreaPiles.length == 0){
-                playAreaPiles.push(self.getPile('REGULAR_1'));
-                playAreaPiles.push(self.getPile('REGULAR_2'));
-                playAreaPiles.push(self.getPile('REGULAR_3'));
-                playAreaPiles.push(self.getPile('REGULAR_4'));
-                playAreaPiles.push(self.getPile('REGULAR_5'));
-                playAreaPiles.push(self.getPile('REGULAR_6'));
-                playAreaPiles.push(self.getPile('REGULAR_7'));
+                _.forEach(app.PLAY_AREA_PILE_NAMES, function(name){
+                   playAreaPiles.push(self.getPile(name));
+                });
             }
 
             return playAreaPiles;
@@ -210,8 +206,6 @@
         var self = {},
             rawData = rawCard;
 
-
-
         self.getRank = function(){
             return rawData.rank;
         };
@@ -269,6 +263,16 @@
 
         self.getShortName = function(){
             return rawData.shortName;
+        };
+
+
+        self.getNextRank = function(){
+            return _.indexOf(app.RANKS, 99)
+        }
+
+        //TODO: get this shit working... the previous rank and next rank crap should disappear
+        self.getValue = function(){
+          return '' + _.indexOf(app.RANKS, self.getRank());
         };
 
         rawCardData.push({card:self, rawData:rawData});

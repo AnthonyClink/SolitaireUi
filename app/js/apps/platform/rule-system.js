@@ -1,7 +1,10 @@
 (function(app){
     var _,
         interpolate,
-        rules;
+        moveRules,
+        afterMoveRules,
+        log,
+        logName = 'platform.RuleSystem: ';
 
     var Rule = function(name, data, onSuccess, onFailure){
 
@@ -21,11 +24,12 @@
             }
 
             if(currentRuleMatcher && angular.isString(currentMoveMatcher)){
-                conditionString += '=' + currentMoveMatcher;
                 var currentRuleMatcher = currentRuleMatcher[expectedCondition];
                 if(_.contains(currentMoveMatcher, '{{') && _.contains(currentMoveMatcher, '}}')){
                     currentMoveMatcher = interpolate(currentMoveMatcher)(ruleMatchers);
                 }
+                conditionString += '=' + currentMoveMatcher;
+
                 results.push({condition: conditionString, pass: currentRuleMatcher === currentMoveMatcher});
             }else{
                 _.forOwn(currentMoveMatcher, function(newMoveMatcher, newCondition){
@@ -33,6 +37,7 @@
                 });
             }
 
+            info(angular.toJson(results));
             return results;
         };
 
@@ -49,13 +54,13 @@
 
             if(succeeded){
                 if(onSuccess){
-                    onSuccess(localData.MOVE);
+                    onSuccess(ruleMatchers.MOVE);
                 }else{
-                    localData.MOVE.doMove();
+                    ruleMatchers.MOVE.doMove();
                 }
             }else{
                 if(onFailure){
-                    onFailure(localData.MOVE);
+                    onFailure(ruleMatchers.MOVE);
                 }
             }
 
@@ -63,29 +68,35 @@
         };
     };
 
-    var RuleSystem = function(__, $interpolate, gameRules){
+    var RuleSystem = function(__, $interpolate, ruleData, $log){
         _ = __;
-        rules = gameRules;
+        moveRules = [];
+        afterMoveRules = [];
         interpolate = $interpolate;
+        log = $log;
 
-        var createMoveRule = function(name, rule, onSuccess, onFailure){
-            return new Rule(name, rule, onSuccess, onFailure);
+        _.forEach(ruleData.MOVE_RULES, function(data){
+            moveRules.push(createMoveRule(data.name || undefined, data, data.onSuccess || undefined, data.onFailure || undefined));
+        });
+
+        function createMoveRule(name, ruleData, onSuccess, onFailure){
+            return new Rule(name, ruleData, onSuccess, onFailure);
         };
 
-        var createRuleMatchersForMove = function(move){
+        function createRuleMatchersForMove(move){
             return {
                 MOVE : move,
                 TARGET : {
-                    PILE : createPileData(move.targetPile),
-                    CARD : createCardData(move.targetPile ? move.targetPile.getTopCard() : undefined)
+                    PILE : createPileData(move.getTargetPile()),
+                    CARD : createCardData(move.getTargetPile() ? move.getTargetPile().getTopCard() : undefined)
                 },
                 SELECTED : {
-                    PILE : createPileData(move.selectedPile),
-                    CARD : createCardData(move.selectedCard),
-                    ASSOCIATED_CARDS : _.map(move.associatedCards, function(card){return createCardData(card)})
+                    PILE : createPileData(move.getSelectedPile()),
+                    CARD : createCardData(move.getSelectedCard()),
+                    ASSOCIATED_CARDS : _.map(move.getAssociatedCards(), function(card){return createCardData(card)})
                 }
             };
-        };
+        }
 
         function createPileData(pile){
             return pile ? {
@@ -96,23 +107,45 @@
             } : undefined;
         }
 
+
+
         function createCardData(card){
             return card ? card.getRank() === 'BLANK' ? undefined : {
                 SUIT : card.getSuit(),
-                RANK : card.getRank()
+                RANK : card.getRank(),
+                COLOR : card.getColor(),
+                OPPOSITE_COLOR : card.getColor() === 'RED' ? 'BLACK' : 'RED',
+                VALUE : card.getValue()
             } : undefined;
+        }
+
+        function processMove(move){
+            var moveData = createRuleMatchersForMove(move);
+
+            _.forEach(moveRules, function(rule){
+               rule.processMove(moveData);
+            });
+
+            _.forEach(afterMoveRules, function(rule){
+                rule.processMove(moveData);
+            });
         }
 
         return {
             createRuleMatchersForMove : createRuleMatchersForMove,
-            getMoveRules : function(){return rules.MOVE_RULES},
-            getAfterMoveRules : function(){return rules.AFTER_EXECUTION_RULES},
+            getMoveRules : function(){return moveRules},
+            getAfterMoveRules : function(){return afterMoveRules},
+            processMove : processMove,
             createMoveRule : createMoveRule
         }
     };
 
+    function info(message){
+        log.info(logName + message);
+    }
+
     app.Rule = Rule;
     app.RuleSystem = RuleSystem;
-    app.factory('ruleSystem', ['$interpolate', RuleSystem]);
+    app.factory('ruleSystem', ['_', '$interpolate', 'rules', '$log', RuleSystem]);
 
 })(solitaire);

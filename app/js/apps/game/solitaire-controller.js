@@ -11,7 +11,7 @@
 
         info('preparing data manipulation api for use in the ui: ');
 
-        $scope.emptyResolutionPileCss = app.emptyResolutionPileCss;
+        $scope.emptyResolutionPileCSS = app.emptyResolutionPileCSS;
 
         var game = solitaireDataService.getGame();
 

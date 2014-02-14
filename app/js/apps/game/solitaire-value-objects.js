@@ -585,7 +585,11 @@
         'REGULAR_7'
     ];
 
-    app.emptyResolutionPileCss =  {
+    var RANKS = ['ACE', 'TWO', 'THREE', 'FOUR', 'FIVE', 'SIX', 'SEVEN', 'EIGHT', 'NINE', 'TEN', 'JACK', 'QUEEN', 'KING'];
+
+    var SUITS = ['CLUBS', 'HEARTS', 'SPADES', 'DIAMONDS'];
+
+    app.emptyResolutionPileCSS =  {
         RESOLUTION_CLUBS:'aceOfClubs',
         RESOLUTION_HEARTS:'aceOfHearts',
         RESOLUTION_DIAMONDS:'aceOfDiamonds',
@@ -604,11 +608,15 @@
     app.constant('RESOLUTION_PILE_NAMES', RESOLUTION_PILE_NAMES);
     app.constant('PLAY_AREA_PILE_NAMES', PLAY_AREA_PILE_NAMES);
     app.constant('PILE_NAMES', PILE_NAMES);
+    app.constant('RANKS', RANKS);
+    app.constant('SUITS', SUITS);
 
     app.PILE_NAMES = PILE_NAMES;
     app.PLAY_AREA_PILE_NAMES = PLAY_AREA_PILE_NAMES;
     app.LIBRARY_PILE_NAMES = LIBRARY_PILE_NAMES;
     app.RESOLUTION_PILE_NAMES = RESOLUTION_PILE_NAMES;
+    app.RANKS = RANKS;
+    app.SUITS = SUITS;
 
     app.createRawGame = createRawGame;
     app.testGame = createRawGame();
