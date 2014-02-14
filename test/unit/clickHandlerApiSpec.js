@@ -33,7 +33,9 @@ describe('The Click Handler API', function(){
     it('responds to click events and allows the scope to be updated with selected state and provides scope with knowlege about the selected card', function(){
         var pile1 = new dataApi.Pile('testPile', testData.getJsonDataForAnEmptyPile());
         pile1.addCard(faceUpAceOfSpades);
-        var move = clickHandler.selectCard(pile1, faceUpAceOfSpades);
+
+        clickHandler.selectCard(pile1, faceUpAceOfSpades);
+
         expect(clickHandler.getCurrentMoveData().selectedCard).toBe(faceUpAceOfSpades);
 
         expect(clickHandler.isInSelectedState()).toBe(true);

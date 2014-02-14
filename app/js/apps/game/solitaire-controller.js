@@ -23,7 +23,7 @@
 
         function handleClick(pile, card){
             if(clickToMoveHandler.isInSelectedState()){
-                clickToMoveHandler.selectPile(pile, game);
+                clickToMoveHandler.selectPile(pile, game).doMove();
             }else{
                 clickToMoveHandler.selectCard(pile, card);
             }
