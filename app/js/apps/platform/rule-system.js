@@ -26,9 +26,9 @@
         this.validateMove = function(ruleMatchers){
             var results = [];
 
-            _.forOwn(localData, function(expectedValue, condition){
+            _.forOwn(localData, function(moveMatcher, condition){
 
-                matchKey(results, ruleMatchers, undefined, expectedValue, condition);
+                matchKey(results, ruleMatchers, undefined, moveMatcher, condition);
 
             });
 

@@ -27,33 +27,38 @@ describe('The Click Handler API', function(){
 
     it('can initialize the scopes selected state', function(){
         expect(clickHandler.isInSelectedState()).toBe(false);
-       expect(clickHandler.getCurrentMove()).toBe(null);
+       expect(clickHandler.getCurrentMoveData()).toBe(null);
     });
 
     it('responds to click events and allows the scope to be updated with selected state and provides scope with knowlege about the selected card', function(){
         var pile1 = new dataApi.Pile('testPile', testData.getJsonDataForAnEmptyPile());
         pile1.addCard(faceUpAceOfSpades);
-        clickHandler.selectCard(pile1, faceUpAceOfSpades);
-        expect(clickHandler.getCurrentMove().selectedCard).toBe(faceUpAceOfSpades);
+        var move = clickHandler.selectCard(pile1, faceUpAceOfSpades);
+        expect(clickHandler.getCurrentMoveData().selectedCard).toBe(faceUpAceOfSpades);
+
         expect(clickHandler.isInSelectedState()).toBe(true);
     });
 
     it('should attempt to move the selected card to the newly selected pile', function(){
 
-        var move = clickHandler.createMove(),
-            game = new dataApi.Table(testData.getJsonDataForAnEmptyFullyInitalizedTable()),
+        var game = new dataApi.Table(testData.getJsonDataForAnEmptyFullyInitalizedTable()),
             selectedPile = game.getPlayArea()[0],
-            targetPile = game.getPlayArea()[1];
+            targetPile = game.getPlayArea()[1],
+            moveData = {};
 
-        move.selectedCard = faceUpAceOfSpades;
-        move.selectedPile = selectedPile;
-        move.associatedCards = [faceUpAceOfSpades];
+        moveData.selectedCard = faceUpAceOfSpades;
+        moveData.selectedPile = selectedPile;
+        moveData.associatedCards = [faceUpAceOfSpades];
+        moveData.game = game;
 
         selectedPile.addCard(faceUpAceOfSpades);
-        clickHandler.selectPile(targetPile, game);
 
+        clickHandler.initializeMoveData(moveData);
+
+        var move = clickHandler.selectPile(targetPile, game);
+        move.doMove();
         expect(clickHandler.isInSelectedState()).toBe(false);
-        expect(clickHandler.getCurrentMove()).toBe(null);
+        expect(clickHandler.getCurrentMoveData()).toBe(null);
         expect(targetPile.getCards().length).toBe(1);
         expect(selectedPile.getCards().length).toBe(0);
     });
@@ -62,7 +67,7 @@ describe('The Click Handler API', function(){
         var faceDownTwoOfClubs = new dataApi.Card(testData.createFaceDownCard('TWO', 'CLUBS'));
         var faceDownAceOfHearts = new dataApi.Card(testData.getJsonDataForFaceDownAceOfHearts());
 
-        var move = clickHandler.createMove(),
+        var moveData = {},
             game = dataApi.Table(testData.getJsonDataForAnEmptyFullyInitalizedTable()),
             selectedPile = game.getPlayArea()[0],
             targetPile = game.getPlayArea()[1];
@@ -71,11 +76,14 @@ describe('The Click Handler API', function(){
         selectedPile.addCard(faceDownTwoOfClubs);
         selectedPile.addCard(faceUpAceOfSpades);
 
-        move.selectedCard = faceUpAceOfSpades;
-        move.selectedPile = selectedPile;
-        move.associatedCards = [faceUpAceOfSpades];
+        moveData.selectedCard = faceUpAceOfSpades;
+        moveData.selectedPile = selectedPile;
+        moveData.associatedCards = [faceUpAceOfSpades];
+        moveData.game = game;
 
-        clickHandler.selectPile(targetPile, game);
+        clickHandler.initializeMoveData(moveData);
+
+        clickHandler.selectPile(targetPile, game).doMove();
 
         expect(selectedPile.getCards().length).toBe(2);
         expect(targetPile.getCards().length).toBe(1);

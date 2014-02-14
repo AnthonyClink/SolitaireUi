@@ -1,3 +1,7 @@
-/**
- * Created by aclink on 1/12/14.
- */
+(function(app){
+    app.createGetter = function(data){
+        return function(){
+            return data;
+        }
+    };
+})(solitaire)
