@@ -6,10 +6,12 @@ describe('The Rule System', function(){
         dataAccessApi = new solitaire.DataAccessAPI(_);
         solitaire.setLoDash(_);
         game = new dataAccessApi.Table(solitaire.createRawGame());
+        var log = {};
+        log.info = function(text){}; //no op logger
         ruleSystem = new solitaire.RuleSystem(_, $interpolate, {
             MOVE_RULES : [],
             AFTER_EXECUTION_RULES : []
-        });
+        }, log);
     }));
 
     it('should support rules to validate a move, and rules to execute after a move is completed', function(){
@@ -27,8 +29,8 @@ describe('The Rule System', function(){
     });
 
     it('should return a pass if the rule matchers match the move matchers', function(){
-        var resolutionRule =createTestRule(getJsonForResolutionRule());
-        var move = ruleSystem.createRuleMatchersForMove({
+        var resolutionRule = createTestRule(getJsonForResolutionRule());
+        var move = createTestMove({
             targetPile : game.getPile(solitaire.RESOLUTION_PILE_NAMES[0])
         });
         var answer = resolutionRule.processMove(move);
@@ -36,24 +38,48 @@ describe('The Rule System', function(){
     });
 
     it('should return a fail if the rule matchers do not match the move matchers', function(){
-        var resolutionRule = createTestRule(getJsonForResolutionRule());
-        var move = ruleSystem.createRuleMatchersForMove({
-            targetPile : game.getPile(solitaire.PLAY_AREA_PILE_NAMES[0])
-        });
-        var answer = resolutionRule.processMove(move);
-        expect(answer).toBe(false);
+
+        var testAce = new dataAccessApi.Card(solitaire.testJson.getJsonDataForFaceUpAceOfSpades());
+        game.getPile('RESOLUTION_SPADES').addCard(testAce);
+
+        try{
+            var resolutionRule = createTestRule(getJsonForResolutionRule());
+            var resolutionRuleWithCountRestriction = createTestRule(getJsonForSizeBasedRule());
+
+            var moveToPlayAreaUsingAResolutionRule = createTestMove({
+                targetPile : game.getPile(solitaire.PLAY_AREA_PILE_NAMES[0])
+            });
+
+            var moveToResolutionPileWithCard = createTestMove({
+               targetPile : game.getPile('RESOLUTION_SPADES')
+            });
+
+            var moveToResolutionPileWithoutCard = createTestMove({
+                targetPile : game.getPile('RESOLUTION_CLUBS')
+            });
+
+            var answer = resolutionRule.processMove(moveToPlayAreaUsingAResolutionRule);
+
+            expect(answer).toBe(false);
+
+            expect(resolutionRuleWithCountRestriction.processMove(moveToResolutionPileWithoutCard)).toBe(false);
+
+            expect(resolutionRuleWithCountRestriction.processMove(moveToResolutionPileWithCard)).toBe(true);
+        }finally{
+            game.getPile('RESOLUTION_SPADES').removeCard(testAce);
+        }
     });
 
     it('should be able to interpolate rule data', function(){
 
         var resolutionRule = createTestRule(getJsonForResolutionPileRuleWithInterpolatedString());
 
-        var validMove = ruleSystem.createRuleMatchersForMove({
+        var validMove = createTestMove({
             targetPile : game.getPile('RESOLUTION_SPADES'),
             selectedCard : game.getPile(solitaire.PLAY_AREA_PILE_NAMES[6]).getTopCard()
         });
 
-        var invalidMove = ruleSystem.createRuleMatchersForMove({
+        var invalidMove = createTestMove({
             targetPile : game.getPile('RESOLUTION_HEARTS'),
             selectedCard : game.getPile(solitaire.PLAY_AREA_PILE_NAMES[5]).getTopCard()
         });
@@ -66,17 +92,17 @@ describe('The Rule System', function(){
 
         var resolutionRule = createTestRule(getJsonForResolutionSpadesRule());
 
-        var validMove = ruleSystem.createRuleMatchersForMove({
+        var validMove = createTestMove({
             targetPile : game.getPile('RESOLUTION_SPADES'),
             selectedCard : game.getPile(solitaire.PLAY_AREA_PILE_NAMES[6]).getTopCard()
         });
 
-        var invalidMoveToWrongResolutionPile = ruleSystem.createRuleMatchersForMove({
+        var invalidMoveToWrongResolutionPile = createTestMove({
             targetPile : game.getPile('RESOLUTION_HEARTS'),
             selectedCard : game.getPile(solitaire.PLAY_AREA_PILE_NAMES[6]).getTopCard()
         });
 
-        var invalidMoveWithCorrectResolutionPileWrongSuit = ruleSystem.createRuleMatchersForMove({
+        var invalidMoveWithCorrectResolutionPileWrongSuit = createTestMove({
             targetPile : game.getPile('RESOLUTION_SPADES'),
             selectedCard : game.getPile(solitaire.PLAY_AREA_PILE_NAMES[5]).getTopCard()
         });
@@ -86,16 +112,17 @@ describe('The Rule System', function(){
         expect(resolutionRule.processMove(invalidMoveWithCorrectResolutionPileWrongSuit)).toBe(false);
     });
 
-
     it('Should be able to wrap a move with rule matchers', function(){
-        var move = {};
+        var moveData = {};
 
         //this pile has a nine of spades face up as the top card
-        move.selectedPile = game.getPile(solitaire.PLAY_AREA_PILE_NAMES[1]);
-        move.selectedCard = move.selectedPile.getTopCard();
-        move.associatedCards = [move.selectedPile.getTopCard()];
+        moveData.selectedPile = game.getPile(solitaire.PLAY_AREA_PILE_NAMES[1]);
+        moveData.selectedCard = moveData.selectedPile.getTopCard();
+        moveData.associatedCards = [moveData.selectedPile.getTopCard()];
         //this pile has a 10 of hearts as the top card
-        move.targetPile = game.getPile(solitaire.PLAY_AREA_PILE_NAMES[5]);
+        moveData.targetPile = game.getPile(solitaire.PLAY_AREA_PILE_NAMES[5]);
+
+        var move =new solitaire.Move(moveData);
 
         var matchers = ruleSystem.createRuleMatchersForMove(move);
 
@@ -164,7 +191,22 @@ describe('The Rule System', function(){
         };
     }
 
+    function getJsonForSizeBasedRule(){
+        return {
+            TARGET : {
+                PILE : {
+                    TYPE : 'RESOLUTION',
+                    SIZE : 1
+                }
+            }
+        }
+    }
+
     function createTestRule(ruleJson, onSuccess, onFailure){
         return ruleSystem.createMoveRule('testRule', ruleJson, onSuccess || function(move){}, onFailure || function(move){});
+    }
+
+    function createTestMove(moveData){
+        return ruleSystem.createRuleMatchersForMove(new solitaire.Move(moveData));
     }
 });

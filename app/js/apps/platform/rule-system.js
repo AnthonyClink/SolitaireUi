@@ -23,8 +23,15 @@
                 currentRuleMatcher = ruleMatchers;
             }
 
-            if(currentRuleMatcher && angular.isString(currentMoveMatcher)){
+            if(angular.isNumber(currentMoveMatcher)){
+                currentMoveMatcher = currentMoveMatcher.toString();
+            }
+
+            if(currentRuleMatcher && (angular.isString(currentMoveMatcher))){
                 var currentRuleMatcher = currentRuleMatcher[expectedCondition];
+                if(currentRuleMatcher !== null && currentRuleMatcher !== undefined){
+                    currentRuleMatcher = currentRuleMatcher.toString();
+                }
                 if(_.contains(currentMoveMatcher, '{{') && _.contains(currentMoveMatcher, '}}')){
                     currentMoveMatcher = interpolate(currentMoveMatcher)(ruleMatchers);
                 }
@@ -37,7 +44,6 @@
                 });
             }
 
-            info(angular.toJson(results));
             return results;
         };
 
@@ -45,12 +51,16 @@
             var results = [];
 
             _.forOwn(localData, function(moveMatcher, condition){
-
-                matchKey(results, ruleMatchers, undefined, moveMatcher, condition);
-
+                if(!(condition === 'onSuccess' || condition === 'onFailure')){
+                    matchKey(results, ruleMatchers, undefined, moveMatcher, condition);
+                }
             });
 
-            var succeeded = !_.contains(_.map(results, function(result){return result.pass}), false);
+            info(angular.toJson(results));
+
+            var resultTotal = _.map(results, function(result){return result.pass});
+
+            var succeeded = !_.contains(resultTotal, false) && _.contains(resultTotal, true);
 
             if(succeeded){
                 if(onSuccess){
@@ -81,7 +91,7 @@
 
         function createMoveRule(name, ruleData, onSuccess, onFailure){
             return new Rule(name, ruleData, onSuccess, onFailure);
-        };
+        }
 
         function createRuleMatchersForMove(move){
             return {
@@ -107,15 +117,15 @@
             } : undefined;
         }
 
-
-
         function createCardData(card){
             return card ? card.getRank() === 'BLANK' ? undefined : {
                 SUIT : card.getSuit(),
                 RANK : card.getRank(),
                 COLOR : card.getColor(),
                 OPPOSITE_COLOR : card.getColor() === 'RED' ? 'BLACK' : 'RED',
-                VALUE : card.getValue()
+                VALUE : card.getValue(),
+                FACE_UP : card.isFaceUp(),
+                FACE_DOWN : card.isFaceDown()
             } : undefined;
         }
 

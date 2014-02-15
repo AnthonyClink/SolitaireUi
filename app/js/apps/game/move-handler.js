@@ -4,25 +4,15 @@
 
         var localGame = moveData.game;
 
-        var processMove = function(move, game){
+        var processMove = function(move){
 
             var selectedCards = move.getAssociatedCards(),
                 targetPile = move.getTargetPile();
 
             for(var i = 0; i < selectedCards.length; i++){
-
                 var selectedCard = selectedCards[i];
-
                 move.getSelectedPile().removeCard(selectedCard);
-
-                var targetPileType = move.getTargetPile().getName().split('_');
-
-                if(targetPileType.length > 0 && targetPileType[0] === 'RESOLUTION'){
-                    var aPile = game.getPile('RESOLUTION_' + selectedCard.getSuit());
-                    aPile.addCard(selectedCard);
-                }else{
-                    targetPile.addCard(selectedCard);
-                }
+                targetPile.addCard(selectedCard);
             }
 
             var topCard = move.getSelectedPile().getTopCard();
@@ -34,13 +24,12 @@
 
         var self = {};
 
-
         self.getSelectedCard = app.createGetter(moveData.selectedCard);
         self.getSelectedPile = app.createGetter(moveData.selectedPile);
         self.getAssociatedCards = app.createGetter(moveData.associatedCards);
         self.getTargetPile = app.createGetter(moveData.targetPile);
         self.getGame = app.createGetter(localGame);
-        self.doMove = function(){return processMove(self, localGame)};
+        self.doMove = function(){return processMove(self)};
 
         return self;
     };
@@ -63,10 +52,6 @@
         };
 
         self.selectCard = function(pile, card){
-
-            if(!card || card.getRank() === 'BLANK'){
-                return null;
-            }
 
             var selectedCards = [];
 
@@ -98,6 +83,9 @@
 
             var moveData = currentMoveData;
             moveData.game = game;
+            if(targetPile.getType() === 'RESOLUTION'){
+                targetPile = game.getPile('RESOLUTION_' + moveData.selectedCard.getSuit());
+            }
             moveData.targetPile = targetPile;
             currentMoveData = null;
 

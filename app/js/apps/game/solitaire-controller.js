@@ -40,7 +40,8 @@
             if(clickToMoveHandler.isInSelectedState()){
                 clickToMoveHandler.cancelEvent();
             }
-            return game.drawCard();
+            handleClick($scope.drawPile, undefined);
+            handleClick($scope.discardPile, undefined);
         };
 
         $scope.resetLibrary = function(){

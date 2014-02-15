@@ -29,7 +29,11 @@ describe('The Solitaire Game Controller', function(){
             return false;
         };
 
-        controller = new solitaire.GameController(scope, log, _, dataService, clickHandlerStub);
+        var ruleHandlerStub = function(move){
+            move.doMove();
+        };
+
+        controller = new solitaire.GameController(scope, log, _, dataService, clickHandlerStub, ruleHandlerStub);
     });
 
 
@@ -43,7 +47,7 @@ describe('The Solitaire Game Controller', function(){
         expect(scope.drawPile).toBe(game.getDrawPile());
         expect(scope.discardPile).toBe(game.getDiscardPile());
         expect(scope.moveTopCardToResolutionPile).toBe(game.moveTopCardToResolutionPile);
-        scope.drawCard();
+        game.drawCard();
         expect(scope.discardPile.getCards().length).toBe(1);
         expect(scope.drawPile.getCards().length).toBe(23);
         expect(json.DISCARD.cards.length).toBe(1);

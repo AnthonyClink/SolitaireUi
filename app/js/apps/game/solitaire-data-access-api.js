@@ -195,6 +195,7 @@
        };
 
         self.getSize = function(){
+            console.log('I was called.... getsize... on pile ' + self.getName() + ' with value ' + cards.length);
             return cards.length;
         };
 
@@ -266,13 +267,8 @@
         };
 
 
-        self.getNextRank = function(){
-            return _.indexOf(app.RANKS, 99)
-        }
-
-        //TODO: get this shit working... the previous rank and next rank crap should disappear
         self.getValue = function(){
-          return '' + _.indexOf(app.RANKS, self.getRank());
+          return _.indexOf(app.RANKS, self.getRank());
         };
 
         rawCardData.push({card:self, rawData:rawData});
