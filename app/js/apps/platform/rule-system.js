@@ -28,7 +28,7 @@
             }
 
             if(currentRuleMatcher && (angular.isString(currentMoveMatcher))){
-                var currentRuleMatcher = currentRuleMatcher[expectedCondition];
+                currentRuleMatcher = currentRuleMatcher[expectedCondition];
                 if(currentRuleMatcher !== null && currentRuleMatcher !== undefined){
                     currentRuleMatcher = currentRuleMatcher.toString();
                 }
@@ -56,11 +56,11 @@
                 }
             });
 
-            info(angular.toJson(results));
+            debug(angular.toJson(results));
 
             var resultTotal = _.map(results, function(result){return result.pass});
 
-            var succeeded = !_.contains(resultTotal, false) && _.contains(resultTotal, true);
+            var succeeded = results.length > 0 && !_.contains(resultTotal, false);
 
             if(succeeded){
                 if(onSuccess){
@@ -150,8 +150,8 @@
         }
     };
 
-    function info(message){
-        log.info(logName + message);
+    function debug(message){
+        log.debug(logName + message);
     }
 
     app.Rule = Rule;

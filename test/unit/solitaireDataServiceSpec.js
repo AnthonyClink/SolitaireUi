@@ -7,24 +7,26 @@ describe('The Solitaire Data Service', function(){
     var service, dataApi, gameResource;
 
     beforeEach(function(){
-        gameResource = {},
-            dataApi = new solitaire.DataAccessAPI(new solitaire.__());
+        gameResource = {};
+        dataApi = new solitaire.DataAccessAPI(new solitaire.__());
 
         solitaire.testGame = solitaire.createRawGame();
 
-
-
-        gameResource.GET = function(id){
-          return solitaire.testGame;
+        gameResource.createGame = function(id){
+          return new dataApi.Table(solitaire.testGame);
         };
 
-        service = new solitaire.SolitaireDataService(gameResource, dataApi);
+        var logger = {};
+        logger.debug = function(text){};
+        logger.info = function(text){console.log(text)};
+
+        service = new solitaire.SolitaireDataService(gameResource, dataApi, logger);
     });
 
 
     it('should be able to provide access to the Data Access API', function() {
         var gameJson = solitaire.testGame;
-        var gameBoard = service.getGame();
+        var gameBoard = service.createGame();
         expect(gameBoard).toBeDefined();
         expect(gameBoard.getDrawPile().getCards().length).toBe(24);
         expect(gameBoard.getPlayArea()[0].getCards().length).toBe(1);

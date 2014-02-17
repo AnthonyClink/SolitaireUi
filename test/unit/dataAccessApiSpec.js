@@ -13,8 +13,7 @@ describe('The Data Access API', function(){
         Pile = dataApi.Pile;
         Table = dataApi.Table;
         testData = solitaire.testJson;
-        //note this line is just to get the closure to have lodash without relying on angular
-        new solitaire.GameResource(null,null, null, _);
+
     });
 
 

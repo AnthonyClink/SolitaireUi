@@ -4,12 +4,12 @@
             <div id="solitaire-score-area">
                 <div class="col-sm-1">
                     <div
-                       class="{{drawPile.getTopCard().getCSS()}}"
+                       class="{{game.getDrawPile().getTopCard().getCSS()}}"
                        ng-click="drawCard()"
                     >&nbsp;</div>
                 </div>
                 <div class="col-sm-1">
-                    <div ng-click="clickToMove(discardPile, discardPile.getTopCard())" class="{{discardPile.getTopCard().getCSS()}}">&nbsp;</div>
+                    <div ng-click="clickToMove(game.getDiscardPile(), game.getDiscardPile().getTopCard())" class="{{game.getDiscardPile().getTopCard().getCSS()}}">&nbsp;</div>
                 </div>
                 <div class="col-sm-1">
                     <button ng-click="resetLibrary()" type="button">Reset Draw Pile</button>

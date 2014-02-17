@@ -7,7 +7,7 @@ describe('The Rule System', function(){
         solitaire.setLoDash(_);
         game = new dataAccessApi.Table(solitaire.createRawGame());
         var log = {};
-        log.info = function(text){}; //no op logger
+        log.debug = function(text){}; //no op logger
         ruleSystem = new solitaire.RuleSystem(_, $interpolate, {
             MOVE_RULES : [],
             AFTER_EXECUTION_RULES : []

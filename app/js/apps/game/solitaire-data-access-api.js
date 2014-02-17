@@ -98,7 +98,7 @@
 
         self.getHome = function(){
 
-            if(homePiles.length == 0){
+            if(homePiles.length === 0){
                 _.forEach(app.RESOLUTION_PILE_NAMES, function(name){
                     homePiles.push(self.getPile(name));
                 });
@@ -109,7 +109,7 @@
 
         self.getPlayArea = function(){
 
-            if(playAreaPiles.length == 0){
+            if(playAreaPiles.length === 0){
                 _.forEach(app.PLAY_AREA_PILE_NAMES, function(name){
                    playAreaPiles.push(self.getPile(name));
                 });
@@ -195,7 +195,6 @@
        };
 
         self.getSize = function(){
-            console.log('I was called.... getsize... on pile ' + self.getName() + ' with value ' + cards.length);
             return cards.length;
         };
 

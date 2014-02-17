@@ -1,7 +1,6 @@
 (function(app){
 
     var rules = {
-
         MOVE_RULES:[
             {
                 TARGET : {
@@ -71,7 +70,6 @@
                     }
                 },
                 onSuccess : function(move){
-                    console.log('reset called');
                     move.getGame().resetLibrary();
                 }
             },
@@ -88,7 +86,6 @@
                 },
                 onSuccess : function(move){
                     move.getGame().drawCard();
-                    console.log('draw called called');
                 }
             }
         ],
@@ -105,10 +102,10 @@
                       }
                     }
                 }
-
             }
         ]
     };
 
     app.value('rules', rules);
+
 })(solitaire);

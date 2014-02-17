@@ -3,45 +3,43 @@
 
     var log,
         logName = 'solitaire.GameController: ',
-        _;
+        _,
+        game;
 
     var GameController = function($scope, $log, __, solitaireDataService, clickToMoveHandler, ruleSystem){
         log = $log;
         _ = __;
 
+        var self = {};
+
         info('preparing data manipulation api for use in the ui: ');
+        $scope.game;
+        $scope.clickToMove;
+        $scope.moveTopCardToResolutionPile;
+
+        game = solitaireDataService.createGame();
+
+        $scope.game = game;
 
         $scope.emptyResolutionPileCSS = app.emptyResolutionPileCSS;
 
-        var game = solitaireDataService.getGame();
-
-        _.forEach(solitaire.PILE_NAMES, function(name){
-            info('Prepared data for ' + name + ': ' + _.map(game.getPile(name).getCards(), function(card){
-                return '{' + (card.isFaceDown() ? "F-D" : card.getShortName()) + '}';
-            }));
-        });
-
-        function handleClick(pile, card){
+        self.handleClick = function(pile, card){
             if(clickToMoveHandler.isInSelectedState()){
                 var move = clickToMoveHandler.selectPile(pile, game);
                 ruleSystem.processMove(move);
             }else{
                 clickToMoveHandler.selectCard(pile, card);
             }
-        }
+        };
 
-        $scope.clickToMove = handleClick;
-
-        $scope.game = game;
-        $scope.drawPile = game.getPile('DRAW');
-        $scope.discardPile = game.getPile('DISCARD');
+        $scope.clickToMove = self.handleClick;
 
         $scope.drawCard = function(){
             if(clickToMoveHandler.isInSelectedState()){
                 clickToMoveHandler.cancelEvent();
             }
-            handleClick($scope.drawPile, undefined);
-            handleClick($scope.discardPile, undefined);
+            self.handleClick(game.getDrawPile(), undefined);
+            self.handleClick(game.getDiscardPile(), undefined);
         };
 
         $scope.resetLibrary = function(){
@@ -52,6 +50,8 @@
         };
 
         $scope.moveTopCardToResolutionPile = game.moveTopCardToResolutionPile;
+
+        return self;
     };
 
     function info(message){

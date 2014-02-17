@@ -20,10 +20,6 @@ describe('The Solitaire Game Controller', function(){
         json = solitaire.createRawGame();
         solitaire.testGame = json;
 
-        dataService.getGame = function(){
-            return new dataAccessApi.Table(json);
-        };
-
         var clickHandlerStub = {};
         clickHandlerStub.isInSelectedState = function(){
             return false;
@@ -32,6 +28,11 @@ describe('The Solitaire Game Controller', function(){
         var ruleHandlerStub = function(move){
             move.doMove();
         };
+
+        dataService.createGame = function(){
+            return new dataAccessApi.Table(json);
+        };
+
 
         controller = new solitaire.GameController(scope, log, _, dataService, clickHandlerStub, ruleHandlerStub);
     });
@@ -44,12 +45,10 @@ describe('The Solitaire Game Controller', function(){
 
         expect(game).toBeDefined();
         expect(game.getDrawPile().getCards().length).toBe(24);
-        expect(scope.drawPile).toBe(game.getDrawPile());
-        expect(scope.discardPile).toBe(game.getDiscardPile());
         expect(scope.moveTopCardToResolutionPile).toBe(game.moveTopCardToResolutionPile);
         game.drawCard();
-        expect(scope.discardPile.getCards().length).toBe(1);
-        expect(scope.drawPile.getCards().length).toBe(23);
+        expect(scope.game.getDiscardPile().getCards().length).toBe(1);
+        expect(scope.game.getDrawPile().getCards().length).toBe(23);
         expect(json.DISCARD.cards.length).toBe(1);
         expect(json.DISCARD.cards[0].cardState).toBe('FACE_UP');
     });
