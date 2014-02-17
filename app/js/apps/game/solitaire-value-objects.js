@@ -1,7 +1,7 @@
 (function(app){
 
     var baseServerUrl = 'http://www.clinkworks.com\:8888';
-    //var baseServerUrl = 'http://localhost\:8080';
+    var inDebug = false;
 
     var createRawGame = function(){
         return {
@@ -616,6 +616,7 @@
 
 
     app.constant('baseServerUrl', baseServerUrl);
+    app.constant('inDebug', inDebug);
 
     app.PILE_NAMES = PILE_NAMES;
     app.PLAY_AREA_PILE_NAMES = PLAY_AREA_PILE_NAMES;
@@ -623,7 +624,7 @@
     app.RESOLUTION_PILE_NAMES = RESOLUTION_PILE_NAMES;
     app.RANKS = RANKS;
     app.SUITS = SUITS;
-
+    app.inDebug = inDebug;
     app.baseServerUrl = baseServerUrl;
     app.createRawGame = createRawGame;
     app.testGame = createRawGame();

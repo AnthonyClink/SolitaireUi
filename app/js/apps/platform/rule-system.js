@@ -151,7 +151,9 @@
     };
 
     function debug(message){
-        log.debug(logName + message);
+        if(app.inDebug){
+            log.debug(logName + message);
+        }
     }
 
     app.Rule = Rule;
