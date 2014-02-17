@@ -1,13 +1,4 @@
-<div>
-    <accordion close-others="true">
-        <accordion-group heading="Home Actions" is-open="true">
-            <accordion-heading>
-                Menu <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isopen, 'glyphicon-chevron-right': !isopen}"></i>
-            </accordion-heading>
-            <ul>
-                <li><a ui-sref="home">Project Overview</a></li>
-                <li><a ui-sref="home.goals">Project History</a></li>
-            </ul>
-        </accordion-group>
-    </accordion>
-</div>
+<ul class="nav nav-stacked nav-pills">
+    <li ui-sref-active="active"><a ui-sref="home">Goals</a></li>
+    <li ui-sref-active="active"><a ui-sref="home.goals">Project History</a></li>
+</ul>

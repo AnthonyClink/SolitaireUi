@@ -7,7 +7,7 @@
 
 
 
-    var GameResource = function($resource, baseServerUrl, __, $log, $rootScope){
+    var GameResource = function($resource, baseServerUrl, __, $log){
 
         serverUrl = baseServerUrl;
 
@@ -21,6 +21,7 @@
             createGame : {
                 method : 'POST',
                 transformResponse : function(data){
+                    info('response from server at: ' + serverUrl + ' received, wrapping data in Data API');
                     data = angular.fromJson(data);
                     var game = new dataLayer.Table(data);
                     _.forEach(app.PILE_NAMES, function(name){
@@ -52,7 +53,7 @@
 
         self.createGame = function(){
             info('asking server: ' + serverUrl + ' to create a new game');
-            var game = gameResource.createGame({});
+            var game = gameResource.createGame({gameType : 'solitaire', drawCount : 3});
             return game;
         };
         return self;
@@ -64,7 +65,7 @@
 
     app.GameResource = GameResource;
     app.SolitaireDataService = SolitaireDataService;
-    app.factory('gameResource', ['$resource', 'baseServerUrl', '_', '$log', '$rootScope', GameResource]);
+    app.factory('gameResource', ['$resource', 'baseServerUrl', '_', '$log', GameResource]);
     app.factory('solitaireDataService', ['gameResource', 'dataAccessAPI', SolitaireDataService]);
 
 })(solitaire);

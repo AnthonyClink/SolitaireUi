@@ -1,38 +1,36 @@
-<div id="solitaire">
-    <div class="container">
-        <div class="row">
-            <div id="solitaire-score-area">
-                <div class="col-sm-1">
-                    <div
-                       class="{{game.getDrawPile().getTopCard().getCSS()}}"
-                       ng-click="drawCard()"
-                    >&nbsp;</div>
+<div class="solitaire">
+    <div class="row">
+        <div id="solitaire-score-area">
+            <div class="col-md-1">
+                <div
+                   class="{{game.getDrawPile().getTopCard().getCSS()}}"
+                   ng-click="drawCard()"
+                >&nbsp;</div>
+            </div>
+            <div class="col-md-1">
+                <div ng-click="clickToMove(game.getDiscardPile(), game.getDiscardPile().getTopCard())" class="{{game.getDiscardPile().getTopCard().getCSS()}}">&nbsp;</div>
+            </div>
+            <div class="col-md-1">
+                <button ng-click="resetLibrary()" type="button">Reset Draw Pile</button>
+            </div>
+            <div class="col-md-1" ng-repeat="pile in game.getResolutionArea()">
+                <div ng-hide="pile.getCards().length !== 0">
+                    <div ng-click='clickToMove(pile,null)' class="card {{emptyResolutionPileCSS[pile.getName()]}} resolutionEmpty">&nbsp; </div>
                 </div>
-                <div class="col-sm-1">
-                    <div ng-click="clickToMove(game.getDiscardPile(), game.getDiscardPile().getTopCard())" class="{{game.getDiscardPile().getTopCard().getCSS()}}">&nbsp;</div>
-                </div>
-                <div class="col-sm-1">
-                    <button ng-click="resetLibrary()" type="button">Reset Draw Pile</button>
-                </div>
-                <div class="col-sm-1" ng-repeat="pile in game.getHome()">
-                    <div ng-hide="pile.getCards().length !== 0">
-                        <div ng-click='clickToMove(pile,null)' class="card {{emptyResolutionPileCSS[pile.getName()]}} resolutionEmpty">&nbsp; </div>
-                    </div>
-                    <div ng-show="pile.getCards().length > 0" ng-click='clickToMove(pile, pile.getTopCard())' class="{{pile.getTopCard().getCSS()}}">&nbsp;</div>
-                </div>
+                <div ng-show="pile.getCards().length > 0" ng-click='clickToMove(pile, pile.getTopCard())' class="{{pile.getTopCard().getCSS()}}">&nbsp;</div>
             </div>
         </div>
+    </div>
 
-        <div class="solitaire-board-spacer">&nbsp;</div>
+    <div class="solitaire-board-spacer">&nbsp;</div>
 
-        <div class="row">
-            <div id="solitaire-play-area">
-                <div class="col-sm-1"  ng-repeat="pile in game.getPlayArea()">
-                    <div ng-hide="pile.getCards().length !== 0">
-                        <div ng-click='clickToMove(pile,null)' class="card blankOfCard"></div>
-                    </div>
-                    <div ng-click='clickToMove(pile, card)' ng-repeat="card in pile.getCards()" class="{{card.getCSS()}} ">&nbsp;</div>
+    <div class="row">
+        <div id="solitaire-play-area">
+            <div class="col-md-1"  ng-repeat="pile in game.getPlayArea()">
+                <div ng-hide="pile.getCards().length !== 0">
+                    <div ng-click='clickToMove(pile,null)' class="card blankOfCard"></div>
                 </div>
+                <div ng-click='clickToMove(pile, card)' ng-repeat="card in pile.getCards()" class="{{card.getCSS()}} ">&nbsp;</div>
             </div>
         </div>
     </div>

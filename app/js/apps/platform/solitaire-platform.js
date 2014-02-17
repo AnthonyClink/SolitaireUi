@@ -17,6 +17,7 @@ var solitaire = (function(ng){
             function ($rootScope,   $state,   $stateParams) {
                 $rootScope.$state = $state;
                 $rootScope.$stateParams = $stateParams;
+                $rootScope.getCurrentStateName = function(){return $state.current.name};
             }]);
 
     ui.isBlankCard = function(card){

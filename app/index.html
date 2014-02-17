@@ -4,42 +4,42 @@
     <head>
         <title>ClinkWorks Solitaire</title>
         <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
-        <link rel="stylesheet" type="text/css" href="css/app.css" />
         <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+        <link rel="stylesheet" type="text/css" href="css/app.css" />
 
     </head>
 
-    <body style="background-color: #E6FAF0" ng-app="solitaire.platform">
+    <body ng-app="solitaire.platform">
 
-        <div ui-view="header"></div>
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <a class="navbar-brand" ui-sref="home">ClinkWorks</a>
+            </div>
 
-        <ul>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+                <ul class="nav navbar-nav">
+                    <li ui-sref-active="active"><a ui-sref="home">Home</a></li>
+                    <li ui-sref-active="active"><a ui-sref="game">Solitaire</a></li>
+                </ul>
 
-            <li>
-                <a href="#/home">
-                    <span>Home</span>
-                </a>
-            </li>
-
-            <li>
-                <a href="#/game">
-                    <span>Solitaire</span>
-                </a>
-            </li>
-        </ul>
-
+        </div><!-- /.container-fluid -->
+    </nav>
+    <hr />
+        <div class="container-fluid">
+            <div ui-view="menu" class="col-md-2 clinkworks-menu"></div>
+            <div ui-view="content" class="col-md-10"></div>
         </div>
+
+        <div class="clearfix"></div>
 
         <div>
-            <div ui-view="menu"></div>
-            <div ui-view="content"></div>
+        <hr>
+        <pre>
+          ClinkWorks Card Game Studio
+        </pre>
         </div>
-
-        <div id="footer">
-            <span>Hope some people at least try out our platform!</span>
-        </div>
-
-
 		<script src="lib/lodash.js"></script>
         <script src="lib/jquery.min.js"></script>
 		<script src="lib/angular/angular.js"></script>

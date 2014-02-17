@@ -22,7 +22,7 @@
 
         var self = {},
             piles = [],
-            homePiles = [],
+            resolutionPiles = [],
             playAreaPiles = [];
 
         rawData = rawGameData;
@@ -96,15 +96,16 @@
             return self.getPile('DISCARD');
         };
 
-        self.getHome = function(){
+        self.getResolutionArea = function(){
 
-            if(homePiles.length === 0){
+            if(resolutionPiles.length === 0){
+
                 _.forEach(app.RESOLUTION_PILE_NAMES, function(name){
-                    homePiles.push(self.getPile(name));
+                    resolutionPiles.push(self.getPile(name));
                 });
             }
 
-            return homePiles;
+            return resolutionPiles;
         };
 
         self.getPlayArea = function(){

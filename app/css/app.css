@@ -9,6 +9,18 @@
     border-radius: 8px;
 }
 
+a{
+    color: #555555;
+}
+
+.clinkworks-menu li{
+    background-color: #f8f8f8;
+}
+
+.clinkworks-menu .active a:visited {
+    background-color: #e7e7e7;
+    color: #555555;
+}
 
 #solitaire-play-area .card{
     background-image: url('../images/cards.png');
@@ -218,22 +230,4 @@
 }
 .resolutionEmpty{
 opacity: .35;
-}
-p{
-    text-indent: 15px;
-}
-li span{
-    font-weight: bold;
-}
-
-p{
-    color: #009999;
-}
-
-ul{
-    color: #009999;
-}
-
-p:first-child:first-line {
-    text-indent: 20px;
 }
