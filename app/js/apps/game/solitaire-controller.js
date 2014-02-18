@@ -21,12 +21,12 @@
 
         self.handleClick = function(pile, card){
             if(clickToMoveHandler.isInSelectedState()){
-                if(pile.getName() === 'DISCARD'){
-                    clickToMoveHandler.cancelEvent();
-                    return;
-                }
                 var move = clickToMoveHandler.selectPile(pile, game);
-                ruleSystem.processMove(move);
+                if(move.getTargetPile().getType() === 'DISCARD' && move.getSelectedPile().getType() !== 'DRAW'){
+                    clickToMoveHandler.cancelEvent();
+                }else{
+                    ruleSystem.processMove(move);
+                }
             }else{
                 clickToMoveHandler.selectCard(pile, card);
             }
