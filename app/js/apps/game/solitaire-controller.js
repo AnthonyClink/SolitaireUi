@@ -12,6 +12,7 @@
         var self = {};
 
         info('preparing data manipulation api for use in the ui: ');
+        moveManager.reset();
         game = solitaireDataService.createGame();
 
         $scope.game = game;
@@ -25,9 +26,6 @@
                     clickToMoveHandler.cancelEvent();
                 }else{
                     ruleSystem.processMove(move);
-                    if(move.success){
-                        $scope.moveHistory = moveManager.getMoveHistory();
-                    }
                     clickToMoveHandler.cancelEvent();
                 }
             }else{
@@ -53,8 +51,6 @@
         };
 
         $scope.moveTopCardToResolutionPile = game.moveTopCardToResolutionPile;
-
-        $scope.getMoveHistory = moveManager.getMoveHistory;
 
         return self;
     };

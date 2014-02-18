@@ -4,7 +4,7 @@
             Move History
         </accordion-heading>
         <ul class="list-group" style="max-height: 200px; font-size: 8px">
-            <li ng-repeat="move in moveHistory | orderBy:'move.moveIndex * -1'">[{{move.moveIndex}}] - {{move.moveText}}</li>
+            <li ng-repeat="move in moveManager.moveHistory | orderBy:'move.moveIndex * -1'">[{{move.moveIndex}}] - {{move.moveText}}</li>
         </ul>
     </accordion-group>
     <accordion-group heading="Game Management" is-open="false">
