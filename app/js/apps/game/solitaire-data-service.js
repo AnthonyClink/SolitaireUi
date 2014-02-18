@@ -5,8 +5,6 @@
         log,
         serverUrl;
 
-
-
     var GameResource = function($resource, baseServerUrl, __, $log){
 
         serverUrl = baseServerUrl;
@@ -53,8 +51,8 @@
 
         self.createGame = function(){
             info('asking server: ' + serverUrl + ' to create a new game');
-            var game = gameResource.createGame({gameType : 'solitaire', drawCount : 3});
-            return game;
+            //configuration object is not yet implemented by the server
+            return gameResource.createGame({gameType : 'solitaire', drawCount : 3});
         };
         return self;
     };

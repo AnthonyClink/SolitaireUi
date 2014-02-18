@@ -29,12 +29,18 @@ describe('The Solitaire Game Controller', function(){
             move.doMove();
         };
 
+        var moveManagerStub = {
+            recordMove : function(move){},
+            getMoveHistory : function(){return []}
+        };
+    
+
         dataService.createGame = function(){
             return new dataAccessApi.Table(json);
         };
 
 
-        controller = new solitaire.GameController(scope, log, _, dataService, clickHandlerStub, ruleHandlerStub);
+        controller = new solitaire.GameController(scope, log, _, dataService, clickHandlerStub, ruleHandlerStub, moveManagerStub);
     });
 
 

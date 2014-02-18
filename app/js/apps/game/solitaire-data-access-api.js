@@ -1,8 +1,7 @@
 (function(app){
 
-    var rawData,
-        _,
-        rawCardData = [];
+    var _,
+        rawCardData;
 
 
     var DataAccessAPI = function(__){
@@ -10,10 +9,17 @@
 
         _ = __;
 
+        rawCardData = [];
+
         self.BlankCard = BlankCard;
         self.Card = Card;
         self.Table = Table;
         self.Pile = Pile;
+
+        self.copyState = function(game){
+            var gameData = _.cloneDeep(game.getRawData());
+            return new Table(gameData);
+        };
 
         return self;
     };
@@ -23,9 +29,8 @@
         var self = {},
             piles = [],
             resolutionPiles = [],
-            playAreaPiles = [];
-
-        rawData = rawGameData;
+            playAreaPiles = [],
+            rawData = rawGameData;
 
         function createPile(name, pile){
             return new Pile(name, pile);
@@ -132,6 +137,10 @@
             return possiblePileToReturn[0];
 
         };
+
+        self.getId = app.createGetter(rawData.id);
+
+        self.getRawData = app.createGetter(rawData);
 
         return self;
     };

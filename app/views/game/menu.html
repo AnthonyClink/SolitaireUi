@@ -1,4 +1,15 @@
-<ul class="nav nav-stacked nav-pills">
-    <li ui-sref-active="active"><a ui-sref="game.moves">Move History - <span style="font-size: 9px;">not implemented</span></a></li>
-    <li ui-sref-active="active"><a ui-sref="game.management">Game Management - <span style="font-size: 9px;">not implemented</span></a></li>
-</ul>
+<accordion close-others="true">
+    <accordion-group is-open="false">
+        <accordion-heading>
+            Move History
+        </accordion-heading>
+        <ul class="list-group" style="max-height: 200px; font-size: 8px">
+            <li ng-repeat="move in moveHistory | orderBy:'move.moveIndex * -1'">[{{move.moveIndex}}] - {{move.moveText}}</li>
+        </ul>
+    </accordion-group>
+    <accordion-group heading="Game Management" is-open="false">
+        <a ui-sref="game.management">Game Management - <span style="font-size: 9px;">not implemented</span></a>
+    </accordion-group>
+</accordion>
+
+

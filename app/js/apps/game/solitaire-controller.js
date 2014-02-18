@@ -1,4 +1,3 @@
-//closure to contain state in the solitare namespace.
 (function(app){
 
     var log,
@@ -6,7 +5,7 @@
         _,
         game;
 
-    var GameController = function($scope, $log, __, solitaireDataService, clickToMoveHandler, ruleSystem){
+    var GameController = function($scope, $log, __, solitaireDataService, clickToMoveHandler, ruleSystem, moveManager){
         log = $log;
         _ = __;
 
@@ -26,6 +25,9 @@
                     clickToMoveHandler.cancelEvent();
                 }else{
                     ruleSystem.processMove(move);
+                    if(move.success){
+                        $scope.moveHistory = moveManager.getMoveHistory();
+                    }
                     clickToMoveHandler.cancelEvent();
                 }
             }else{
@@ -52,6 +54,8 @@
 
         $scope.moveTopCardToResolutionPile = game.moveTopCardToResolutionPile;
 
+        $scope.getMoveHistory = moveManager.getMoveHistory;
+
         return self;
     };
 
@@ -59,15 +63,14 @@
         log.info(logName + message);
     }
 
-    //make constructor accessible via the solitare namespace
+    //make constructor accessible via the solitaire namespace
     app.GameController = GameController;
 
-    app.controller('gameController', ['$scope', '$log', '_', 'solitaireDataService', 'clickToMoveHandler', 'ruleSystem', GameController]);
+    app.controller('gameController', ['$scope', '$log', '_', 'solitaireDataService', 'clickToMoveHandler', 'ruleSystem', 'moveManager', GameController]);
 
     //this function is primarily for unit testing purposes. we need to find a better way to do this TODO: fix me
     app.setLoDash = function(__){
         _ = __;
     };
 
-//pass in the solitaire platform namespace to the closure
 })(solitaire);

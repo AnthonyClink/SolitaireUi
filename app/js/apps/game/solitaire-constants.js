@@ -1,5 +1,6 @@
 (function(app){
 
+    //var baseServerUrl = 'http://localhost\:8080';
     var baseServerUrl = 'http://www.clinkworks.com\:8888';
     var inDebug = false;
 

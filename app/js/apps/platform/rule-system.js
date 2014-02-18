@@ -63,7 +63,8 @@
             var succeeded = results.length > 0 && !_.contains(resultTotal, false);
 
             if(succeeded){
-                if(onSuccess){
+                ruleMatchers.MOVE.success = succeeded;
+                if(onSuccess && angular.isFunction(onSuccess)){
                     onSuccess(ruleMatchers.MOVE);
                 }else{
                     ruleMatchers.MOVE.doMove();
@@ -78,12 +79,13 @@
         };
     };
 
-    var RuleSystem = function(__, $interpolate, ruleData, $log){
+    var RuleSystem = function(__, $interpolate, ruleData, $log, _moveManager){
         _ = __;
         moveRules = [];
         afterMoveRules = [];
         interpolate = $interpolate;
         log = $log;
+        moveManager = _moveManager;
 
         _.forEach(ruleData.MOVE_RULES, function(data){
             moveRules.push(createMoveRule(data.name || undefined, data, data.onSuccess || undefined, data.onFailure || undefined));

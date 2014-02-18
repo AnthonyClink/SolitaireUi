@@ -16,6 +16,19 @@ describe('The Data Access API', function(){
 
     });
 
+    describe('The core Data API', function(){
+        it('should be able to provide the ability to copy game state', function(){
+           var game = new Table(testData.getJsonDataForFullTestGame());
+
+           var gameCopy = dataApi.copyState(game);
+
+           expect(gameCopy).toBeTruthy();
+           expect(game === gameCopy).toBeFalsy();
+
+           expect(gameCopy.getDrawPile().getTopCard().getRank()).toBe(game.getDrawPile().getTopCard().getRank());
+           expect(gameCopy.getId()).toBe(game.getId());
+        });
+    })
 
     describe('The Card Data API', function() {
         it('should accept raw data in the json format the server is expected to deliver', function(){

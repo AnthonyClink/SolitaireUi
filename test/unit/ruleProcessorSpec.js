@@ -8,10 +8,16 @@ describe('The Rule System', function(){
         game = new dataAccessApi.Table(solitaire.testJson.getJsonDataForFullTestGame());
         var log = {};
         log.debug = function(text){}; //no op logger
+
+        var moveManagerStub = {
+            recordMove : function(move){},
+            getMoveHistory : function(){return []}
+        };
+
         ruleSystem = new solitaire.RuleSystem(_, $interpolate, {
             MOVE_RULES : [],
             AFTER_EXECUTION_RULES : []
-        }, log);
+        }, log, moveManagerStub);
     }));
 
     it('should support rules to validate a move, and rules to execute after a move is completed', function(){

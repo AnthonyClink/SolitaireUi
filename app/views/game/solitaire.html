@@ -30,7 +30,7 @@
                 <div ng-hide="pile.getCards().length !== 0">
                     <div ng-click='clickToMove(pile,null)' class="card blankOfCard"></div>
                 </div>
-                <div ng-click='clickToMove(pile, card)' ng-repeat="card in pile.getCards()" class="{{card.getCSS()}} ">&nbsp;</div>
+                <div ng-click='clickToMove(pile, card)' ng-repeat="card in pile.getCards()" class="{{card.getCSS()}}">&nbsp;</div>
             </div>
         </div>
     </div>

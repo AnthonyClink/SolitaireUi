@@ -1,5 +1,7 @@
 (function(app){
 
+    var moveManager;
+
     var Move = function(moveData){
 
         var localGame = moveData.game;
@@ -20,6 +22,10 @@
             if(topCard.isFaceDown()){
                 topCard.turnFaceUp();
             }
+
+            if(moveManager){
+                moveManager.recordMove(move);
+            }
         };
 
         var self = {};
@@ -34,7 +40,9 @@
         return self;
     };
 
-    var ClickToMoveHandler = function(_){
+    var ClickToMoveHandler = function(_, _moveManager){
+
+        moveManager = _moveManager;
 
         var self = {},
             currentMoveData = null;
@@ -106,5 +114,5 @@
 
     app.Move = Move;
     app.ClickToMoveHandler = ClickToMoveHandler;
-    app.factory('clickToMoveHandler', ['_', ClickToMoveHandler]);
+    app.factory('clickToMoveHandler', ['_', 'moveManager', ClickToMoveHandler]);
 })(solitaire);

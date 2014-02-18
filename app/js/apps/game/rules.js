@@ -102,6 +102,16 @@
                       }
                     }
                 }
+            },
+            {
+                TARGET : {
+                    SELECTED : {
+                        PILE : {
+                            TYPE : 'DISCARD'
+                        }
+                    }
+                },
+
             }
         ]
     };
