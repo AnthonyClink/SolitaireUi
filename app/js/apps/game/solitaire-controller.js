@@ -13,10 +13,6 @@
         var self = {};
 
         info('preparing data manipulation api for use in the ui: ');
-        $scope.game;
-        $scope.clickToMove;
-        $scope.moveTopCardToResolutionPile;
-
         game = solitaireDataService.createGame();
 
         $scope.game = game;
@@ -25,6 +21,10 @@
 
         self.handleClick = function(pile, card){
             if(clickToMoveHandler.isInSelectedState()){
+                if(pile.getName() === 'DISCARD'){
+                    clickToMoveHandler.cancelEvent();
+                    return;
+                }
                 var move = clickToMoveHandler.selectPile(pile, game);
                 ruleSystem.processMove(move);
             }else{
