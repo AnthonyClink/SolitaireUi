@@ -17,7 +17,7 @@ describe('The Solitaire Game Controller', function(){
             //write to nothing... no need to clog up the log files or console
         };
 
-        json = solitaire.createRawGame();
+        json = solitaire.testJson.getJsonDataForFullTestGame();
         solitaire.testGame = json;
 
         var clickHandlerStub = {};

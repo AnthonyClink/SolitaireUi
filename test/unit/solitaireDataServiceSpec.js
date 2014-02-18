@@ -10,7 +10,7 @@ describe('The Solitaire Data Service', function(){
         gameResource = {};
         dataApi = new solitaire.DataAccessAPI(new solitaire.__());
 
-        solitaire.testGame = solitaire.createRawGame();
+        solitaire.testGame = solitaire.testJson.getJsonDataForFullTestGame();
 
         gameResource.createGame = function(id){
           return new dataApi.Table(solitaire.testGame);
