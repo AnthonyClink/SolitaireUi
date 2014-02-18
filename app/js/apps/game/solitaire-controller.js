@@ -26,6 +26,7 @@
                     clickToMoveHandler.cancelEvent();
                 }else{
                     ruleSystem.processMove(move);
+                    clickToMoveHandler.cancelEvent();
                 }
             }else{
                 clickToMoveHandler.selectCard(pile, card);
