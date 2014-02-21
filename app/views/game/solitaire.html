@@ -8,7 +8,7 @@
                 >&nbsp;</div>
             </div>
             <div class="col-md-1">
-                <div ng-click="clickToMove(game.getDiscardPile(), game.getDiscardPile().getTopCard())" class="{{game.getDiscardPile().getTopCard().getCSS()}}">&nbsp;</div>
+                <div ng-click="clickToMove(game.getDiscardPile(), game.getDiscardPile().getTopCard())" card class="{{game.getDiscardPile().getTopCard().getCSS()}}">&nbsp;</div>
             </div>
             <div class="col-md-1">
                 <button ng-click="resetLibrary()" type="button">Reset Draw Pile</button>
@@ -17,7 +17,7 @@
                 <div ng-hide="pile.getCards().length !== 0">
                     <div ng-click='clickToMove(pile,null)' class="card {{emptyResolutionPileCSS[pile.getName()]}} resolutionEmpty">&nbsp; </div>
                 </div>
-                <div ng-show="pile.getCards().length > 0" ng-click='clickToMove(pile, pile.getTopCard())' class="{{pile.getTopCard().getCSS()}}">&nbsp;</div>
+                <div ng-show="pile.getCards().length > 0" ng-click='clickToMove(pile, pile.getTopCard())' card class="{{pile.getTopCard().getCSS()}}">&nbsp;</div>
             </div>
         </div>
     </div>
@@ -30,7 +30,7 @@
                 <div ng-hide="pile.getCards().length !== 0">
                     <div ng-click='clickToMove(pile,null)' class="card blankOfCard"></div>
                 </div>
-                <div ng-click='clickToMove(pile, card)' ng-repeat="card in pile.getCards()" class="{{card.getCSS()}}">&nbsp;</div>
+                <div ng-click='clickToMove(pile, card)' ng-repeat="card in pile.getCards()" card class="{{card.getCSS()}}">&nbsp;</div>
             </div>
         </div>
     </div>

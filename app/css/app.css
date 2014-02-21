@@ -33,6 +33,11 @@ a{
     border-radius: 8px;
 }
 
+#solitaire .selected{
+    border: groove;
+    border-color: greenyellow;
+}
+
 #solitaire{
    width: 1150px;
    min-width: 500px;

@@ -29,7 +29,10 @@
                     clickToMoveHandler.cancelEvent();
                 }
             }else{
-                clickToMoveHandler.selectCard(pile, card);
+                var data = clickToMoveHandler.selectCard(pile, card);
+                for(card in data.associatedCards){
+                    $scope.$broadcast('selected');
+                }
             }
         };
 
