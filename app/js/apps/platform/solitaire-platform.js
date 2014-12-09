@@ -40,5 +40,5 @@ var solitaire = (function(ng){
     };
 
     return ui;
-//pass angular into the nikePlatform namespace
+//pass angular into the namespace
 })(angular);
