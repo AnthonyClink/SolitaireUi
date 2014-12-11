@@ -9,24 +9,24 @@
 
     </head>
 
-    <body ng-app="solitaire.platform">
+        <body ng-app="solitaire.platform">
 
-    <nav class="navbar navbar-default" role="navigation">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <a class="navbar-brand" ui-sref="home">ClinkWorks</a>
-            </div>
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <a class="navbar-brand" ui-sref="home">ClinkWorks</a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                    <ul class="nav navbar-nav">
+                        <li ui-sref-active="active"><a ui-sref="home">Home</a></li>
+                        <li ui-sref-active="active"><a ui-sref="game">Solitaire</a></li>
+                    </ul>
+            </div><!-- /.container-fluid -->
+        </nav>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-                <ul class="nav navbar-nav">
-                    <li ui-sref-active="active"><a ui-sref="home">Home</a></li>
-                    <li ui-sref-active="active"><a ui-sref="game">Solitaire</a></li>
-                </ul>
+        <hr />
 
-        </div><!-- /.container-fluid -->
-    </nav>
-    <hr />
         <div class="container-fluid">
             <div ui-view="menu" class="col-md-2 clinkworks-menu"></div>
             <div ui-view="content" class="col-md-10"></div>
@@ -40,29 +40,26 @@
               ClinkWorks Card Game Studio
             </pre>
         </div>
-        <script src="lib/lodash.js"></script>
-        <script src="lib/jquery.min.js"></script>
-        <script src="lib/angular/angular.js"></script>
-        <script src="lib/drag-and-drop.js"></script>
-        <script src="lib/angular/angular-ui-router.js"></script>
-        <script src="lib/angular/angular-resource.js"></script>
-        <script src="lib/angular/ui-bootstrap-tpls-0.9.0.js"></script>
-        <script src="js/apps/platform/solitaire-platform.js"></script>
+
+        <script src="../bower_components/angular/angular.js"></script>
+        <script src="../bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+        <script src="../bower_components/angular-resource/angular-resource.js"></script>
+        <script src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+        <script src="../bower_components/lodash/dist/lodash.js"></script>
+        <script src="js/app.js"></script>
         <script src="js/apps/game/selected.js"></script>
         <script src="js/apps/game/rules.js"></script>
         <script src="js/util/lodash-service.js"></script>
-        <script src="js/util/utilities.js"></script>
-        <script src="js/apps/game/solitaire-constants.js"></script>
-        <script src="js/apps/platform/rule-system.js"></script>
+        <script src="js/apps/game/solitaire-configuration.js"></script>
         <script src="js/apps/game/solitaire-data-access-api.js"></script>
+        <script src="js/apps/game/solitaire-constants.js"></script>
+        <script src="js/apps/game/solitaire-controller.js"></script>
+        <script src="js/apps/platform/rule-system.js"></script>
         <script src="js/apps/game/move-handler.js"></script>
         <script src="js/apps/platform/move-manager.js"></script>
         <script src="js/apps/game/move-manager-menu-controller.js"></script>
         <script src="js/apps/game/solitaire-data-service.js"></script>
-        <script src="js/apps/game/solitaire-configuration.js"></script>
+        <script src="js/util/utilities.js"></script>
         <script src="js/apps/home/home-configuration.js"></script>
-        <script src="js/apps/game/solitaire-controller.js"></script>
-        <script src="js/app.js"></script>
-
     </body>
 </html>

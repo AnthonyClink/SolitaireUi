@@ -7,14 +7,14 @@ describe('The Solitaire Game Controller', function(){
     var controller, _, scope, dataAccessApi, dataService, log, json;
 
     beforeEach(function(){
-        scope = {},
-            dataService = {},
-            log = {},
-            _ = new solitaire.__(),
-            dataAccessApi = new solitaire.DataAccessAPI(_);
+        scope = {};
+        dataService = {};
+        log = {};
+        _ = new solitaire.__();
+        dataAccessApi = new solitaire.DataAccessAPI(_);
 
         log.info = function(message){
-            //write to nothing... no need to clog up the log files or console
+
         };
 
         json = solitaire.testJson.getJsonDataForFullTestGame();
@@ -31,7 +31,8 @@ describe('The Solitaire Game Controller', function(){
 
         var moveManagerStub = {
             recordMove : function(move){},
-            getMoveHistory : function(){return []}
+            getMoveHistory : function(){return []},
+            reset : function(){}
         };
     
 
@@ -40,7 +41,7 @@ describe('The Solitaire Game Controller', function(){
         };
 
 
-        controller = new solitaire.GameController(scope, log, _, dataService, clickHandlerStub, ruleHandlerStub, moveManagerStub);
+        controller = new solitaire.GameController(scope, log, dataService, clickHandlerStub, ruleHandlerStub, moveManagerStub);
     });
 
 

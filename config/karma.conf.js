@@ -3,23 +3,23 @@ module.exports = function(config){
     basePath : '../',
 
     files : [
-      'app/lib/angular/angular.js',
-      'app/lib/angular/angular-*.js',
-      'test/lib/angular/angular-mocks.js',
-      'app/lib/lodash.js',
-      'app/js/apps/platform/solitaire-platform.js',
-      'app/js/util/lodash-service.js',
-      'spp/js/apps/game/solitaire-data-access-api.js',
+      'bower_components/angular/angular.js',
+      'bower_components/angular-resource/angular-resource.js',
+      'bower_components/angular-mocks/angular-mocks.js',
+      'bower_components/lodash/dist/lodash.js',
+      'app/js/app.js',
+      'app/js/util/**/*.js',
+      'app/js/apps/platform/**/*.ja',
+      'app/js/**/*.js',
       'test/unit/test-values.js',
       'app/js/app.js',
-      'app/js/**/*.js',
+
+
       'test/unit/**/*.js'
     ],
 
     exclude : [
-      'app/lib/angular/angular-loader.js',
-      'app/lib/angular/*.min.js',
-      'app/lib/angular/angular-scenario.js'
+
     ],
 
     autoWatch : true,
@@ -40,4 +40,4 @@ module.exports = function(config){
       suite: 'unit'
     }
 
-})}
+})};

@@ -4,7 +4,6 @@ describe('The Rule System', function(){
     beforeEach(inject(function($interpolate){
         _ = new solitaire.__();
         dataAccessApi = new solitaire.DataAccessAPI(_);
-        solitaire.setLoDash(_);
         game = new dataAccessApi.Table(solitaire.testJson.getJsonDataForFullTestGame());
         var log = {};
         log.debug = function(text){}; //no op logger

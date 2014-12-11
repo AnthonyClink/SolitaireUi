@@ -138,7 +138,7 @@
 
         };
 
-        self.getId = app.create
+        self.getId = app.createGetter(rawData.id);
 
         self.getRawData = app.createGetter(rawData);
 

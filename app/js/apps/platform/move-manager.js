@@ -15,16 +15,16 @@
 
         self.reset = function(){
             self.resetStateTo([]);
-        }
+        };
 
         self.resetStateTo = function(newMoveHistory){
             self.moveHistory = newMoveHistory;
             moveHistory = newMoveHistory;
-        }
+        };
 
         self.getMoveHistory = function(){
             return moveHistory;
-        }
+        };
 
         self.moveHistory = moveHistory;
 

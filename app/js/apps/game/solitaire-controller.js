@@ -1,19 +1,17 @@
 (function(app){
 
-    var log,
-        logName = 'solitaire.GameController: ',
-        _,
-        game;
+    var log;
 
-    var GameController = function($scope, $log, __, solitaireDataService, clickToMoveHandler, ruleSystem, moveManager){
+
+    var GameController = function($scope, $log, solitaireDataService, clickToMoveHandler, ruleSystem, moveManager){
+
+        var self = this;
         log = $log;
-        _ = __;
-
-        var self = {};
 
         info('preparing data manipulation api for use in the ui: ');
         moveManager.reset();
-        game = solitaireDataService.createGame();
+
+        var game = solitaireDataService.createGame();
 
         $scope.game = game;
 
@@ -59,17 +57,12 @@
     };
 
     function info(message){
-        log.info(logName + message);
+        log.info("GameController:  " + message);
     }
 
     //make constructor accessible via the solitaire namespace
     app.GameController = GameController;
 
-    app.controller('gameController', ['$scope', '$log', '_', 'solitaireDataService', 'clickToMoveHandler', 'ruleSystem', 'moveManager', GameController]);
-
-    //this function is primarily for unit testing purposes. we need to find a better way to do this TODO: fix me
-    app.setLoDash = function(__){
-        _ = __;
-    };
+    app.controller('gameController', ['$scope', '$log', 'solitaireDataService', 'clickToMoveHandler', 'ruleSystem', 'moveManager', GameController]);
 
 })(solitaire);
